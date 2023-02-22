@@ -129,6 +129,11 @@
   <ItemGroup>
     <ClCompile Include="test-app.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dds.net-connector-c_cpp.lib\dds.net-connector-c_cpp.lib.vcxproj">
+      <Project>{968d525d-15ac-4470-ad3a-c796d802d8c1}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
