@@ -329,5 +329,4 @@ healthchecksdb
 ## Ignoring other files and folders
 ## 
 #####
-build/moveOS/
-**/applications/LinuxTestApplication/app
+
