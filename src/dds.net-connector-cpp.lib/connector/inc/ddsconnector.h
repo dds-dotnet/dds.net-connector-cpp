@@ -35,6 +35,9 @@ namespace dds {
           std::string applicationName,
           std::string serverIPv4, ushort serverPortTCP,
           Logger* logger = nullptr);
+        
+        void start();
+        void stop();
 
         static std::string getLibraryVersion();
 
@@ -77,14 +80,9 @@ namespace dds {
           /// <summary>
           /// Starting the connection activity.
           /// </summary>
-          public void Start()
-        {
-          dataReceiverThread.Start();
-          periodicUpdateThread.Start();
-          NetworkClient.Connect(ServerAddressIPv4, ServerPortTCP);
-        }
+          
 
-        private void OnConnectedWithServer()
+        private void onConnectedWithServer()
         {
           byte[] handshake = new byte[
             EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
@@ -101,7 +99,7 @@ namespace dds {
           DataToServer.Enqueue(new(handshake, offset));
         }
 
-        private void OnDisconnectedFromServer()
+        private void onDisconnectedFromServer()
         {
           lock(variablesMutex)
           {
@@ -125,21 +123,9 @@ namespace dds {
         /// <summary>
         /// Stopping the connection activity.
         /// </summary>
-        public void Stop()
-        {
-          periodicUpdateThread.Stop();
+        
 
-          UnregisterVariablesFromServer();
-          Thread.Sleep(100);
-
-          dataReceiverThread.Stop();
-
-          NetworkClient.Disconnect();
-
-          GC.Collect();
-        }
-
-        private static bool DataReceptionWorker(DdsConnector connector)
+        private static bool dataReceptionWorker(DdsConnector* connector)
         {
           bool doneAnything = false;
 
@@ -169,7 +155,7 @@ namespace dds {
 
         private int iterationCounter = 0;
 
-        private static void PeriodicUpdateWorker(DdsConnector connector)
+        private static void periodicUpdateWorker(DdsConnector* connector)
         {
           connector.iterationCounter++;
 

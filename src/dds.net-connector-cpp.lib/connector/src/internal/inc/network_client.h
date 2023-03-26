@@ -15,6 +15,9 @@ namespace dds {
 
           virtual void setCallbackOnConnectedWithServer(connectedCallback) override;
           virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback) override;
+
+          virtual void connect(std::string ipv4, unsigned short tcpPort) override;
+          virtual void disconnect() override;
         };
 
       }

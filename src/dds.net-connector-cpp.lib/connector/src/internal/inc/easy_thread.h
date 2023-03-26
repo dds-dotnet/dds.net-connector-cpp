@@ -14,6 +14,9 @@ namespace dds {
 
           EasyThread(unit_work_func, void* obj);
           EasyThread(unit_work_func, void* obj, int periodicity);
+
+          void start();
+          void stop();
         };
 
       }

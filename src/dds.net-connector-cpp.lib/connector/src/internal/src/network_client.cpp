@@ -24,3 +24,11 @@ void dds::net::connector::_internal::NetworkClient::setCallbackOnConnectedWithSe
 void dds::net::connector::_internal::NetworkClient::setCallbackOnDisconnectedFromServer(disconnectedCallback)
 {
 }
+
+void dds::net::connector::_internal::NetworkClient::connect(std::string ipv4, unsigned short tcpPort)
+{
+}
+
+void dds::net::connector::_internal::NetworkClient::disconnect()
+{
+}

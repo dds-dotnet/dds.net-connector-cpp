@@ -7,6 +7,8 @@
 #include "src/internal/inc/network_client.h"
 #include "src/internal/inc/easy_thread.h"
 
+#include <chrono>
+#include <thread>
 #include <exception>
 
 
@@ -57,6 +59,26 @@ dds::net::connector::DdsConnector::DdsConnector(
 
   this->networkClient->setCallbackOnConnectedWithServer(onConnectedWithServer);
   this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer);
+}
+
+void dds::net::connector::DdsConnector::start()
+{
+  dataReceiverThread->start();
+  periodicUpdateThread->start();
+  networkClient->connect(serverAddressIPv4, serverPortTCP);
+}
+
+void dds::net::connector::DdsConnector::stop()
+{
+  periodicUpdateThread->stop();
+
+  unregisterVariablesFromServer();
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+  dataReceiverThread->stop();
+
+  networkClient->disconnect();
 }
 
 std::string dds::net::connector::DdsConnector::getLibraryVersion()
