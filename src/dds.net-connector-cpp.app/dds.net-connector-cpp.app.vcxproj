@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\usama\Source\repos\dds.net-connector-cpp\src\dds.net-connector-cpp.lib\connector\inc;$(IncludePath)</IncludePath>
+    <IncludePath>../dds.net-connector-cpp.lib/connector/inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
