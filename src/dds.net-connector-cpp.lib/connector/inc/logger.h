@@ -19,7 +19,7 @@ namespace dds {
         virtual void logError(const char* messageLine) = 0;
       };
 
-      class BlankLogger : Logger {
+      class BlankLogger : public Logger {
       public:
         void logInformation(const char* messageLine) override {}
         void logWarning(const char* messageLine) override {}
