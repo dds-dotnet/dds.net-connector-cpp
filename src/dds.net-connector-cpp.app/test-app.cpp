@@ -1,5 +1,5 @@
 #include <iostream>
-#include <dds.net.connector.h>
+#include "ddsconnector.h"
 
 int main()
 {

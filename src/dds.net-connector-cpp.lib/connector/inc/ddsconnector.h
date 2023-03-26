@@ -1,8 +1,8 @@
-#ifndef DDS_DOT_NET_CONNECTOR_INC_CONNECTOR_H_
-#define DDS_DOT_NET_CONNECTOR_INC_CONNECTOR_H_
+#ifndef DDS_DOT_NET_CONNECTOR_INC_DDSCONNECTOR_H_
+#define DDS_DOT_NET_CONNECTOR_INC_DDSCONNECTOR_H_
 
-#include "inc/config.h"
-#include "inc/types.h"
+#include "config.h"
+#include "types.h"
 
 #include <string>
 
@@ -11,47 +11,49 @@
 namespace dds {
   namespace net {
     namespace connector {
+      class Logger;
 
-      class Connector {
+      namespace _internal {
+        class ThreadedNetworkClient;
+        class SyncQueueReader;
+        class SyncQueueWriter;
+        class PacketFromServer;
+        class PacketToServer;
+        class EasyThread;
+      }
+    }
+  }
+}
+
+namespace dds {
+  namespace net {
+    namespace connector {
+
+      class DdsConnector {
       public:
+        DdsConnector(std::string applicationName, std::string serverIPv4, ushort serverPortTCP, Logger* logger);
+
         static std::string getLibraryVersion();
 
         std::string getApplicationName();
         std::string getServerAddressIPv4();
+        ushort getServerPortTCP();
 
 
 
       private:
         std::string applicationName;
         std::string serverAddressIPv4;
+        ushort serverPortTCP;
 
-          /// <summary>
-          /// DDS.Net Server's IPv4 address.
-          /// </summary>
-        public { get; }
-          /// <summary>
-          /// DDS.Net Server's TCP port.
-          /// </summary>
-        public ushort ServerPortTCP{ get; }
-          /// <summary>
-          /// Logging interface.
-          /// </summary>
-        private ILogger Logger{ get; }
-          /// <summary>
-          /// Interface with the network.
-          /// </summary>
-        private IThreadedNetworkClient NetworkClient{ get; }
-          /// <summary>
-          /// Queue of data packets from the server.
-          /// </summary>
-        private ISyncQueueReader<PacketFromServer> DataFromServer{ get; }
-          /// <summary>
-          /// Queue of data packets to the server.
-          /// </summary>
-        private ISyncQueueWriter<PacketToServer> DataToServer{ get; }
+        Logger* logger;
 
-        private EasyThread<DdsConnector> dataReceiverThread;
-        private EasyThread<DdsConnector> periodicUpdateThread;
+        _internal::ThreadedNetworkClient* networkClient;
+        _internal::SyncQueueReader* dataFromServer;
+        _internal::SyncQueueWriter* dataToServer;
+
+        _internal::EasyThread* dataReceiverThread;
+        _internal::EasyThread* periodicUpdateThread;
 
         /// <summary>
         /// Initializes class instance for <c>DdsConnector</c> to communicate with DDS.Net Server.
@@ -61,48 +63,7 @@ namespace dds {
         /// <param name="serverPortTCP">Target server's TCP port number.</param>
         /// <param name="logger">Instance of <c cref="ILogger">ILogger.</c></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DdsConnector(
-          string applicationName,
-          string serverIPv4,
-          ushort serverPortTCP,
-          ILogger logger)
-        {
-          ApplicationName = applicationName ? ? throw new ArgumentNullException(nameof(applicationName));
-          ServerAddressIPv4 = serverIPv4 ? ? throw new ArgumentNullException(nameof(serverIPv4));
-          ServerPortTCP = serverPortTCP;
-
-          Logger = logger ? ? throw new ArgumentNullException(nameof(logger));
-
-          if (serverIPv4.IsValidIPv4Address())
-          {
-            ServerAddressIPv4 = ServerAddressIPv4.RemoveSpaces();
-          }
-
-          Logger.Info(
-            $"Initializing connector version {Settings.CONNECTOR_VERSION} " +
-            $"with target server @{ServerAddressIPv4}:{ServerPortTCP}");
-
-          try
-          {
-            NetworkClient = new NetworkClient();
-            DataFromServer = NetworkClient.GetDataQueueFromServer();
-            DataToServer = NetworkClient.GetDataQueueToServer();
-          }
-          catch (Exception ex)
-          {
-            string errorMessage = $"Cannot initialize network client - {ex.Message}";
-
-            Logger.Error(errorMessage);
-
-            throw new Exception(errorMessage);
-          }
-
-          dataReceiverThread = new(DataReceptionWorker, this);
-          periodicUpdateThread = new(PeriodicUpdateWorker, this, Settings.BASE_TIME_SLOT_MS);
-
-          NetworkClient.ConnectedWithServer += OnConnectedWithServer;
-          NetworkClient.DisconnectedFromServer += OnDisconnectedFromServer;
-        }
+        
         #endregion
           /***********************************************************************************/
           /*                                                                                 */

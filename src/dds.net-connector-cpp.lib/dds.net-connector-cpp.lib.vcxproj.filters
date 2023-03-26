@@ -21,7 +21,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\connector.h">
+    <ClInclude Include="connector\inc\ddsconnector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="connector\inc\types.h">
@@ -33,19 +33,22 @@
     <ClInclude Include="connector\inc\logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\threaded_network_client.h">
+    <ClInclude Include="connector\src\internal\inc\threaded_network_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\sync_queue_reader.h">
+    <ClInclude Include="connector\src\internal\inc\sync_queue_reader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\sync_queue_writer.h">
+    <ClInclude Include="connector\src\internal\inc\sync_queue_writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\packet_from_server.h">
+    <ClInclude Include="connector\src\internal\inc\packet_from_server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\packet_to_server.h">
+    <ClInclude Include="connector\src\internal\inc\packet_to_server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\easy_thread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,13 +56,13 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\connector.cpp">
+    <ClCompile Include="connector\src\ddsconnector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="connector\src\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\threaded_network_client.cpp">
+    <ClCompile Include="connector\src\internal\src\threaded_network_client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
