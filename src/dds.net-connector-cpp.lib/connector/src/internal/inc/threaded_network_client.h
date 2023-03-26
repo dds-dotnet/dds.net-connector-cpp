@@ -9,8 +9,11 @@ namespace dds {
     namespace connector {
       namespace _internal {
 
-        class SyncQueueReader;
-        class SyncQueueWriter;
+        class PacketFromServer;
+        class PacketToServer;
+
+        template<> class SyncQueueReader<PacketFromServer>;
+        template<> class SyncQueueWriter<PacketToServer>;
 
         typedef void(*connectedCallback)(void* obj);
         typedef void(*disconnectedCallback)(void* obj);
@@ -18,8 +21,8 @@ namespace dds {
         class ThreadedNetworkClient {
         public:
 
-          virtual SyncQueueReader* getDataQueueFromServer() = 0;
-          virtual SyncQueueWriter* getDataQueueToServer() = 0;
+          virtual SyncQueueReader<PacketFromServer>* getDataQueueFromServer() = 0;
+          virtual SyncQueueWriter<PacketToServer>* getDataQueueToServer() = 0;
 
           virtual void setCallbackOnConnectedWithServer(connectedCallback, void* obj) = 0;
           virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback, void* obj) = 0;
