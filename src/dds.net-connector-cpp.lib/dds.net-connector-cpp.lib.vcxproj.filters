@@ -42,6 +42,12 @@
     <ClInclude Include="connector\inc\sync_queue_writer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\inc\packet_from_server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\inc\packet_to_server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
