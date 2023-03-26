@@ -14,16 +14,16 @@ namespace dds {
           LOG_LEVEL_ERROR
         };
 
-        virtual void logInformation(const char* messageLine) = 0;
-        virtual void logWarning(const char* messageLine) = 0;
-        virtual void logError(const char* messageLine) = 0;
+        virtual void info(const char* messageLine) = 0;
+        virtual void warning(const char* messageLine) = 0;
+        virtual void error(const char* messageLine) = 0;
       };
 
       class BlankLogger : public Logger {
       public:
-        void logInformation(const char* messageLine) override {}
-        void logWarning(const char* messageLine) override {}
-        void logError(const char* messageLine) override {}
+        void info(const char* messageLine) override {}
+        void warning(const char* messageLine) override {}
+        void error(const char* messageLine) override {}
       };
 
     }
