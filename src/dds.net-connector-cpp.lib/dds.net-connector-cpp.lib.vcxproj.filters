@@ -36,6 +36,12 @@
     <ClInclude Include="connector\inc\threaded_network_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\inc\sync_queue_reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\inc\sync_queue_writer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

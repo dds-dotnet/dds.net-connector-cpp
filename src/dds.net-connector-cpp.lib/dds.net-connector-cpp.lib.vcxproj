@@ -145,6 +145,8 @@
     <ClInclude Include="connector\inc\config.h" />
     <ClInclude Include="connector\inc\connector.h" />
     <ClInclude Include="connector\inc\logger.h" />
+    <ClInclude Include="connector\inc\sync_queue_reader.h" />
+    <ClInclude Include="connector\inc\sync_queue_writer.h" />
     <ClInclude Include="connector\inc\threaded_network_client.h" />
     <ClInclude Include="connector\inc\types.h" />
     <ClInclude Include="framework.h" />
