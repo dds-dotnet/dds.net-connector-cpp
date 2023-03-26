@@ -9,6 +9,10 @@ namespace dds {
 
         template <class T>
         class SyncQueueReader {
+
+        public:
+          virtual bool canDequeue() = 0;
+          virtual T dequeue() = 0;
         };
 
       }
