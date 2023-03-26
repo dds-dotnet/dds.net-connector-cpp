@@ -142,12 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="connector\inc\dds.net.connector.h" />
+    <ClInclude Include="connector\inc\config.h" />
+    <ClInclude Include="connector\inc\connector.h" />
+    <ClInclude Include="connector\inc\types.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="connector\src\dds.net.connector.cpp" />
+    <ClCompile Include="connector\src\connector.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

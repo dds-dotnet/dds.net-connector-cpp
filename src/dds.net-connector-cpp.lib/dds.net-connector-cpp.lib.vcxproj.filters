@@ -21,7 +21,13 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\inc\dds.net.connector.h">
+    <ClInclude Include="connector\inc\connector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\inc\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\inc\config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,7 +35,7 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\dds.net.connector.cpp">
+    <ClCompile Include="connector\src\connector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
