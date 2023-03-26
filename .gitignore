@@ -330,3 +330,4 @@ healthchecksdb
 ## 
 #####
 !dds.net-connector-cpp.lib/
+!dds.net-connector-cpp.app/
