@@ -1,6 +1,7 @@
 #ifndef DDS_DOT_NET_CONNECTOR_INC_CONNECTOR_H_
 #define DDS_DOT_NET_CONNECTOR_INC_CONNECTOR_H_
 
+#include "inc/config.h"
 #include "inc/types.h"
 
 #include <string>
