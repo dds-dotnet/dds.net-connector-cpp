@@ -21,6 +21,7 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->applicationName = applicationName;
   this->serverAddressIPv4 = serverIPv4;
   this->serverPortTCP = serverPortTCP;
+  this->iterationCounter = 0;
 
   if (logger == nullptr)
   {
@@ -57,8 +58,8 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->dataReceiverThread = new EasyThread(dataReceptionWorker, this);
   this->periodicUpdateThread = new EasyThread(periodicUpdateWorker, this, BASE_TIME_SLOT_MS);
 
-  this->networkClient->setCallbackOnConnectedWithServer(onConnectedWithServer);
-  this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer);
+  this->networkClient->setCallbackOnConnectedWithServer(onConnectedWithServer, this);
+  this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer, this);
 }
 
 void dds::net::connector::DdsConnector::start()
@@ -101,4 +102,96 @@ ushort dds::net::connector::DdsConnector::getServerPortTCP()
   return this->serverPortTCP;
 }
 
+static void dds::net::connector::onConnectedWithServer(void* connector)
+{
+  /*
+  dds::net::connector::DdsConnector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
+  byte[] handshake = new byte[
+    EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
+      PacketId.HandShake.GetSizeOnBuffer() +
+      2 + Encoding.Unicode.GetBytes(ApplicationName).Length +
+      2 + Encoding.Unicode.GetBytes(LibraryVersion).Length];
+  int offset = 0;
 
+  handshake.WriteMessageHeader(ref offset, handshake.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
+  handshake.WritePacketId(ref offset, PacketId.HandShake);
+  handshake.WriteString(ref offset, ApplicationName);
+  handshake.WriteString(ref offset, LibraryVersion);
+
+  DataToServer.Enqueue(new(handshake, offset));*/
+}
+
+static void dds::net::connector::onDisconnectedFromServer(void* connector)
+{
+  /*
+  lock(variablesMutex)
+  {
+    foreach(KeyValuePair<string, BaseVariable> v in uploadVariables)
+    {
+      v.Value.Reset();
+      uploadVariablesToBeRegistered.Add(v.Key, v.Value);
+    }
+
+    foreach(KeyValuePair<string, BaseVariable> v in downloadVariables)
+    {
+      v.Value.Reset();
+      downloadVariablesToBeRegistered.Add(v.Key, v.Value);
+    }
+
+    uploadVariables.Clear();
+    downloadVariables.Clear();
+  }
+  */
+}
+
+static bool dds::net::connector::dataReceptionWorker(void* connector)
+{
+  /*
+  bool doneAnything = false;
+
+  while (connector.DataFromServer.CanDequeue())
+  {
+    doneAnything = true;
+
+    PacketPreprocessor.AddData(connector.DataFromServer.Dequeue());
+
+    while (true)
+    {
+      byte[] message = PacketPreprocessor.GetSingleMessage();
+
+      if (message != null)
+      {
+        connector.ParsePacket(message);
+      }
+      else
+      {
+        break;
+      }
+    }
+  }
+
+  return doneAnything;
+  */
+
+  return false;
+}
+
+static bool dds::net::connector::periodicUpdateWorker(void* connector)
+{
+  /*
+  connector.iterationCounter++;
+
+  connector.DoPeriodicUpdate(Periodicity.Highest);
+
+  if (connector.iterationCounter % 2 == 0) connector.DoPeriodicUpdate(Periodicity.High);
+  if (connector.iterationCounter % 4 == 0) connector.DoPeriodicUpdate(Periodicity.Normal);
+  if (connector.iterationCounter % 8 == 0) connector.DoPeriodicUpdate(Periodicity.Low);
+
+  if (connector.iterationCounter % 16 == 0)
+  {
+    connector.DoPeriodicUpdate(Periodicity.Lowest);
+    connector.iterationCounter = 0;
+  }*/
+
+  return true;
+}

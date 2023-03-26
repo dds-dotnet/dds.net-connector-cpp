@@ -57,6 +57,9 @@
     <ClInclude Include="connector\src\internal\inc\network_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\src\internal\variable\BaseVariable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

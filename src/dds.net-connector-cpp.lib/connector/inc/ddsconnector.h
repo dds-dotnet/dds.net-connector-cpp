@@ -5,6 +5,8 @@
 #include "types.h"
 
 #include <string>
+#include <mutex>
+#include <map>
 
 
 
@@ -20,6 +22,10 @@ namespace dds {
         class PacketFromServer;
         class PacketToServer;
         class EasyThread;
+
+        namespace variable {
+          class BaseVariable;
+        }
       }
     }
   }
@@ -28,6 +34,11 @@ namespace dds {
 namespace dds {
   namespace net {
     namespace connector {
+
+      static void onConnectedWithServer(void* connector);
+      static void onDisconnectedFromServer(void* connector);
+      static bool dataReceptionWorker(void* connector);
+      static bool periodicUpdateWorker(void* connector);
 
       class DdsConnector {
       public:
@@ -61,142 +72,30 @@ namespace dds {
         _internal::EasyThread* dataReceiverThread;
         _internal::EasyThread* periodicUpdateThread;
 
-        /// <summary>
-        /// Initializes class instance for <c>DdsConnector</c> to communicate with DDS.Net Server.
-        /// </summary>
-        /// <param name="applicationName">User application's name.</param>
-        /// <param name="serverIPv4">Target server's IPv4 address.</param>
-        /// <param name="serverPortTCP">Target server's TCP port number.</param>
-        /// <param name="logger">Instance of <c cref="ILogger">ILogger.</c></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        
-        #endregion
-          /***********************************************************************************/
-          /*                                                                                 */
-          /* Starting / stopping connection with the server                                  */
-          /*                                                                                 */
-          /***********************************************************************************/
-          #region Start / Stop - Background Work
-          /// <summary>
-          /// Starting the connection activity.
-          /// </summary>
-          
+        int iterationCounter;
 
-        private void onConnectedWithServer()
-        {
-          byte[] handshake = new byte[
-            EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
-              PacketId.HandShake.GetSizeOnBuffer() +
-              2 + Encoding.Unicode.GetBytes(ApplicationName).Length +
-              2 + Encoding.Unicode.GetBytes(LibraryVersion).Length];
-          int offset = 0;
+        std::mutex variablesMutex;
 
-          handshake.WriteMessageHeader(ref offset, handshake.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
-          handshake.WritePacketId(ref offset, PacketId.HandShake);
-          handshake.WriteString(ref offset, ApplicationName);
-          handshake.WriteString(ref offset, LibraryVersion);
+        std::map<std::string, _internal::variable::BaseVariable*> uploadVariables;
+        std::map<std::string, _internal::variable::BaseVariable*> downloadVariables;
 
-          DataToServer.Enqueue(new(handshake, offset));
-        }
+        std::map<std::string, _internal::variable::BaseVariable*> uploadVariablesToBeRegistered;
+        std::map<std::string, _internal::variable::BaseVariable*> downloadVariablesToBeRegistered;
 
-        private void onDisconnectedFromServer()
-        {
-          lock(variablesMutex)
-          {
-            foreach(KeyValuePair<string, BaseVariable> v in uploadVariables)
-            {
-              v.Value.Reset();
-              uploadVariablesToBeRegistered.Add(v.Key, v.Value);
-            }
-
-            foreach(KeyValuePair<string, BaseVariable> v in downloadVariables)
-            {
-              v.Value.Reset();
-              downloadVariablesToBeRegistered.Add(v.Key, v.Value);
-            }
-
-            uploadVariables.Clear();
-            downloadVariables.Clear();
-          }
-        }
-
-        /// <summary>
-        /// Stopping the connection activity.
-        /// </summary>
+        friend void onConnectedWithServer(void* connector);
+        friend void onDisconnectedFromServer(void* connector);
+        friend bool dataReceptionWorker(void* connector);
+        friend bool periodicUpdateWorker(void* connector);
         
 
-        private static bool dataReceptionWorker(DdsConnector* connector)
-        {
-          bool doneAnything = false;
 
-          while (connector.DataFromServer.CanDequeue())
-          {
-            doneAnything = true;
+      public:
 
-            PacketPreprocessor.AddData(connector.DataFromServer.Dequeue());
+        //- 
+        //- Providers
+        //- 
 
-            while (true)
-            {
-              byte[] message = PacketPreprocessor.GetSingleMessage();
-
-              if (message != null)
-              {
-                connector.ParsePacket(message);
-              }
-              else
-              {
-                break;
-              }
-            }
-          }
-
-          return doneAnything;
-        }
-
-        private int iterationCounter = 0;
-
-        private static void periodicUpdateWorker(DdsConnector* connector)
-        {
-          connector.iterationCounter++;
-
-          connector.DoPeriodicUpdate(Periodicity.Highest);
-
-          if (connector.iterationCounter % 2 == 0) connector.DoPeriodicUpdate(Periodicity.High);
-          if (connector.iterationCounter % 4 == 0) connector.DoPeriodicUpdate(Periodicity.Normal);
-          if (connector.iterationCounter % 8 == 0) connector.DoPeriodicUpdate(Periodicity.Low);
-
-          if (connector.iterationCounter % 16 == 0)
-          {
-            connector.DoPeriodicUpdate(Periodicity.Lowest);
-            connector.iterationCounter = 0;
-          }
-        }
-        #endregion
-          /***********************************************************************************/
-          /*                                                                                 */
-          /* Registering data providers and consumers                                        */
-          /*                                                                                 */
-          /***********************************************************************************/
-          private Mutex variablesMutex = new();
-
-        private Dictionary<string, BaseVariable> uploadVariables = new();
-        private Dictionary<string, BaseVariable> downloadVariables = new();
-
-        private Dictionary<string, BaseVariable> uploadVariablesToBeRegistered = new();
-        private Dictionary<string, BaseVariable> downloadVariablesToBeRegistered = new();
-
-        #region Providers
-          //- 
-          //- Providers
-          //- 
-
-          /// <summary>
-          /// Registers a provider delegate for providing "String" to the server at given periodicity.
-          /// </summary>
-          /// <param name="variableName">Variable's name.</param>
-          /// <param name="provider">The delegate.</param>
-          /// <param name="periodicity">Periodicity.</param>
-          public void RegisterStringProvider(string variableName, StringProvider provider, Periodicity periodicity)
+        public void RegisterStringProvider(string variableName, StringProvider provider, Periodicity periodicity)
         {
           lock(variablesMutex)
           {

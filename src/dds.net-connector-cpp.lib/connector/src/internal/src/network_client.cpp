@@ -17,11 +17,11 @@ SyncQueueWriter* dds::net::connector::_internal::NetworkClient::getDataQueueToSe
     return nullptr;
 }
 
-void dds::net::connector::_internal::NetworkClient::setCallbackOnConnectedWithServer(connectedCallback)
+void dds::net::connector::_internal::NetworkClient::setCallbackOnConnectedWithServer(connectedCallback callback, void* obj)
 {
 }
 
-void dds::net::connector::_internal::NetworkClient::setCallbackOnDisconnectedFromServer(disconnectedCallback)
+void dds::net::connector::_internal::NetworkClient::setCallbackOnDisconnectedFromServer(disconnectedCallback callback, void* obj)
 {
 }
 

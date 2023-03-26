@@ -12,8 +12,8 @@ namespace dds {
         class SyncQueueReader;
         class SyncQueueWriter;
 
-        typedef void(*connectedCallback)();
-        typedef void(*disconnectedCallback)();
+        typedef void(*connectedCallback)(void* obj);
+        typedef void(*disconnectedCallback)(void* obj);
 
         class ThreadedNetworkClient {
         public:
@@ -21,8 +21,8 @@ namespace dds {
           virtual SyncQueueReader* getDataQueueFromServer() = 0;
           virtual SyncQueueWriter* getDataQueueToServer() = 0;
 
-          virtual void setCallbackOnConnectedWithServer(connectedCallback) = 0;
-          virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback) = 0;
+          virtual void setCallbackOnConnectedWithServer(connectedCallback, void* obj) = 0;
+          virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback, void* obj) = 0;
 
           virtual void connect(std::string ipv4, unsigned short tcpPort) = 0;
           virtual void disconnect() = 0;

@@ -13,8 +13,8 @@ namespace dds {
           virtual SyncQueueReader* getDataQueueFromServer() override;
           virtual SyncQueueWriter* getDataQueueToServer() override;
 
-          virtual void setCallbackOnConnectedWithServer(connectedCallback) override;
-          virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback) override;
+          virtual void setCallbackOnConnectedWithServer(connectedCallback, void* obj) override;
+          virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback, void* obj) override;
 
           virtual void connect(std::string ipv4, unsigned short tcpPort) override;
           virtual void disconnect() override;
