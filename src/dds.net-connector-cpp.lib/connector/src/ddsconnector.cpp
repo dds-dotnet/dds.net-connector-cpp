@@ -2,7 +2,15 @@
 
 #include "inc/logger.h"
 
+#include "src/internal/inc/string_helper.h"
+#include "src/internal/inc/threaded_network_client.h"
+#include "src/internal/inc/network_client.h"
+#include "src/internal/inc/easy_thread.h"
+
 #include <exception>
+
+
+using namespace dds::net::connector::_internal;
 
 
 dds::net::connector::DdsConnector::DdsConnector(
@@ -21,35 +29,34 @@ dds::net::connector::DdsConnector::DdsConnector(
     this->logger = logger;
   }
 
-  if (serverIPv4.IsValidIPv4Address())
+  if (StringHelper::isValidIPv4Address(serverIPv4))
   {
-    ServerAddressIPv4 = ServerAddressIPv4.RemoveSpaces();
+    this->serverAddressIPv4 = StringHelper::removeSpaces(this->serverAddressIPv4);
   }
 
-  Logger.Info(
-    $"Initializing connector version {Settings.CONNECTOR_VERSION} " +
-    $"with target server @{ServerAddressIPv4}:{ServerPortTCP}");
+  logger->info("Initializing connector");
 
   try
   {
-    NetworkClient = new NetworkClient();
-    DataFromServer = NetworkClient.GetDataQueueFromServer();
-    DataToServer = NetworkClient.GetDataQueueToServer();
+    this->networkClient = new NetworkClient();
+    this->dataFromServer = this->networkClient->getDataQueueFromServer();
+    this->dataToServer = this->networkClient->getDataQueueToServer();
   }
-  catch (Exception ex)
+  catch (std::exception ex)
   {
-    string errorMessage = $"Cannot initialize network client - {ex.Message}";
+    std::string errorMessage = "Cannot initialize network client - ";
+    errorMessage = errorMessage + ex.what();
 
-    Logger.Error(errorMessage);
+    logger->error(errorMessage.c_str());
 
-    throw new Exception(errorMessage);
+    throw ex;
   }
 
-  dataReceiverThread = new(DataReceptionWorker, this);
-  periodicUpdateThread = new(PeriodicUpdateWorker, this, Settings.BASE_TIME_SLOT_MS);
+  this->dataReceiverThread = new EasyThread(dataReceptionWorker, this);
+  this->periodicUpdateThread = new EasyThread(periodicUpdateWorker, this, BASE_TIME_SLOT_MS);
 
-  NetworkClient.ConnectedWithServer += OnConnectedWithServer;
-  NetworkClient.DisconnectedFromServer += OnDisconnectedFromServer;
+  this->networkClient->setCallbackOnConnectedWithServer(onConnectedWithServer);
+  this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer);
 }
 
 std::string dds::net::connector::DdsConnector::getLibraryVersion()

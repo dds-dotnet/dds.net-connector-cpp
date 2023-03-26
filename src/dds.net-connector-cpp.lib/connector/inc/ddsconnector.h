@@ -31,7 +31,10 @@ namespace dds {
 
       class DdsConnector {
       public:
-        DdsConnector(std::string applicationName, std::string serverIPv4, ushort serverPortTCP, Logger* logger);
+        DdsConnector(
+          std::string applicationName,
+          std::string serverIPv4, ushort serverPortTCP,
+          Logger* logger = nullptr);
 
         static std::string getLibraryVersion();
 

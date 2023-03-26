@@ -51,6 +51,12 @@
     <ClInclude Include="connector\src\internal\inc\easy_thread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\string_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\network_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -62,7 +68,13 @@
     <ClCompile Include="connector\src\logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\internal\src\threaded_network_client.cpp">
+    <ClCompile Include="connector\src\internal\src\string_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\network_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\easy_thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
