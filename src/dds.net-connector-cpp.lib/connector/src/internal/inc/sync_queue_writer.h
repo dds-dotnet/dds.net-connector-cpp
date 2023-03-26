@@ -9,6 +9,10 @@ namespace dds {
 
         template <class T>
         class SyncQueueWriter {
+
+        public:
+          virtual bool canEnqueue() = 0;
+          virtual void enqueue(T data) = 0;
         };
 
       }
