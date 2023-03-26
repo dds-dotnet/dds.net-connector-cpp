@@ -3,4 +3,17 @@
 
 
 
+
+namespace dds {
+  namespace net {
+    namespace connector {
+
+      class Connector {
+
+      };
+
+    }
+  }
+}
+
 #endif
