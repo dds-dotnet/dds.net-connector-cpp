@@ -329,4 +329,4 @@ healthchecksdb
 ## Ignoring other files and folders
 ## 
 #####
-!dds.net-connector-c_cpp.lib/
+!dds.net-connector-cpp.lib/
