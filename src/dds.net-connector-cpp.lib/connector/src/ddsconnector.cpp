@@ -74,7 +74,7 @@ void dds::net::connector::DdsConnector::stop()
 
   unregisterVariablesFromServer();
 
-  SLEEP_MS(100);
+  sleep(100);
 
   dataReceiverThread->stop();
 
