@@ -7,12 +7,12 @@
 using namespace dds::net::connector::_internal;
 
 
-SyncQueueReader<PacketFromServer>* dds::net::connector::_internal::NetworkClient::getDataQueueFromServer()
+SyncQueueReader<PacketFromServer*>* dds::net::connector::_internal::NetworkClient::getDataQueueFromServer()
 {
     return nullptr;
 }
 
-SyncQueueWriter<PacketToServer>* dds::net::connector::_internal::NetworkClient::getDataQueueToServer()
+SyncQueueWriter<PacketToServer*>* dds::net::connector::_internal::NetworkClient::getDataQueueToServer()
 {
     return nullptr;
 }

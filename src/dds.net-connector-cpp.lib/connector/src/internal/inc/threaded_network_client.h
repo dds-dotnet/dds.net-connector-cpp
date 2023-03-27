@@ -21,8 +21,8 @@ namespace dds {
         class ThreadedNetworkClient {
         public:
 
-          virtual SyncQueueReader<PacketFromServer>* getDataQueueFromServer() = 0;
-          virtual SyncQueueWriter<PacketToServer>* getDataQueueToServer() = 0;
+          virtual SyncQueueReader<PacketFromServer*>* getDataQueueFromServer() = 0;
+          virtual SyncQueueWriter<PacketToServer*>* getDataQueueToServer() = 0;
 
           virtual void setCallbackOnConnectedWithServer(connectedCallback, void* obj) = 0;
           virtual void setCallbackOnDisconnectedFromServer(disconnectedCallback, void* obj) = 0;
