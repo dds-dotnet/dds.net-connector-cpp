@@ -45,7 +45,7 @@ dds::net::connector::DdsConnector::DdsConnector(
     this->dataFromServer = this->networkClient->getDataQueueFromServer();
     this->dataToServer = this->networkClient->getDataQueueToServer();
   }
-  catch (std::exception ex)
+  catch (std::exception& ex)
   {
     std::string errorMessage = "Cannot initialize network client - ";
     errorMessage = errorMessage + ex.what();

@@ -17,11 +17,11 @@ namespace dds {
 
       namespace _internal {
         class ThreadedNetworkClient;
-        class SyncQueueReader;
-        class SyncQueueWriter;
         class PacketFromServer;
         class PacketToServer;
         class EasyThread;
+        template<typename T> class SyncQueueReader;
+        template<typename T> class SyncQueueWriter;
 
         namespace variable {
           class BaseVariable;
@@ -66,8 +66,8 @@ namespace dds {
         Logger* logger;
 
         _internal::ThreadedNetworkClient* networkClient;
-        _internal::SyncQueueReader* dataFromServer;
-        _internal::SyncQueueWriter* dataToServer;
+        _internal::SyncQueueReader<PacketFromServer>* dataFromServer;
+        _internal::SyncQueueWriter<PacketToServer>* dataToServer;
 
         _internal::EasyThread* dataReceiverThread;
         _internal::EasyThread* periodicUpdateThread;
