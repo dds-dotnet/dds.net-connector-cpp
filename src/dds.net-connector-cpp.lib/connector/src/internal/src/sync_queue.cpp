@@ -78,4 +78,28 @@ bool dds::net::connector::_internal::SyncQueue<T>::canEnqueue()
 template<typename T>
 void dds::net::connector::_internal::SyncQueue<T>::enqueue(T data)
 {
+  while (true)
+  {
+    lock.lock();
+
+    if (queueValidity[nextWriteIndex] == false)
+    {
+      queue[nextWriteIndex] = data;
+      queueValidity[nextWriteIndex] = true;
+
+      nextWriteIndex++;
+
+      if (nextWriteIndex == queueSize)
+      {
+        nextWriteIndex = 0;
+      }
+
+      lock.unlock();
+      return;
+    }
+
+    lock.unlock();
+
+    sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
+  }
 }
