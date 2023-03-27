@@ -66,8 +66,8 @@ namespace dds {
         Logger* logger;
 
         _internal::ThreadedNetworkClient* networkClient;
-        _internal::SyncQueueReader<PacketFromServer>* dataFromServer;
-        _internal::SyncQueueWriter<PacketToServer>* dataToServer;
+        _internal::SyncQueueReader<_internal::PacketFromServer>* dataFromServer;
+        _internal::SyncQueueWriter<_internal::PacketToServer>* dataToServer;
 
         _internal::EasyThread* dataReceiverThread;
         _internal::EasyThread* periodicUpdateThread;
