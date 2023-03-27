@@ -2,13 +2,12 @@
 
 #include "inc/logger.h"
 
+#include "src/internal/inc/macros.h"
 #include "src/internal/inc/string_helper.h"
 #include "src/internal/inc/threaded_network_client.h"
 #include "src/internal/inc/network_client.h"
 #include "src/internal/inc/easy_thread.h"
 
-#include <chrono>
-#include <thread>
 #include <exception>
 
 
@@ -75,7 +74,7 @@ void dds::net::connector::DdsConnector::stop()
 
   unregisterVariablesFromServer();
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  SLEEP_MS(100);
 
   dataReceiverThread->stop();
 
