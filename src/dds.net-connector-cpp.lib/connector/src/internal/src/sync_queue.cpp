@@ -15,6 +15,9 @@ dds::net::connector::_internal::SyncQueue<T>::SyncQueue(int queueSize)
 
   queue = malloc(sizeof(T*) * queueSize);
   queueValidity = new bool[queueSize];
+
+  nextWriteIndex = 0;
+  nextReadIndex = 0;
 }
 
 template<typename T>

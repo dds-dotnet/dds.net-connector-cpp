@@ -26,9 +26,13 @@ namespace dds {
 
         private:
           std::mutex lock;
+
           int queueSize;
           T* queue;
           bool* queueValidity;
+
+          int nextWriteIndex;
+          int nextReadIndex;
         };
 
       }
