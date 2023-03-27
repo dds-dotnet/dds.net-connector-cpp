@@ -13,7 +13,7 @@ dds::net::connector::_internal::SyncQueue<T>::SyncQueue(int queueSize)
     throw std::exception("Invalid queue size - the size must be a positive number");
   }
 
-  queue = malloc(sizeof(T*) * queueSize);
+  queue = new T[queueSize];
   queueValidity = new bool[queueSize];
 
   nextWriteIndex = 0;
@@ -26,6 +26,9 @@ bool dds::net::connector::_internal::SyncQueue<T>::canDequeue()
   bool ret = false;
 
   lock.lock();
+
+  ret = queueValidity[nextReadIndex];
+
   lock.unlock();
 
   return ret;
