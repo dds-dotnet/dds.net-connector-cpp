@@ -72,7 +72,15 @@ T dds::net::connector::_internal::SyncQueue<T>::dequeue()
 template<typename T>
 bool dds::net::connector::_internal::SyncQueue<T>::canEnqueue()
 {
-  return false;
+  bool ret = false;
+
+  lock.lock();
+
+  ret = queueValidity[nextWriteIndex] == false;
+
+  lock.unlock();
+
+  return ret;
 }
 
 template<typename T>
