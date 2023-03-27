@@ -7,7 +7,7 @@ namespace dds {
     namespace connector {
       namespace _internal {
 
-        template <class T>
+        template <typename T>
         class SyncQueueWriter {
 
         public:
