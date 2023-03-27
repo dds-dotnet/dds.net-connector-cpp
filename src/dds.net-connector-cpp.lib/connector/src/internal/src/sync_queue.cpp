@@ -1,7 +1,13 @@
 #include "src/internal/inc/sync_queue.h"
 
+#include "src/internal/inc/macros.h"
+
 #include <memory.h>
 #include <exception>
+
+
+static const int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED = 5;
+static const int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED = 5;
 
 
 template <typename T>
@@ -37,7 +43,30 @@ bool dds::net::connector::_internal::SyncQueue<T>::canDequeue()
 template<typename T>
 T dds::net::connector::_internal::SyncQueue<T>::dequeue()
 {
-  return T();
+  while (true)
+  {
+    lock.lock();
+    
+    if (queueValidity[nextReadIndex] != false)
+    {
+        T data = queue[nextReadIndex];
+        queueValidity[nextReadIndex] = false;
+
+        nextReadIndex++;
+
+        if (nextReadIndex == queueSize)
+        {
+          nextReadIndex = 0;
+        }
+
+        lock.unlock();
+        return data;
+    }
+
+    lock.unlock();
+    
+    sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
+  }
 }
 
 template<typename T>
