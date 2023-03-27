@@ -4,6 +4,8 @@
 #include "src/internal/inc/sync_queue_reader.h"
 #include "src/internal/inc/sync_queue_writer.h"
 
+#include <mutex>
+
 
 namespace dds {
   namespace net {
@@ -23,7 +25,10 @@ namespace dds {
 
 
         private:
+          std::mutex lock;
           int queueSize;
+          T* queue;
+          bool* queueValidity;
         };
 
       }

@@ -1,5 +1,6 @@
 #include "src/internal/inc/sync_queue.h"
 
+#include <memory.h>
 #include <exception>
 
 
@@ -11,12 +12,20 @@ dds::net::connector::_internal::SyncQueue<T>::SyncQueue(int queueSize)
   if (queueSize <= 0) {
     throw std::exception("Invalid queue size - the size must be a positive number");
   }
+
+  queue = malloc(sizeof(T*) * queueSize);
+  queueValidity = new bool[queueSize];
 }
 
 template<typename T>
 bool dds::net::connector::_internal::SyncQueue<T>::canDequeue()
 {
-  return false;
+  bool ret = false;
+
+  lock.lock();
+  lock.unlock();
+
+  return ret;
 }
 
 template<typename T>
