@@ -22,6 +22,11 @@ dds::net::connector::_internal::SyncQueue<T>::SyncQueue(int queueSize)
   queue = new T[queueSize];
   queueValidity = new bool[queueSize];
 
+  for (int i = 0; i < queueSize; i++)
+  {
+    queueValidity[i] = false;
+  }
+
   nextWriteIndex = 0;
   nextReadIndex = 0;
 }
