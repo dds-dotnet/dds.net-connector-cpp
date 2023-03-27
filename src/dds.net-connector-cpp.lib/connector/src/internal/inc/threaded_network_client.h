@@ -12,8 +12,8 @@ namespace dds {
         class PacketFromServer;
         class PacketToServer;
 
-        template<> class SyncQueueReader<PacketFromServer>;
-        template<> class SyncQueueWriter<PacketToServer>;
+        template<class T> class SyncQueueReader;
+        template<class T> class SyncQueueWriter;
 
         typedef void(*connectedCallback)(void* obj);
         typedef void(*disconnectedCallback)(void* obj);
