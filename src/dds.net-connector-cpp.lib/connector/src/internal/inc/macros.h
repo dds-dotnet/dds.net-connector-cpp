@@ -6,7 +6,7 @@
 #include <thread>
 
 
-#define SLEEP_MS(ms)     std::this_thread::sleep_for(std::chrono::milliseconds(100))
+#define SLEEP_MS(ms)     std::this_thread::sleep_for(std::chrono::milliseconds(ms))
 #define SLEEP(msec)      SLEEP_MS(msec)
 #define sleep(msec)      SLEEP(msec)
 
