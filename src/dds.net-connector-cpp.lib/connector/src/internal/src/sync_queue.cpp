@@ -9,7 +9,7 @@ dds::net::connector::_internal::SyncQueue<T>::SyncQueue(int queueSize)
   this->queueSize = queueSize;
 
   if (queueSize <= 0) {
-    throw std::exception("");
+    throw std::exception("Invalid queue size - the size must be a positive number");
   }
 }
 
