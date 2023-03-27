@@ -16,6 +16,11 @@ namespace dds {
         public:
           SyncQueue(int queueSize = 100);
 
+          bool canDequeue() override;
+          T dequeue() override;
+          bool canEnqueue() override;
+          void enqueue(T data) override;
+
 
         private:
           int queueSize;
