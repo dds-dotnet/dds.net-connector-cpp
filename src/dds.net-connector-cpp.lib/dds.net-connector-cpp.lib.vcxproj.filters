@@ -63,6 +63,9 @@
     <ClInclude Include="connector\src\internal\inc\sync_queue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

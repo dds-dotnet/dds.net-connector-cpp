@@ -146,6 +146,7 @@
     <ClInclude Include="connector\inc\ddsconnector.h" />
     <ClInclude Include="connector\inc\logger.h" />
     <ClInclude Include="connector\src\internal\inc\easy_thread.h" />
+    <ClInclude Include="connector\src\internal\inc\macros.h" />
     <ClInclude Include="connector\src\internal\inc\network_client.h" />
     <ClInclude Include="connector\src\internal\inc\packet_from_server.h" />
     <ClInclude Include="connector\src\internal\inc\packet_to_server.h" />
