@@ -12,6 +12,13 @@ typedef enum {
   UnknownPacket // Unknown packet.
 } PacketId;
 
+typedef enum {
+  Primitive, // Represents the very basic variable type, e.g., string, integer, float, etc.
+  RawBytes,  // Represents a sequence of bytes (unsigned bytes).
+
+  UnknownVariableType // Unknown type.
+} VariableType;
+
 
 
 #endif
