@@ -664,7 +664,7 @@ void dds::net::connector::DdsConnector::doPeriodicUpdate(Periodicity periodicity
                     foreach (KeyValuePair<string, BaseVariable> v in uploadVariables)
                     {
                         if (v.Value.Periodicity == periodicity ||
-                            v.Value.Periodicity == Periodicity.OnChange)
+                            v.Value.Periodicity == Periodicity.ON_CHANGE)
                         {
                             if (v.Value.RefreshValue())
                             {
