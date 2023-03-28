@@ -18,8 +18,6 @@
 using namespace dds::net::connector::_internal;
 
 
-static char temp_msg_buffer[1024];
-
 dds::net::connector::DdsConnector::DdsConnector(
   std::string& applicationName,
   std::string& serverIPv4, ushort serverPortTCP,
@@ -29,8 +27,11 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->serverAddressIPv4 = serverIPv4;
   this->serverPortTCP = serverPortTCP;
   this->iterationCounter = 0;
-
   this->bufferManager = new BufferManager();
+
+  //- 
+  //- Instantiating Logger when not provided
+  //- 
 
   if (logger == nullptr)
   {
@@ -41,13 +42,26 @@ dds::net::connector::DdsConnector::DdsConnector(
     this->logger = logger;
   }
 
+  //- 
+  //- Validating IP address
+  //- 
+
   if (StringHelper::isValidIPv4Address(serverIPv4))
   {
     this->serverAddressIPv4 = StringHelper::removeSpaces(this->serverAddressIPv4);
   }
+  else
+  {
+    char* message = this->bufferManager->get2k();
+    sprintf(message, "Invalid IPv4 address: %s", serverIPv4.c_str());
 
-  sprintf(temp_msg_buffer, "Initializing connector with Server: %s:%d", serverIPv4, serverPortTCP);
-  logger->info(temp_msg_buffer);
+    throw std::exception(message);
+  }
+
+  char* message = this->bufferManager->get2k();
+
+  sprintf(message, "Initializing connector with Server: %s:%d", serverIPv4, serverPortTCP);
+  logger->info(message);
 
   try
   {
@@ -57,11 +71,13 @@ dds::net::connector::DdsConnector::DdsConnector(
   }
   catch (std::exception& ex)
   {
-    sprintf(temp_msg_buffer, "Cannot initialize network client - %s", ex.what());
-    logger->error(temp_msg_buffer);
+    sprintf(message, "Cannot initialize network client - %s", ex.what());
+    logger->error(message);
 
     throw ex;
   }
+
+  this->bufferManager->free(message);
 
   this->dataReceiverThread = new EasyThread(dataReceptionWorker, this);
   this->periodicUpdateThread = new EasyThread(periodicUpdateWorker, this, BASE_TIME_SLOT_MSEC);
