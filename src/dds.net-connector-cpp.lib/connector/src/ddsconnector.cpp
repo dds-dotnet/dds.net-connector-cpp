@@ -17,6 +17,11 @@
 
 using namespace dds::net::connector::_internal;
 
+/*************************************************************************************/
+/*                                                                                   */
+/* Init                                                                              */
+/*                                                                                   */
+/*************************************************************************************/
 
 dds::net::connector::DdsConnector::DdsConnector(
   std::string& applicationName,
@@ -86,6 +91,12 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer, this);
 }
 
+/*************************************************************************************/
+/*                                                                                   */
+/* Start / Stop                                                                      */
+/*                                                                                   */
+/*************************************************************************************/
+
 void dds::net::connector::DdsConnector::start()
 {
   dataReceiverThread->start();
@@ -106,6 +117,12 @@ void dds::net::connector::DdsConnector::stop()
   networkClient->disconnect();
 }
 
+/*************************************************************************************/
+/*                                                                                   */
+/* Info getters                                                                      */
+/*                                                                                   */
+/*************************************************************************************/
+
 std::string dds::net::connector::DdsConnector::getLibraryVersion()
 {
   return LIBRARY_VERSION;
@@ -125,6 +142,13 @@ ushort dds::net::connector::DdsConnector::getServerPortTCP()
 {
   return this->serverPortTCP;
 }
+
+/*************************************************************************************/
+/*                                                                                   */
+/* Registering:                                                                      */
+/*     - Providers                                                                   */
+/*                                                                                   */
+/*************************************************************************************/
 
 void dds::net::connector::DdsConnector::registerStringProvider(std::string& variableName, StringProvider provider, Periodicity periodicity)
 {
@@ -388,6 +412,13 @@ void dds::net::connector::DdsConnector::unregisterProvider(std::string& variable
             }
           }*/
 }
+
+/*************************************************************************************/
+/*                                                                                   */
+/* Registering:                                                                      */
+/*     - Consumers                                                                   */
+/*                                                                                   */
+/*************************************************************************************/
 
 void dds::net::connector::DdsConnector::registerStringConsumer(std::string& variableName, StringConsumer consumer, Periodicity periodicity)
 {
@@ -666,6 +697,32 @@ void dds::net::connector::DdsConnector::unregisterConsumer(std::string& variable
           }*/
 }
 
+/*************************************************************************************/
+/*                                                                                   */
+/* Periodic Updates                                                                  */
+/*                                                                                   */
+/*************************************************************************************/
+
+static bool dds::net::connector::periodicUpdateWorker(void* connector)
+{
+  /*
+  connector.iterationCounter++;
+
+  connector.doPeriodicUpdate(Periodicity.Highest);
+
+  if (connector.iterationCounter % 2 == 0) connector.doPeriodicUpdate(Periodicity.High);
+  if (connector.iterationCounter % 4 == 0) connector.doPeriodicUpdate(Periodicity.Normal);
+  if (connector.iterationCounter % 8 == 0) connector.doPeriodicUpdate(Periodicity.Low);
+
+  if (connector.iterationCounter % 16 == 0)
+  {
+    connector.doPeriodicUpdate(Periodicity.Lowest);
+    connector.iterationCounter = 0;
+  }*/
+
+  return true;
+}
+
 void dds::net::connector::DdsConnector::doPeriodicUpdate(Periodicity periodicity)
 {
   /*
@@ -709,6 +766,12 @@ void dds::net::connector::DdsConnector::doPeriodicUpdate(Periodicity periodicity
                 SendUpdatedValuesToServer(refreshed);
             }*/
 }
+
+/*************************************************************************************/
+/*                                                                                   */
+/* Communication with the Server                                                     */
+/*                                                                                   */
+/*************************************************************************************/
 
 void dds::net::connector::DdsConnector::registerAwaitingVariablesWithServer()
 {
@@ -824,7 +887,7 @@ void dds::net::connector::DdsConnector::unregisterVariablesFromServer()
             }*/
 }
 
-void dds::net::connector::DdsConnector::sendUpdatedValuesToServer(std::list<_internal::variable::BaseVariable*>& vars)
+void dds::net::connector::DdsConnector::sendUpdatedValuesToServer(std::list<_internal::variables::BaseVariable*>& vars)
 {
   /*
   int sizeRequired = 0;
@@ -853,6 +916,12 @@ void dds::net::connector::DdsConnector::sendUpdatedValuesToServer(std::list<_int
                 DataToServer.Enqueue(new PacketToServer(buffer, bufferOffset));
             }*/
 }
+
+/*************************************************************************************/
+/*                                                                                   */
+/* Connection Events                                                                 */
+/*                                                                                   */
+/*************************************************************************************/
 
 static void dds::net::connector::onConnectedWithServer(void* connector)
 {
@@ -896,6 +965,12 @@ static void dds::net::connector::onDisconnectedFromServer(void* connector)
   */
 }
 
+/*************************************************************************************/
+/*                                                                                   */
+/* Data Reception                                                                    */
+/*                                                                                   */
+/*************************************************************************************/
+
 static bool dds::net::connector::dataReceptionWorker(void* connector)
 {
   /*
@@ -926,24 +1001,4 @@ static bool dds::net::connector::dataReceptionWorker(void* connector)
   */
 
   return false;
-}
-
-static bool dds::net::connector::periodicUpdateWorker(void* connector)
-{
-  /*
-  connector.iterationCounter++;
-
-  connector.doPeriodicUpdate(Periodicity.Highest);
-
-  if (connector.iterationCounter % 2 == 0) connector.doPeriodicUpdate(Periodicity.High);
-  if (connector.iterationCounter % 4 == 0) connector.doPeriodicUpdate(Periodicity.Normal);
-  if (connector.iterationCounter % 8 == 0) connector.doPeriodicUpdate(Periodicity.Low);
-
-  if (connector.iterationCounter % 16 == 0)
-  {
-    connector.doPeriodicUpdate(Periodicity.Lowest);
-    connector.iterationCounter = 0;
-  }*/
-
-  return true;
 }
