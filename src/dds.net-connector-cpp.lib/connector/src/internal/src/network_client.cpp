@@ -7,6 +7,11 @@
 using namespace dds::net::connector::_internal;
 
 
+dds::net::connector::_internal::NetworkClient::NetworkClient(BufferManager* bufferManager)
+{
+  this->bufferManager = bufferManager;
+}
+
 SyncQueueReader<PacketFromServer*>* dds::net::connector::_internal::NetworkClient::getDataQueueFromServer()
 {
     return nullptr;

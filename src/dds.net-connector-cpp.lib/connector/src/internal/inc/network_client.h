@@ -9,7 +9,12 @@ namespace dds {
     namespace connector {
       namespace _internal {
 
+        class BufferManager;
+
         class NetworkClient : public dds::net::connector::_internal::ThreadedNetworkClient {
+        public:
+          NetworkClient(BufferManager*);
+
           virtual SyncQueueReader<PacketFromServer*>* getDataQueueFromServer() override;
           virtual SyncQueueWriter<PacketToServer*>* getDataQueueToServer() override;
 
@@ -18,6 +23,9 @@ namespace dds {
 
           virtual void connect(std::string ipv4, unsigned short tcpPort) override;
           virtual void disconnect() override;
+
+        private:
+          BufferManager* bufferManager;
         };
 
       }

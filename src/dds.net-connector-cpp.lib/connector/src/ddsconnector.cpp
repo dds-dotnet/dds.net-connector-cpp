@@ -4,6 +4,7 @@
 
 #include "src/internal/inc/macros.h"
 #include "src/internal/inc/string_helper.h"
+#include "src/internal/inc/buffer_manager.h"
 #include "src/internal/inc/threaded_network_client.h"
 #include "src/internal/inc/network_client.h"
 #include "src/internal/inc/easy_thread.h"
@@ -29,6 +30,8 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->serverPortTCP = serverPortTCP;
   this->iterationCounter = 0;
 
+  this->bufferManager = new BufferManager();
+
   if (logger == nullptr)
   {
     this->logger = new BlankLogger();
@@ -48,7 +51,7 @@ dds::net::connector::DdsConnector::DdsConnector(
 
   try
   {
-    this->networkClient = new NetworkClient();
+    this->networkClient = new NetworkClient(this->bufferManager);
     this->dataFromServer = this->networkClient->getDataQueueFromServer();
     this->dataToServer = this->networkClient->getDataQueueToServer();
   }
