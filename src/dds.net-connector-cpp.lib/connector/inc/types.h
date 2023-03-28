@@ -6,6 +6,7 @@
 
 typedef unsigned short ushort;
 
+
 //- 
 //- Provider functions
 //- 
@@ -28,6 +29,7 @@ typedef double (*DoubleProvider)(std::string variableName);
 
 typedef int (RawBytesProvider)(std::string variableName, unsigned char* buffer, int bufferSize);
 
+
 //- 
 //- Consumer functions
 //- 
@@ -49,6 +51,7 @@ typedef void (*SingleConsumer)(std::string variableName, float variableValue);
 typedef void (*DoubleConsumer)(std::string variableName, double variableValue);
 
 typedef void (*RawBytesConsumer)(std::string variableName, unsigned char* buffer, int bufferSize, int effectiveBytes);
+
 
 typedef enum {
   OnChange = 0,  // Updates only when the value is changed
