@@ -21,12 +21,16 @@ namespace dds {
         virtual void error(const char* messageLine) = 0;
       };
 
+
+
       class BlankLogger : public Logger {
       public:
         void info(const char* messageLine) override {}
         void warning(const char* messageLine) override {}
         void error(const char* messageLine) override {}
       };
+
+
 
       class ConsoleLogger : public Logger {
       public:
