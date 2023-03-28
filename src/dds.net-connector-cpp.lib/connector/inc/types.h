@@ -9,46 +9,46 @@ typedef unsigned short ushort;
 //- 
 //- Provider functions
 //- 
-typedef std::string (*stringProviderFunc)(std::string variableName);
+typedef std::string (*StringProvider)(std::string variableName);
 
-typedef bool (*booleanProviderFunc)(std::string variableName);
+typedef bool (*BooleanProvider)(std::string variableName);
 
-typedef char (*byteProviderFunc)(std::string variableName);
-typedef short (*wordProviderFunc)(std::string variableName);
-typedef long (*dWordProviderFunc)(std::string variableName);
-typedef long long (*qWordProviderFunc)(std::string variableName);
+typedef char (*ByteProvider)(std::string variableName);
+typedef short (*WordProvider)(std::string variableName);
+typedef long (*DWordProvider)(std::string variableName);
+typedef long long (*QWordProvider)(std::string variableName);
 
-typedef unsigned char (*unsignedByteProviderFunc)(std::string variableName);
-typedef unsigned short (*unsignedWordProviderFunc)(std::string variableName);
-typedef unsigned long (*unsignedDWordProviderFunc)(std::string variableName);
-typedef unsigned long long (*unsignedQWordProviderFunc)(std::string variableName);
+typedef unsigned char (*UnsignedByteProvider)(std::string variableName);
+typedef unsigned short (*UnsignedWordProvider)(std::string variableName);
+typedef unsigned long (*UnsignedDWordProvider)(std::string variableName);
+typedef unsigned long long (*UnsignedQWordProvider)(std::string variableName);
 
-typedef float (*singleProviderFunc)(std::string variableName);
-typedef double (*doubleProviderFunc)(std::string variableName);
+typedef float (*SingleProvider)(std::string variableName);
+typedef double (*DoubleProvider)(std::string variableName);
 
-typedef int (rawBytesProviderFunc)(std::string variableName, unsigned char* buffer, int bufferSize);
+typedef int (RawBytesProvider)(std::string variableName, unsigned char* buffer, int bufferSize);
 
 //- 
 //- Consumer functions
 //- 
-typedef void (*stringConsumerFunc)(std::string variableName, std::string variableValue);
+typedef void (*StringConsumer)(std::string variableName, std::string variableValue);
 
-typedef void (*booleanConsumerFunc)(std::string variableName, bool variableValue);
+typedef void (*BooleanConsumer)(std::string variableName, bool variableValue);
 
-typedef void (*byteConsumerFunc)(std::string variableName, char variableValue);
-typedef void (*wordConsumerFunc)(std::string variableName, short variableValue);
-typedef void (*dWordConsumerFunc)(std::string variableName, long variableValue);
-typedef void (*qWordConsumerFunc)(std::string variableName, long long variableValue);
+typedef void (*ByteConsumer)(std::string variableName, char variableValue);
+typedef void (*WordConsumer)(std::string variableName, short variableValue);
+typedef void (*DWordConsumer)(std::string variableName, long variableValue);
+typedef void (*QWordConsumer)(std::string variableName, long long variableValue);
 
-typedef void (*unsignedByteConsumerFunc)(std::string variableName, unsigned char variableValue);
-typedef void (*unsignedWordConsumerFunc)(std::string variableName, unsigned short variableValue);
-typedef void (*unsignedDWordConsumerFunc)(std::string variableName, unsigned long variableValue);
-typedef void (*unsignedQWordConsumerFunc)(std::string variableName, unsigned long long variableValue);
+typedef void (*UnsignedByteConsumer)(std::string variableName, unsigned char variableValue);
+typedef void (*UnsignedWordConsumer)(std::string variableName, unsigned short variableValue);
+typedef void (*UnsignedDWordConsumer)(std::string variableName, unsigned long variableValue);
+typedef void (*UnsignedQWordConsumer)(std::string variableName, unsigned long long variableValue);
 
-typedef void (*singleConsumerFunc)(std::string variableName, float variableValue);
-typedef void (*doubleConsumerFunc)(std::string variableName, double variableValue);
+typedef void (*SingleConsumer)(std::string variableName, float variableValue);
+typedef void (*DoubleConsumer)(std::string variableName, double variableValue);
 
-typedef void (*rawBytesConsumerFunc)(std::string variableName, unsigned char* buffer, int bufferSize, int effectiveBytes);
+typedef void (*RawBytesConsumer)(std::string variableName, unsigned char* buffer, int bufferSize, int effectiveBytes);
 
 typedef enum {
   OnChange = 0,  // Updates only when the value is changed
