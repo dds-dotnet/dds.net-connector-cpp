@@ -45,9 +45,11 @@ namespace dds {
         LogLevel logLevel;
       };
 
-    }
-  }
-}
+    } // namespace connector
+
+  } // namespace net
+
+} // namespace dds
 
 
 
