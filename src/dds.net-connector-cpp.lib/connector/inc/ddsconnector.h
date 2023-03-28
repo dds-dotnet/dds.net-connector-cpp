@@ -44,8 +44,8 @@ namespace dds {
       class DdsConnector {
       public:
         DdsConnector(
-          std::string applicationName,
-          std::string serverIPv4, ushort serverPortTCP,
+          std::string& applicationName,
+          std::string& serverIPv4, ushort serverPortTCP,
           Logger* logger = nullptr);
 
         void start();

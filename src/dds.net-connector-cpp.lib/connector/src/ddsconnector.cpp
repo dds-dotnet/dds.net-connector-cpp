@@ -17,7 +17,9 @@ using namespace dds::net::connector::_internal;
 
 
 dds::net::connector::DdsConnector::DdsConnector(
-  std::string applicationName, std::string serverIPv4, ushort serverPortTCP, Logger* logger)
+  std::string& applicationName,
+  std::string& serverIPv4, ushort serverPortTCP,
+  Logger* logger)
 {
   this->applicationName = applicationName;
   this->serverAddressIPv4 = serverIPv4;
