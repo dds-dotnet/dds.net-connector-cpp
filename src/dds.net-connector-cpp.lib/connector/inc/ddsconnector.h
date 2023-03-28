@@ -6,6 +6,7 @@
 
 #include <string>
 #include <mutex>
+#include <list>
 #include <map>
 
 
@@ -119,6 +120,13 @@ namespace dds {
 
         std::map<std::string, _internal::variable::BaseVariable*> uploadVariablesToBeRegistered;
         std::map<std::string, _internal::variable::BaseVariable*> downloadVariablesToBeRegistered;
+
+
+        void doPeriodicUpdate(Periodicity periodicity);
+        void registerAwaitingVariablesWithServer();
+        void unregisterVariablesFromServer();
+        void sendUpdatedValuesToServer(std::list<_internal::variable::BaseVariable*>& vars);
+
 
         friend void onConnectedWithServer(void* connector);
         friend void onDisconnectedFromServer(void* connector);
