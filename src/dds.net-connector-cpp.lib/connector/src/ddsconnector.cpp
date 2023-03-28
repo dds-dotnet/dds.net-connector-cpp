@@ -101,6 +101,546 @@ ushort dds::net::connector::DdsConnector::getServerPortTCP()
   return this->serverPortTCP;
 }
 
+void dds::net::connector::DdsConnector::registerStringProvider(std::string variableName, stringProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new StringVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerBooleanProvider(std::string variableName, booleanProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new BooleanVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerByteProvider(std::string variableName, byteProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new ByteVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerWordProvider(std::string variableName, wordProviderFunc provider, Periodicity periodicity)
+{
+  /*lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new WordVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerDWordProvider(std::string variableName, dWordProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new DWordVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerQWordProvider(std::string variableName, qWordProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new QWordVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedByteProvider(std::string variableName, unsignedByteProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new UnsignedByteVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedWordProvider(std::string variableName, unsignedWordProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new UnsignedWordVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedDWordProvider(std::string variableName, unsignedDWordProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new UnsignedDWordVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedQWordProvider(std::string variableName, unsignedQWordProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new UnsignedQWordVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerSingleProvider(std::string variableName, singleProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new SingleVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerDoubleProvider(std::string variableName, doubleProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new DoubleVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerRawBytesProvider(std::string variableName, rawBytesProviderFunc provider, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName) ||
+              uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision to the server.");
+            }
+            else
+            {
+              uploadVariablesToBeRegistered.Add(variableName, new RawBytesVariable(variableName, periodicity, provider));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::unregisterProvider(std::string variableName)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (uploadVariables.ContainsKey(variableName))
+            {
+              uploadVariables.Remove(variableName);
+            }
+
+            if (uploadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              uploadVariablesToBeRegistered.Remove(variableName);
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerStringConsumer(std::string variableName, stringConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new StringVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerBooleanConsumer(std::string variableName, booleanConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new BooleanVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerByteConsumer(std::string variableName, byteConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new ByteVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerWordConsumer(std::string variableName, wordConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new WordVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerDWordConsumer(std::string variableName, dWordConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new DWordVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerQWordConsumer(std::string variableName, qWordConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new QWordVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedByteConsumer(std::string variableName, unsignedByteConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new UnsignedByteVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedWordConsumer(std::string variableName, unsignedWordConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new UnsignedWordVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedDWordConsumer(std::string variableName, unsignedDWordConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new UnsignedDWordVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerUnsignedQWordConsumer(std::string variableName, unsignedQWordConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new UnsignedQWordVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerSingleConsumer(std::string variableName, singleConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new SingleVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerDoubleConsumer(std::string variableName, doubleConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new DoubleVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::registerRawBytesConsumer(std::string variableName, rawBytesConsumerFunc consumer, Periodicity periodicity)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName) ||
+              downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              throw new Exception(
+                $"The variable named {variableName} " +
+                $"has already been registered for provision from the server.");
+            }
+            else
+            {
+              downloadVariablesToBeRegistered.Add(
+                variableName, new RawBytesVariable(variableName, periodicity, null!, consumer));
+            }
+          }*/
+}
+
+void dds::net::connector::DdsConnector::unregisterConsumer(std::string variableName)
+{
+  /*
+  lock(variablesMutex)
+          {
+            if (downloadVariables.ContainsKey(variableName))
+            {
+              downloadVariables.Remove(variableName);
+            }
+
+            if (downloadVariablesToBeRegistered.ContainsKey(variableName))
+            {
+              downloadVariablesToBeRegistered.Remove(variableName);
+            }
+          }*/
+}
+
 static void dds::net::connector::onConnectedWithServer(void* connector)
 {
   /*
