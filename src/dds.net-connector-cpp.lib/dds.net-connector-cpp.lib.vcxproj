@@ -145,6 +145,7 @@
     <ClInclude Include="connector\inc\config.h" />
     <ClInclude Include="connector\inc\ddsconnector.h" />
     <ClInclude Include="connector\inc\logger.h" />
+    <ClInclude Include="connector\src\internal\inc\buffer_manager.h" />
     <ClInclude Include="connector\src\internal\inc\easy_thread.h" />
     <ClInclude Include="connector\src\internal\inc\internal_types.h" />
     <ClInclude Include="connector\src\internal\inc\macros.h" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connector\src\ddsconnector.cpp" />
+    <ClCompile Include="connector\src\internal\src\buffer_manager.cpp" />
     <ClCompile Include="connector\src\internal\src\easy_thread.cpp" />
     <ClCompile Include="connector\src\internal\src\network_client.cpp" />
     <ClCompile Include="connector\src\internal\src\string_helper.cpp" />
