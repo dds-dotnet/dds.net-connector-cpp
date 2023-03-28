@@ -24,7 +24,7 @@ namespace dds {
         template<typename T> class SyncQueueReader;
         template<typename T> class SyncQueueWriter;
 
-        namespace variable {
+        namespace variables {
           class BaseVariable;
         }
       }
@@ -115,17 +115,17 @@ namespace dds {
 
         std::mutex variablesMutex;
 
-        std::map<std::string, _internal::variable::BaseVariable*> uploadVariables;
-        std::map<std::string, _internal::variable::BaseVariable*> downloadVariables;
+        std::map<std::string, _internal::variables::BaseVariable*> uploadVariables;
+        std::map<std::string, _internal::variables::BaseVariable*> downloadVariables;
 
-        std::map<std::string, _internal::variable::BaseVariable*> uploadVariablesToBeRegistered;
-        std::map<std::string, _internal::variable::BaseVariable*> downloadVariablesToBeRegistered;
+        std::map<std::string, _internal::variables::BaseVariable*> uploadVariablesToBeRegistered;
+        std::map<std::string, _internal::variables::BaseVariable*> downloadVariablesToBeRegistered;
 
 
         void doPeriodicUpdate(Periodicity periodicity);
         void registerAwaitingVariablesWithServer();
         void unregisterVariablesFromServer();
-        void sendUpdatedValuesToServer(std::list<_internal::variable::BaseVariable*>& vars);
+        void sendUpdatedValuesToServer(std::list<_internal::variables::BaseVariable*>& vars);
 
 
         friend void onConnectedWithServer(void* connector);
