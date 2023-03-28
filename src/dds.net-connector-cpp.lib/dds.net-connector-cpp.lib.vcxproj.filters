@@ -57,7 +57,7 @@
     <ClInclude Include="connector\src\internal\inc\network_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\src\internal\variable\base_variable.h">
+    <ClInclude Include="connector\src\internal\variables\base_variable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="connector\src\internal\inc\sync_queue.h">
