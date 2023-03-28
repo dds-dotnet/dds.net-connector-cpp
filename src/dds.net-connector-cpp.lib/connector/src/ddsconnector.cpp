@@ -8,13 +8,16 @@
 #include "src/internal/inc/network_client.h"
 #include "src/internal/inc/easy_thread.h"
 
-#include "src/internal/variable/base_variable.h"
+#include "src/internal/variables/base_variable.h"
 
+#include <stdio.h>
 #include <exception>
 
 
 using namespace dds::net::connector::_internal;
 
+
+static char temp_msg_buffer[1024];
 
 dds::net::connector::DdsConnector::DdsConnector(
   std::string& applicationName,
@@ -40,7 +43,8 @@ dds::net::connector::DdsConnector::DdsConnector(
     this->serverAddressIPv4 = StringHelper::removeSpaces(this->serverAddressIPv4);
   }
 
-  logger->info("Initializing connector");
+  sprintf(temp_msg_buffer, "Initializing connector with Server: %s:%d", serverIPv4, serverPortTCP);
+  logger->info(temp_msg_buffer);
 
   try
   {
@@ -50,10 +54,8 @@ dds::net::connector::DdsConnector::DdsConnector(
   }
   catch (std::exception& ex)
   {
-    std::string errorMessage = "Cannot initialize network client - ";
-    errorMessage = errorMessage + ex.what();
-
-    logger->error(errorMessage.c_str());
+    sprintf(temp_msg_buffer, "Cannot initialize network client - %s", ex.what());
+    logger->error(temp_msg_buffer);
 
     throw ex;
   }
