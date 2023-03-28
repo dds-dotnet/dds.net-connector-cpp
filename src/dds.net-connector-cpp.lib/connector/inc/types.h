@@ -52,11 +52,11 @@ typedef void (*RawBytesConsumer)(std::string variableName, unsigned char* buffer
 
 typedef enum {
   OnChange = 0,  // Updates only when the value is changed
-  Highest,       // Updates every BASE_TIME_SLOT_MS x 1 msec
-  High,          // Updates every BASE_TIME_SLOT_MS x 2 msec
-  Normal,        // Updates every BASE_TIME_SLOT_MS x 4 msec
-  Low,           // Updates every BASE_TIME_SLOT_MS x 8 msec
-  Lowest         // Updates every BASE_TIME_SLOT_MS x 16 msec
+  Highest,       // Updates every BASE_TIME_SLOT_MSEC x 1 msec
+  High,          // Updates every BASE_TIME_SLOT_MSEC x 2 msec
+  Normal,        // Updates every BASE_TIME_SLOT_MSEC x 4 msec
+  Low,           // Updates every BASE_TIME_SLOT_MSEC x 8 msec
+  Lowest         // Updates every BASE_TIME_SLOT_MSEC x 16 msec
 } Periodicity;
 
 

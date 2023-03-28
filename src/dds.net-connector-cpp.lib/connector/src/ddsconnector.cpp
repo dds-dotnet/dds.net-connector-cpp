@@ -57,7 +57,7 @@ dds::net::connector::DdsConnector::DdsConnector(
   }
 
   this->dataReceiverThread = new EasyThread(dataReceptionWorker, this);
-  this->periodicUpdateThread = new EasyThread(periodicUpdateWorker, this, BASE_TIME_SLOT_MS);
+  this->periodicUpdateThread = new EasyThread(periodicUpdateWorker, this, BASE_TIME_SLOT_MSEC);
 
   this->networkClient->setCallbackOnConnectedWithServer(onConnectedWithServer, this);
   this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer, this);
