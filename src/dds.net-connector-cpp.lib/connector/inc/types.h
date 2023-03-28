@@ -50,5 +50,14 @@ typedef void (*doubleConsumerFunc)(std::string variableName, double variableValu
 
 typedef void (*rawBytesConsumerFunc)(std::string variableName, unsigned char* buffer, int bufferSize, int effectiveBytes);
 
+typedef enum {
+  OnChange = 0,  // Updates only when the value is changed
+  Highest,       // Updates every BASE_TIME_SLOT_MS x 1 msec
+  High,          // Updates every BASE_TIME_SLOT_MS x 2 msec
+  Normal,        // Updates every BASE_TIME_SLOT_MS x 4 msec
+  Low,           // Updates every BASE_TIME_SLOT_MS x 8 msec
+  Lowest         // Updates every BASE_TIME_SLOT_MS x 16 msec
+} Periodicity;
+
 
 #endif

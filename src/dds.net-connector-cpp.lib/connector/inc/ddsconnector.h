@@ -46,7 +46,7 @@ namespace dds {
           std::string applicationName,
           std::string serverIPv4, ushort serverPortTCP,
           Logger* logger = nullptr);
-        
+
         void start();
         void stop();
 
@@ -56,46 +56,10 @@ namespace dds {
         std::string getServerAddressIPv4();
         ushort getServerPortTCP();
 
-
-
-      private:
-        std::string applicationName;
-        std::string serverAddressIPv4;
-        ushort serverPortTCP;
-
-        Logger* logger;
-
-        _internal::ThreadedNetworkClient* networkClient;
-        _internal::SyncQueueReader<_internal::PacketFromServer*>* dataFromServer;
-        _internal::SyncQueueWriter<_internal::PacketToServer*>* dataToServer;
-
-        _internal::EasyThread* dataReceiverThread;
-        _internal::EasyThread* periodicUpdateThread;
-
-        int iterationCounter;
-
-        std::mutex variablesMutex;
-
-        std::map<std::string, _internal::variable::BaseVariable*> uploadVariables;
-        std::map<std::string, _internal::variable::BaseVariable*> downloadVariables;
-
-        std::map<std::string, _internal::variable::BaseVariable*> uploadVariablesToBeRegistered;
-        std::map<std::string, _internal::variable::BaseVariable*> downloadVariablesToBeRegistered;
-
-        friend void onConnectedWithServer(void* connector);
-        friend void onDisconnectedFromServer(void* connector);
-        friend bool dataReceptionWorker(void* connector);
-        friend bool periodicUpdateWorker(void* connector);
-        
-
-
-      public:
-
         //- 
         //- Providers
         //- 
-
-        public void RegisterStringProvider(string variableName, StringProvider provider, Periodicity periodicity)
+        void registerStringProvider(std::string variableName, stringProviderFunc provider, Periodicity periodicity)
         {
           lock(variablesMutex)
           {
@@ -748,8 +712,38 @@ namespace dds {
             }
           }
         }
-      };
 
+
+
+      private:
+        std::string applicationName;
+        std::string serverAddressIPv4;
+        ushort serverPortTCP;
+
+        Logger* logger;
+
+        _internal::ThreadedNetworkClient* networkClient;
+        _internal::SyncQueueReader<_internal::PacketFromServer*>* dataFromServer;
+        _internal::SyncQueueWriter<_internal::PacketToServer*>* dataToServer;
+
+        _internal::EasyThread* dataReceiverThread;
+        _internal::EasyThread* periodicUpdateThread;
+
+        int iterationCounter;
+
+        std::mutex variablesMutex;
+
+        std::map<std::string, _internal::variable::BaseVariable*> uploadVariables;
+        std::map<std::string, _internal::variable::BaseVariable*> downloadVariables;
+
+        std::map<std::string, _internal::variable::BaseVariable*> uploadVariablesToBeRegistered;
+        std::map<std::string, _internal::variable::BaseVariable*> downloadVariablesToBeRegistered;
+
+        friend void onConnectedWithServer(void* connector);
+        friend void onDisconnectedFromServer(void* connector);
+        friend bool dataReceptionWorker(void* connector);
+        friend bool periodicUpdateWorker(void* connector);
+      };
     }
   }
 }
