@@ -11,8 +11,8 @@ namespace dds {
 
         class StringHelper {
         public:
-          static bool isValidIPv4Address(std::string address);
-          static std::string removeSpaces(std::string inp);
+          static bool isValidIPv4Address(std::string& address);
+          static std::string removeSpaces(std::string& inp);
         };
 
       }
