@@ -1,6 +1,8 @@
 #ifndef DDS_DOT_NET_CONNECTOR_INC_LOGGER_H_
 #define DDS_DOT_NET_CONNECTOR_INC_LOGGER_H_
 
+#include <mutex>
+
 
 namespace dds {
   namespace net {
@@ -24,6 +26,19 @@ namespace dds {
         void info(const char* messageLine) override {}
         void warning(const char* messageLine) override {}
         void error(const char* messageLine) override {}
+      };
+
+      class ConsoleLogger : public Logger {
+      public:
+        ConsoleLogger(LogLevel logLevel = Logger::LOG_LEVEL_INFORMATION);
+        
+        void info(const char* message) override;
+        void warning(const char* message) override;
+        void error(const char* message) override;
+
+      private:
+        std::mutex lock;
+        LogLevel logLevel;
       };
 
     }
