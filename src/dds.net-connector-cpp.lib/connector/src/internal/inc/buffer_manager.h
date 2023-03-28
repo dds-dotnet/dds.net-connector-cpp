@@ -41,11 +41,12 @@ namespace dds {
 
           void* get(int size);
           void free(void* freeBuffer);
+          void GC();
 
 
         private:
           std::mutex buffLock;
-          std::list<BufferDefinition> buff;
+          std::list<BufferDefinition> buffers;
         };
 
       }

@@ -101,7 +101,7 @@ void* dds::net::connector::_internal::BufferManager::get(int size)
 
   void* ret = nullptr;
 
-  for (BufferDefinition& buff : buff)
+  for (BufferDefinition& buff : buffers)
   {
     if (buff.size == size &&
         buff.isFree == true)
@@ -122,7 +122,7 @@ void* dds::net::connector::_internal::BufferManager::get(int size)
 
     ret = newBuffer.address;
 
-    buff.push_back(newBuffer);
+    buffers.push_back(newBuffer);
   }
 
   buffLock.unlock();
@@ -134,7 +134,7 @@ void dds::net::connector::_internal::BufferManager::free(void* freeBuffer)
 {
   buffLock.lock();
 
-  for (BufferDefinition& buff : buff)
+  for (BufferDefinition& buff : buffers)
   {
     if (buff.address == freeBuffer)
     {
@@ -142,6 +142,31 @@ void dds::net::connector::_internal::BufferManager::free(void* freeBuffer)
       break;
     }
   }
+
+  buffLock.unlock();
+}
+
+void dds::net::connector::_internal::BufferManager::GC()
+{
+  buffLock.lock();
+
+  std::list<BufferDefinition> unused;
+
+  for (BufferDefinition& buff : buffers)
+  {
+    if (buff.isFree == true)
+    {
+      unused.push_back(buff);
+    }
+  }
+
+  for (BufferDefinition& buff : unused)
+  {
+    buffers.remove(buff);
+    ::free(buff.address);
+  }
+
+  unused.clear();
 
   buffLock.unlock();
 }
