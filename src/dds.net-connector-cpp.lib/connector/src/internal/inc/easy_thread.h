@@ -11,7 +11,11 @@ namespace dds {
     namespace connector {
       namespace _internal {
 
+        class EasyThread;
+
         typedef bool(*ThreadWork)(void* obj);
+        void continuousThreadFunction(EasyThread*);
+        void periodicThreadFunction(EasyThread*);
 
         class EasyThread {
         public:
@@ -32,8 +36,8 @@ namespace dds {
           std::thread* thread;
           std::atomic<bool> isThreadRunning;
 
-          void continuousThreadFunction();
-          void periodicThreadFunction();
+          friend void continuousThreadFunction(EasyThread*);
+          friend void periodicThreadFunction(EasyThread*);
         };
 
       }

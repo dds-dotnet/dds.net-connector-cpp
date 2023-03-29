@@ -51,11 +51,11 @@ void dds::net::connector::_internal::EasyThread::start()
 
     if (periodicity == CONTINUOUS_THREAD_PERIODICITY)
     {
-      thread = new std::thread(continuousThreadFunction);
+      thread = new std::thread(continuousThreadFunction, this);
     }
     else
     {
-      thread = new std::thread(periodicThreadFunction);
+      thread = new std::thread(periodicThreadFunction, this);
     }
   }
 
@@ -76,28 +76,28 @@ void dds::net::connector::_internal::EasyThread::stop()
   threadLock.unlock();
 }
 
-void dds::net::connector::_internal::EasyThread::continuousThreadFunction()
+static void dds::net::connector::_internal::continuousThreadFunction(EasyThread* th)
 {
-  while (isThreadRunning == true)
+  while (th->isThreadRunning == true)
   {
-    bool doneSomething = threadWork(threadWorkObj);
+    bool doneSomething = th->threadWork(th->threadWorkObj);
 
-    if (doneSomething == false && isThreadRunning == true)
+    if (doneSomething == false && th->isThreadRunning == true)
     {
       sleep(SLEEP_TIME_WHEN_NOT_DONE_ANYTHING_MSEC);
     }
   }
 }
 
-void dds::net::connector::_internal::EasyThread::periodicThreadFunction()
+static void dds::net::connector::_internal::periodicThreadFunction(EasyThread* th)
 {
-  while (isThreadRunning == true)
+  while (th->isThreadRunning == true)
   {
-    threadWork(threadWorkObj);
+    th->threadWork(th->threadWorkObj);
 
-    if (isThreadRunning == true)
+    if (th->isThreadRunning == true)
     {
-      sleep(periodicity);
+      sleep(th->periodicity);
     }
   }
 }
