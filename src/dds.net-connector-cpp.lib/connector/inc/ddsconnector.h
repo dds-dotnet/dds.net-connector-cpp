@@ -104,7 +104,8 @@ namespace dds {
         ushort serverPortTCP;
 
         Logger* logger;
-        BufferManager* bufferManager;
+
+        _internal::BufferManager* bufferManager;
 
         _internal::ThreadedNetworkClient* networkClient;
         _internal::SyncQueueReader<_internal::PacketFromServer*>* dataFromServer;
