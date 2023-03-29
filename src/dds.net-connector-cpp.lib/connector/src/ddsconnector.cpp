@@ -66,7 +66,10 @@ dds::net::connector::DdsConnector::DdsConnector(
 
   char* message = (char*)this->bufferManager->get2k();
 
-  sprintf_s(message, 2048, "Initializing connector with Server: %s:%d", serverIPv4.c_str(), serverPortTCP);
+  sprintf_s(message, 2048,
+    "Initializing connector (v%s) with Server: %s:%d",
+    DdsConnector::getLibraryVersion().c_str(), serverIPv4.c_str(), serverPortTCP);
+
   logger->info(message);
 
   try
