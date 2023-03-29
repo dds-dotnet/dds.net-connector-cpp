@@ -23,6 +23,6 @@ int main()
     }
     catch (std::exception& ex)
     {
-      std::cout << "Initialization ERROR! " << ex.what() << std::endl;
+      std::cout << "Exception! " << ex.what() << std::endl;
     }
 }
