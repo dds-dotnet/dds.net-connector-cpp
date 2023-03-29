@@ -51,7 +51,7 @@ void dds::net::connector::ConsoleLogger::error(const char* message)
   lock.lock();
 
   std::cout
-    << CONSOLE_COLOR_FG_MAGENTA
+    << CONSOLE_COLOR_FG_RED
     << "Error: " << message
     << CONSOLE_COLOR_FG_WHITE
     << std::endl;
