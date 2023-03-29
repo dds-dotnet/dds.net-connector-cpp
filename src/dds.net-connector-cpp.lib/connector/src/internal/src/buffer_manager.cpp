@@ -156,14 +156,14 @@ void dds::net::connector::_internal::BufferManager::GC()
   {
     if (buff.isFree == true)
     {
+      ::free(buff.address);
       unused.push_back(buff);
     }
   }
 
   for (BufferDefinition& buff : unused)
   {
-    buffers.remove(buff);
-    ::free(buff.address);
+    buffers.remove_if([&](const BufferDefinition& b) { return b.address == buff.address; });
   }
 
   unused.clear();
