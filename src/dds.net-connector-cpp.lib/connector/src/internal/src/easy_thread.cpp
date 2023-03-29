@@ -91,4 +91,13 @@ void dds::net::connector::_internal::EasyThread::continuousThreadFunction()
 
 void dds::net::connector::_internal::EasyThread::periodicThreadFunction()
 {
+  while (isThreadRunning == true)
+  {
+    threadWork(threadWorkObj);
+
+    if (isThreadRunning == true)
+    {
+      sleep(periodicity);
+    }
+  }
 }
