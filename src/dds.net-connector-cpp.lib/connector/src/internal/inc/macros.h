@@ -46,6 +46,8 @@
 #define CONSOLE_COLOR_BG_CYAN              "\033[46m"
 #define CONSOLE_COLOR_BG_WHITE             "\033[47m"
 
+#define MAX_USHORT_VALUE                   65535
+
 
 
 
