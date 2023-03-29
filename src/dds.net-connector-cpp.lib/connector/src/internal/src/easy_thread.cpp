@@ -1,8 +1,11 @@
 #include "src/internal/inc/easy_thread.h"
 
+#include "src/internal/inc/macros.h"
+
 #include <exception>
 
-#define CONTINUOUS_THREAD_PERIODICITY     -1
+#define CONTINUOUS_THREAD_PERIODICITY              -1
+#define SLEEP_TIME_WHEN_NOT_DONE_ANYTHING_MSEC     10
 
 
 dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork threadWork, void* threadWorkObj)
@@ -75,6 +78,15 @@ void dds::net::connector::_internal::EasyThread::stop()
 
 void dds::net::connector::_internal::EasyThread::continuousThreadFunction()
 {
+  while (isThreadRunning == true)
+  {
+    bool doneSomething = threadWork(threadWorkObj);
+
+    if (doneSomething == false && isThreadRunning == true)
+    {
+      sleep(SLEEP_TIME_WHEN_NOT_DONE_ANYTHING_MSEC);
+    }
+  }
 }
 
 void dds::net::connector::_internal::EasyThread::periodicThreadFunction()
