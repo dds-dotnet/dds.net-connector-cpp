@@ -57,13 +57,13 @@ dds::net::connector::DdsConnector::DdsConnector(
   }
   else
   {
-    char* message = this->bufferManager->get2k();
+    char* message = (char*)this->bufferManager->get2k();
     sprintf(message, "Invalid IPv4 address: %s", serverIPv4.c_str());
 
     throw std::exception(message);
   }
 
-  char* message = this->bufferManager->get2k();
+  char* message = (char*)this->bufferManager->get2k();
 
   sprintf(message, "Initializing connector with Server: %s:%d", serverIPv4, serverPortTCP);
   logger->info(message);
