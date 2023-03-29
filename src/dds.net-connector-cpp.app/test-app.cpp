@@ -11,7 +11,8 @@ using namespace dds::net::connector;
 
 int main()
 {
-    std::cout << "DDS.Net Connected App!\n";
+    std::cout << "DDS.Net Connected App!" << std::endl;
+    std::cout << "======================" << std::endl;
 
     string appName = "My CPP App";
     string serverIP = "127.0.0.1";
@@ -25,4 +26,6 @@ int main()
     {
       std::cout << "Exception! " << ex.what() << std::endl;
     }
+
+    std::cout << std::endl << std::endl << std::endl;
 }
