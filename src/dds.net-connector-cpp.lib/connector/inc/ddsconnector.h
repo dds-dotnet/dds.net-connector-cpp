@@ -115,7 +115,7 @@ namespace dds {
 
         int iterationCounter;
 
-        std::mutex variablesMutex;
+        std::mutex variablesLock;
 
         std::map<std::string, _internal::variables::BaseVariable*> uploadVariables;
         std::map<std::string, _internal::variables::BaseVariable*> downloadVariables;
