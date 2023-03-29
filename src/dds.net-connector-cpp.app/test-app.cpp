@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <exception>
 
 #include "ddsconnector.h"
 #include "logger.h"
@@ -16,5 +17,12 @@ int main()
     string serverIP = "127.0.0.1";
     unsigned short serverPort = 44556;
 
-    DdsConnector* connector = new DdsConnector(appName, serverIP, serverPort, new ConsoleLogger());
+    try
+    {
+      DdsConnector* connector = new DdsConnector(appName, serverIP, serverPort, new ConsoleLogger());
+    }
+    catch (std::exception& ex)
+    {
+      std::cout << "Initialization ERROR! " << ex.what() << std::endl;
+    }
 }
