@@ -58,14 +58,14 @@ dds::net::connector::DdsConnector::DdsConnector(
   else
   {
     char* message = (char*)this->bufferManager->get2k();
-    sprintf(message, "Invalid IPv4 address: %s", serverIPv4.c_str());
+    sprintf_s(message, 2048, "Invalid IPv4 address: %s", serverIPv4.c_str());
 
     throw std::exception(message);
   }
 
   char* message = (char*)this->bufferManager->get2k();
 
-  sprintf(message, "Initializing connector with Server: %s:%d", serverIPv4, serverPortTCP);
+  sprintf_s(message, 2048, "Initializing connector with Server: %s:%d", serverIPv4.c_str(), serverPortTCP);
   logger->info(message);
 
   try
@@ -76,7 +76,7 @@ dds::net::connector::DdsConnector::DdsConnector(
   }
   catch (std::exception& ex)
   {
-    sprintf(message, "Cannot initialize network client - %s", ex.what());
+    sprintf_s(message, 2048, "Cannot initialize network client - %s", ex.what());
     logger->error(message);
 
     throw ex;
