@@ -2,12 +2,15 @@
 #include <string>
 #include <exception>
 
+#include <conio.h>
+
 #include "ddsconnector.h"
 #include "logger.h"
 
 using namespace std;
 using namespace dds::net::connector;
 
+void wait_for_exit_key();
 
 int main()
 {
@@ -27,5 +30,15 @@ int main()
       std::cout << "Exception! " << ex.what() << std::endl;
     }
 
+    wait_for_exit_key();
+
     std::cout << std::endl << std::endl << std::endl;
+}
+
+void wait_for_exit_key()
+{
+  std::cout << "Press ESC to exit." << std::endl;
+
+  char ch;
+  while ((ch = _getch()) != 27);
 }
