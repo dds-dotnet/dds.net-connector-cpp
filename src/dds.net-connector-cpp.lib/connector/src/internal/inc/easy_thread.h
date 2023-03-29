@@ -12,11 +12,17 @@ namespace dds {
         class EasyThread {
         public:
 
-          EasyThread(ThreadWork, void* obj);
-          EasyThread(ThreadWork, void* obj, int periodicity);
+          EasyThread(ThreadWork threadWork, void* threadWorkObj);
+          EasyThread(ThreadWork threadWork, void* threadWorkObj, int periodicity);
 
           void start();
           void stop();
+
+
+        private:
+          ThreadWork threadWork;
+          void* threadWorkObj;
+          int periodicity;
         };
 
       }
