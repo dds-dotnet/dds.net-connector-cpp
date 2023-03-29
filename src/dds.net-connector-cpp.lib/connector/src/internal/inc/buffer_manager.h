@@ -13,7 +13,7 @@ namespace dds {
       namespace _internal {
 
         typedef struct {
-          void* address;
+          BufferAddress address;
           int size;
           bool isFree;
         } BufferDefinition;
@@ -23,26 +23,26 @@ namespace dds {
 
           BufferManager();
 
-          void* get1k();
-          void* get2k();
-          void* get4k();
-          void* get8k();
-          void* get16k();
-          void* get32k();
-          void* get64k();
-          void* get128k();
-          void* get256k();
-          void* get512k();
-          void* get1M();
-          void* get2M();
-          void* get4M();
-          void* get8M();
-          void* get16M();
-          void* get32M();
-          void* get64M();
+          BufferAddress get1k();
+          BufferAddress get2k();
+          BufferAddress get4k();
+          BufferAddress get8k();
+          BufferAddress get16k();
+          BufferAddress get32k();
+          BufferAddress get64k();
+          BufferAddress get128k();
+          BufferAddress get256k();
+          BufferAddress get512k();
+          BufferAddress get1M();
+          BufferAddress get2M();
+          BufferAddress get4M();
+          BufferAddress get8M();
+          BufferAddress get16M();
+          BufferAddress get32M();
+          BufferAddress get64M();
 
-          void* get(int size);
-          void free(void* freeBuffer);
+          BufferAddress get(int size);
+          void free(BufferAddress freeBuffer);
           void GC();
 
 

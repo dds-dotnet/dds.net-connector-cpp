@@ -10,96 +10,96 @@ dds::net::connector::_internal::BufferManager::BufferManager()
 {
 }
 
-void* dds::net::connector::_internal::BufferManager::get1k()
+BufferAddress dds::net::connector::_internal::BufferManager::get1k()
 {
   return get(BYTES_IN_1K * 1);
 }
 
-void* dds::net::connector::_internal::BufferManager::get2k()
+BufferAddress dds::net::connector::_internal::BufferManager::get2k()
 {
   return get(BYTES_IN_1K * 2);
 }
 
-void* dds::net::connector::_internal::BufferManager::get4k()
+BufferAddress dds::net::connector::_internal::BufferManager::get4k()
 {
   return get(BYTES_IN_1K * 4);
 }
 
-void* dds::net::connector::_internal::BufferManager::get8k()
+BufferAddress dds::net::connector::_internal::BufferManager::get8k()
 {
   return get(BYTES_IN_1K * 8);
 }
 
-void* dds::net::connector::_internal::BufferManager::get16k()
+BufferAddress dds::net::connector::_internal::BufferManager::get16k()
 {
   return get(BYTES_IN_1K * 16);
 }
 
-void* dds::net::connector::_internal::BufferManager::get32k()
+BufferAddress dds::net::connector::_internal::BufferManager::get32k()
 {
   return get(BYTES_IN_1K * 32);
 }
 
-void* dds::net::connector::_internal::BufferManager::get64k()
+BufferAddress dds::net::connector::_internal::BufferManager::get64k()
 {
   return get(BYTES_IN_1K * 64);
 }
 
-void* dds::net::connector::_internal::BufferManager::get128k()
+BufferAddress dds::net::connector::_internal::BufferManager::get128k()
 {
   return get(BYTES_IN_1K * 128);
 }
 
-void* dds::net::connector::_internal::BufferManager::get256k()
+BufferAddress dds::net::connector::_internal::BufferManager::get256k()
 {
   return get(BYTES_IN_1K * 256);
 }
 
-void* dds::net::connector::_internal::BufferManager::get512k()
+BufferAddress dds::net::connector::_internal::BufferManager::get512k()
 {
   return get(BYTES_IN_1K * 512);
 }
 
-void* dds::net::connector::_internal::BufferManager::get1M()
+BufferAddress dds::net::connector::_internal::BufferManager::get1M()
 {
   return get(BYTES_IN_1M * 1);
 }
 
-void* dds::net::connector::_internal::BufferManager::get2M()
+BufferAddress dds::net::connector::_internal::BufferManager::get2M()
 {
   return get(BYTES_IN_1M * 2);
 }
 
-void* dds::net::connector::_internal::BufferManager::get4M()
+BufferAddress dds::net::connector::_internal::BufferManager::get4M()
 {
   return get(BYTES_IN_1M * 4);
 }
 
-void* dds::net::connector::_internal::BufferManager::get8M()
+BufferAddress dds::net::connector::_internal::BufferManager::get8M()
 {
   return get(BYTES_IN_1M * 8);
 }
 
-void* dds::net::connector::_internal::BufferManager::get16M()
+BufferAddress dds::net::connector::_internal::BufferManager::get16M()
 {
   return get(BYTES_IN_1M * 16);
 }
 
-void* dds::net::connector::_internal::BufferManager::get32M()
+BufferAddress dds::net::connector::_internal::BufferManager::get32M()
 {
   return get(BYTES_IN_1M * 32);
 }
 
-void* dds::net::connector::_internal::BufferManager::get64M()
+BufferAddress dds::net::connector::_internal::BufferManager::get64M()
 {
   return get(BYTES_IN_1M * 64);
 }
 
-void* dds::net::connector::_internal::BufferManager::get(int size)
+BufferAddress dds::net::connector::_internal::BufferManager::get(int size)
 {
   buffLock.lock();
 
-  void* ret = nullptr;
+  BufferAddress ret = nullptr;
 
   for (BufferDefinition& buff : buffers)
   {
@@ -116,7 +116,7 @@ void* dds::net::connector::_internal::BufferManager::get(int size)
   {
     BufferDefinition newBuffer;
 
-    newBuffer.address = malloc(size);
+    newBuffer.address = (BufferAddress)malloc(size);
     newBuffer.size = size;
     newBuffer.isFree = false;
 
@@ -130,7 +130,7 @@ void* dds::net::connector::_internal::BufferManager::get(int size)
   return ret;
 }
 
-void dds::net::connector::_internal::BufferManager::free(void* freeBuffer)
+void dds::net::connector::_internal::BufferManager::free(BufferAddress freeBuffer)
 {
   buffLock.lock();
 
