@@ -1,6 +1,10 @@
 #ifndef DDS_DOT_NET_CONNECTOR_SRC_INTERNAL_INC_EASY_THREAD_H_
 #define DDS_DOT_NET_CONNECTOR_SRC_INTERNAL_INC_EASY_THREAD_H_
 
+#include <thread>
+#include <atomic>
+#include <mutex>
+
 
 namespace dds {
   namespace net {
@@ -23,6 +27,13 @@ namespace dds {
           ThreadWork threadWork;
           void* threadWorkObj;
           int periodicity;
+
+          std::mutex threadLock;
+          std::thread* thread;
+          std::atomic<bool> isThreadRunning;
+
+          void continuousThreadFunction();
+          void periodicThreadFunction();
         };
 
       }

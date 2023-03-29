@@ -2,12 +2,16 @@
 
 #include <exception>
 
+#define CONTINUOUS_THREAD_PERIODICITY     -1
+
 
 dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork threadWork, void* threadWorkObj)
 {
   this->threadWork = threadWork;
   this->threadWorkObj = threadWorkObj;
-  this->periodicity = -1;
+  this->periodicity = CONTINUOUS_THREAD_PERIODICITY;
+  this->thread = nullptr;
+  this->isThreadRunning = false;
 
   if (threadWork == nullptr)
   {
@@ -20,6 +24,8 @@ dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork threadWork, vo
   this->threadWork = threadWork;
   this->threadWorkObj = threadWorkObj;
   this->periodicity = periodicity;
+  this->thread = nullptr;
+  this->isThreadRunning = false;
 
   if (threadWork == nullptr)
   {
@@ -34,8 +40,43 @@ dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork threadWork, vo
 
 void dds::net::connector::_internal::EasyThread::start()
 {
+  threadLock.lock();
+
+  if (!isThreadRunning)
+  {
+    isThreadRunning = true;
+
+    if (periodicity == CONTINUOUS_THREAD_PERIODICITY)
+    {
+      thread = new std::thread(continuousThreadFunction);
+    }
+    else
+    {
+      thread = new std::thread(periodicThreadFunction);
+    }
+  }
+
+  threadLock.unlock();
 }
 
 void dds::net::connector::_internal::EasyThread::stop()
+{
+  threadLock.lock();
+
+  if (isThreadRunning)
+  {
+    isThreadRunning = false;
+    thread->join();
+    thread = nullptr;
+  }
+
+  threadLock.unlock();
+}
+
+void dds::net::connector::_internal::EasyThread::continuousThreadFunction()
+{
+}
+
+void dds::net::connector::_internal::EasyThread::periodicThreadFunction()
 {
 }
