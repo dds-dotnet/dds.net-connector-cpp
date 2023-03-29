@@ -163,7 +163,11 @@ void dds::net::connector::_internal::BufferManager::GC()
 
   for (BufferDefinition& buff : unused)
   {
-    buffers.remove_if([&](const BufferDefinition& b) { return b.address == buff.address; });
+    buffers.remove_if(
+      [&](const BufferDefinition& b)
+      {
+        return b.address == buff.address;
+      });
   }
 
   unused.clear();
