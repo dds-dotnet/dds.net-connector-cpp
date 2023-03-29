@@ -37,6 +37,8 @@ typedef enum {
   PRIMITIVE_TYPE_UNKNOWN               // Unknown type.
 } PrimitiveType;
 
+typedef char* BufferAddress;
+
 
 
 
