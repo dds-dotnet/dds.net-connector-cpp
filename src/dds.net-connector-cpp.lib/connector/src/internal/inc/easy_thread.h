@@ -7,13 +7,13 @@ namespace dds {
     namespace connector {
       namespace _internal {
 
-        typedef bool(*unit_work_func)(void* obj);
+        typedef bool(*ThreadWork)(void* obj);
 
         class EasyThread {
         public:
 
-          EasyThread(unit_work_func, void* obj);
-          EasyThread(unit_work_func, void* obj, int periodicity);
+          EasyThread(ThreadWork, void* obj);
+          EasyThread(ThreadWork, void* obj, int periodicity);
 
           void start();
           void stop();

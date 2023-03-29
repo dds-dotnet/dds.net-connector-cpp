@@ -1,10 +1,10 @@
 #include "src/internal/inc/easy_thread.h"
 
-dds::net::connector::_internal::EasyThread::EasyThread(unit_work_func, void* obj)
+dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork, void* obj)
 {
 }
 
-dds::net::connector::_internal::EasyThread::EasyThread(unit_work_func, void* obj, int periodicity)
+dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork, void* obj, int periodicity)
 {
 }
 
