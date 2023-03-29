@@ -1,6 +1,8 @@
 #ifndef DDS_DOT_NET_CONNECTOR_SRC_INTERNAL_INC_BUFFER_MANAGER_H_
 #define DDS_DOT_NET_CONNECTOR_SRC_INTERNAL_INC_BUFFER_MANAGER_H_
 
+#include "src/internal/inc/internal_types.h"
+
 #include <list>
 #include <mutex>
 
