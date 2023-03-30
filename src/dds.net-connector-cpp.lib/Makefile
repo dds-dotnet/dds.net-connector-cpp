@@ -97,12 +97,10 @@ CONN_OBJECTS = $(OBJS_C) $(OBJS_CPP)
 COMPILATION_C_FLAGS          = -fPIC                                      \
                                -Wall                                      \
                                -DTARGET_PLATFORM=PLATFORM_GNU_LINUX       \
-                               -DTARGET_ARCHITECTURE=ARCHITECTURE_X86     \
                                $(INCLUDE_DIRS)
 COMPILATION_CPP_FLAGS        = -fPIC                                      \
                                -Wall                                      \
                                -DTARGET_PLATFORM=PLATFORM_GNU_LINUX       \
-                               -DTARGET_ARCHITECTURE=ARCHITECTURE_X86     \
                                -std=c++11                                 \
                                $(INCLUDE_DIRS)                            \
                                -lpthread
