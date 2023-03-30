@@ -1,11 +1,13 @@
 #include "src/internal/inc/variables/base_variable.h"
 
+#include "inc/error.h"
+#include "inc/config.h"
+
 #include "src/internal/inc/macros.h"
 #include "src/internal/inc/internal_types.h"
 #include "src/internal/inc/variables/enc_dec_header.h"
 
 #include <string>
-#include <exception>
 
 #include <stdio.h>
 
@@ -23,10 +25,15 @@ void dds::net::connector::_internal::variables::BaseVariable::assignId(int id)
   if (this->id != -1)
   {
     char message[200];
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
     sprintf_s(message, sizeof(message),
+#else
+    sprintf(message,
+#endif
       "Variable %s has already been assigned with an ID", name.c_str());
 
-    throw std::exception(message);
+    throw Error(message);
   }
 
   if (id < 0 || id > MAX_USHORT_VALUE)
@@ -35,7 +42,7 @@ void dds::net::connector::_internal::variables::BaseVariable::assignId(int id)
     sprintf_s(message, sizeof(message),
       "Variable %s cannot be assigned with out-of-range ID %d", name.c_str(), id);
 
-    throw std::exception(message);
+    throw Error(message);
   }
 
   this->id = id;

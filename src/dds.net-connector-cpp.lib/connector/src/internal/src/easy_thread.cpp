@@ -1,8 +1,8 @@
 #include "src/internal/inc/easy_thread.h"
 
-#include "src/internal/inc/macros.h"
+#include "inc/error.h"
 
-#include <exception>
+#include "src/internal/inc/macros.h"
 
 #define CONTINUOUS_THREAD_PERIODICITY              -1
 #define SLEEP_TIME_WHEN_NOT_DONE_ANYTHING_MSEC     10
@@ -18,7 +18,7 @@ dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork threadWork, vo
 
   if (threadWork == nullptr)
   {
-    throw std::exception("The thread-work function is not provided.");
+    throw Error("The thread-work function is not provided.");
   }
 }
 
@@ -32,12 +32,12 @@ dds::net::connector::_internal::EasyThread::EasyThread(ThreadWork threadWork, vo
 
   if (threadWork == nullptr)
   {
-    throw std::exception("The thread-work function is not provided.");
+    throw Error("The thread-work function is not provided.");
   }
 
   if (periodicity <= 0)
   {
-    throw std::exception("Invalid periodicity value for invoking the thread-work function.");
+    throw Error("Invalid periodicity value for invoking the thread-work function.");
   }
 }
 

@@ -1,5 +1,7 @@
 #include "inc/ddsconnector.h"
 
+#include "inc/error.h"
+
 #include "src/internal/inc/macros.h"
 #include "src/internal/inc/internal_types.h"
 #include "src/internal/inc/string_helper.h"
@@ -11,7 +13,6 @@
 #include "src/internal/inc/variables/base_variable.h"
 
 #include <stdio.h>
-#include <exception>
 
 
 using namespace dds::net::connector::_internal;
@@ -66,7 +67,7 @@ dds::net::connector::DdsConnector::DdsConnector(
 
     logger->error(message);
 
-    throw std::exception(message);
+    throw Error(message);
   }
 
   char* message = this->bufferManager->get2k();

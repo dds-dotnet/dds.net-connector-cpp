@@ -1,9 +1,10 @@
 #include "src/internal/inc/sync_queue.h"
 
+#include "inc/error.h"
+
 #include "src/internal/inc/macros.h"
 
 #include <memory.h>
-#include <exception>
 
 
 static const int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED = 5;
@@ -16,7 +17,7 @@ dds::net::connector::_internal::SyncQueue<T>::SyncQueue(int queueSize)
   this->queueSize = queueSize;
 
   if (queueSize <= 0) {
-    throw std::exception("Invalid queue size - the size must be a positive number");
+    throw Error("Invalid queue size - the size must be a positive number");
   }
 
   queue = new T[queueSize];
