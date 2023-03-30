@@ -30,7 +30,7 @@ LD     = $(LDGCC)
 
 
 # 
-# Path settings
+# Paths settings
 # 
 OUTPUT_LIB_NAME = dds.net.connector.cpplib
 
@@ -48,19 +48,20 @@ CONN_SRC_INTERNAL_SRC_DIR            = $(CONN_SRC_INTERNAL_DIR)/src
 CONN_SRC_INTERNAL_SRC_VARIABLES_DIR  = $(CONN_SRC_INTERNAL_DIR)/src/variables
 
 
-CONN_SRCS_DIRS =                                      \
-            $(CONN_BASE_DIR)                          \
-            $(CONN_SRC_DIR)                           \
-            $(CONN_SRC_INTERNAL_DIR)                  \
-            $(CONN_SRC_INTERNAL_SRC_DIR)              \
-            $(CONN_SRC_INTERNAL_SRC_VARIABLES_DIR)
+CONN_SRCS_DIRS =                              \
+    $(CONN_BASE_DIR)                          \
+    $(CONN_SRC_DIR)                           \
+    $(CONN_SRC_INTERNAL_DIR)                  \
+    $(CONN_SRC_INTERNAL_SRC_DIR)              \
+    $(CONN_SRC_INTERNAL_SRC_VARIABLES_DIR)
 
 
-INCLUDE_DIRS := $(foreach dir, $(CONN_SRCS_DIRS), -I$(SRC_ROOT_DIR)/$(dir))  \
-                -I$(ROOT_DIR)                                                \
-                -I$(INC_DIR)                                                 \
-				-I$(INC_INTERNAL_DIR)                                        \
-				-I$(INC_INTERNAL_VARIABLES_DIR)
+INCLUDE_DIRS :=                                                  \
+    $(foreach dir, $(CONN_SRCS_DIRS), -I$(SRC_ROOT_DIR)/$(dir))  \
+    -I$(ROOT_DIR)                                                \
+    -I$(INC_DIR)                                                 \
+	-I$(INC_INTERNAL_DIR)                                        \
+	-I$(INC_INTERNAL_VARIABLES_DIR)
 
 
 
