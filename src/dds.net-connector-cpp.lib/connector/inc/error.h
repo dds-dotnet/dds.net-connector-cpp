@@ -2,6 +2,8 @@
 #define DDS_DOT_NET_CONNECTOR_INC_ERROR_H_
 
 
+#include "inc/config.h"
+
 #include <exception>
 
 
