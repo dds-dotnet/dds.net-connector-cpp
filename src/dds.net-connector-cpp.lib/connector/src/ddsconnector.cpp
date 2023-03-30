@@ -1,7 +1,5 @@
 #include "inc/ddsconnector.h"
 
-#include "inc/logger.h"
-
 #include "src/internal/inc/macros.h"
 #include "src/internal/inc/internal_types.h"
 #include "src/internal/inc/string_helper.h"

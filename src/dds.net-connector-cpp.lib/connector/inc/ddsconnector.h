@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "types.h"
+#include "logger.h"
 
 #include <string>
 #include <mutex>
@@ -14,7 +15,6 @@
 namespace dds {
   namespace net {
     namespace connector {
-      class Logger;
 
       namespace _internal {
         class BufferManager;
