@@ -76,7 +76,7 @@ void dds::net::connector::_internal::EasyThread::stop()
   threadLock.unlock();
 }
 
-static void dds::net::connector::_internal::continuousThreadFunction(EasyThread* th)
+void dds::net::connector::_internal::continuousThreadFunction(EasyThread* th)
 {
   while (th->isThreadRunning == true)
   {
@@ -89,7 +89,7 @@ static void dds::net::connector::_internal::continuousThreadFunction(EasyThread*
   }
 }
 
-static void dds::net::connector::_internal::periodicThreadFunction(EasyThread* th)
+void dds::net::connector::_internal::periodicThreadFunction(EasyThread* th)
 {
   while (th->isThreadRunning == true)
   {

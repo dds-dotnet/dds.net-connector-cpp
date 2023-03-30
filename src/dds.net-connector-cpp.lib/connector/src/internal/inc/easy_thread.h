@@ -17,6 +17,8 @@ namespace dds {
         void continuousThreadFunction(EasyThread*);
         void periodicThreadFunction(EasyThread*);
 
+
+
         class EasyThread {
         public:
 
