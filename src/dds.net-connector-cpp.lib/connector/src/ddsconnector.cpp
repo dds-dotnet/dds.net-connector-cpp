@@ -10,7 +10,7 @@
 #include "src/internal/inc/network_client.h"
 #include "src/internal/inc/easy_thread.h"
 
-#include "src/internal/variables/base_variable.h"
+#include "src/internal/inc/variables/base_variable.h"
 
 #include <stdio.h>
 #include <exception>

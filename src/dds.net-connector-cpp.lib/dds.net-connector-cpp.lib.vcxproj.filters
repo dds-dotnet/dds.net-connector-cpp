@@ -51,7 +51,7 @@
     <ClInclude Include="connector\src\internal\inc\network_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\src\internal\variables\base_variable.h">
+    <ClInclude Include="connector\src\internal\inc\variables\base_variable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="connector\src\internal\inc\sync_queue.h">
@@ -66,7 +66,13 @@
     <ClInclude Include="connector\src\internal\inc\buffer_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\src\internal\variables\enc_dec_header.h">
+    <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\src\variables\base_variable.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -158,8 +158,10 @@
     <ClInclude Include="connector\src\internal\inc\sync_queue_writer.h" />
     <ClInclude Include="connector\src\internal\inc\threaded_network_client.h" />
     <ClInclude Include="connector\inc\types.h" />
-    <ClInclude Include="connector\src\internal\variables\base_variable.h" />
-    <ClInclude Include="connector\src\internal\variables\enc_dec_header.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\base_variable.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h" />
+    <ClInclude Include="connector\src\internal\src\variables\base_variable.cpp" />
+    <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connector\src\ddsconnector.cpp" />
