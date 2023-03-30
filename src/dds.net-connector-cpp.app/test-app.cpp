@@ -2,7 +2,7 @@
 #include <string>
 #include <exception>
 
-#include <conio.h>
+#include <stdio.h>
 
 #include "ddsconnector.h"
 
@@ -15,6 +15,7 @@ int main()
 {
     std::cout << "DDS.Net Connected App!" << std::endl;
     std::cout << "======================" << std::endl;
+    std::cout << "Press Ctrl+C to exit." << std::endl << std::endl;
 
     string appName = "My CPP App";
     string serverIP = "127.0.0.1";
@@ -36,8 +37,6 @@ int main()
 
 void wait_for_exit_key()
 {
-  std::cout << "Press ESC to exit." << std::endl;
-
   char ch;
-  while ((ch = _getch()) != 27);
+  while ((ch = getc(stdin)) != 122);
 }
