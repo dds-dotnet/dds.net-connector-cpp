@@ -1,3 +1,4 @@
+################################################################################
 # Building DDS.Net Connected C++ App
 ################################################################################
 # Edited
@@ -33,7 +34,12 @@ CONNECTOR_LIB_FILE = $(CONNECTOR_LIB_DIR)/dds.net.connector.cpplib
 # Building the application
 # 
 application: 
-	@if [ ! -f $(CONNECTOR_LIB_FILE) ]; then cd $(CONNECTOR_DIR); make; cd $(THIS_DIR); fi
+	@if [ ! -f $(CONNECTOR_LIB_FILE) ]; then \
+		cd $(CONNECTOR_DIR);                 \
+		make;                                \
+		cd $(THIS_DIR);                      \
+	fi
+	
 	@$(GXX) -c test-app.cpp -I$(CONNECTOR_INC_DIR) -o app.o
 	@$(GXX) app.o $(CONNECTOR_LIB_FILE) -o app
 	@rm app.o
