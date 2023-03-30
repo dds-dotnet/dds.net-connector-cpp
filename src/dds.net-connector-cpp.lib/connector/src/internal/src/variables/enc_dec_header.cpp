@@ -5,17 +5,17 @@ void dds::net::connector::_internal::variables::
      EncDecHeader::writeVariableId(
        BufferAddress buffer, int& offset, int id)
 {
-  //- 
-  //- TODO: Impl
-  //- 
+  buffer[offset++] = (id >> 8) & 0x0ff;
+  buffer[offset++] = (id >> 0) & 0x0ff;
 }
 
 void dds::net::connector::_internal::variables::
      EncDecHeader::writeVariableType(
        BufferAddress buffer, int& offset, VariableType variableType)
 {
-  //- 
-  //- TODO: Impl
-  //- 
+  int v = (int)variableType;
+
+  buffer[offset++] = (v >> 8) & 0x0ff;
+  buffer[offset++] = (v >> 0) & 0x0ff;
 }
 
