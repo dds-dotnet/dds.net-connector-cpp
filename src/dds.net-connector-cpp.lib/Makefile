@@ -32,7 +32,7 @@ LD     = $(LDGCC)
 # 
 # Path settings
 # 
-OUTPUT_LIB_NAME = dds.net.connect.cpplib
+OUTPUT_LIB_NAME = dds.net.connector.cpplib
 
 ROOT_DIR                             = $(PWD)/connector
 INC_DIR                              = $(ROOT_DIR)/inc
