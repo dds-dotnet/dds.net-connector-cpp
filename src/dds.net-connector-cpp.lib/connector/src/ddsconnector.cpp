@@ -96,7 +96,7 @@ dds::net::connector::DdsConnector::DdsConnector(
 #if TARGET_PLATFORM == PLATFORM_WINDOWS
     sprintf_s(message, 2048, "Cannot initialize network client - %s", ex.what());
 #else
-    sprintf_s(message, 2048, "Cannot initialize network client - %s", ex.what());
+    sprintf(message, "Cannot initialize network client - %s", ex.what());
 #endif
 
     logger->error(message);
