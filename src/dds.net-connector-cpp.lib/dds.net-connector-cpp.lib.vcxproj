@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="connector\inc\config.h" />
     <ClInclude Include="connector\inc\ddsconnector.h" />
+    <ClInclude Include="connector\inc\error.h" />
     <ClInclude Include="connector\inc\logger.h" />
     <ClInclude Include="connector\src\internal\inc\buffer_manager.h" />
     <ClInclude Include="connector\src\internal\inc\easy_thread.h" />

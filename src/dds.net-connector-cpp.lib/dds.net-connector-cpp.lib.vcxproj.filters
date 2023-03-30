@@ -75,6 +75,9 @@
     <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\inc\error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connector\src\ddsconnector.cpp">
