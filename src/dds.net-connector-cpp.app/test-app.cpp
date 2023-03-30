@@ -5,7 +5,6 @@
 #include <conio.h>
 
 #include "ddsconnector.h"
-#include "logger.h"
 
 using namespace std;
 using namespace dds::net::connector;
