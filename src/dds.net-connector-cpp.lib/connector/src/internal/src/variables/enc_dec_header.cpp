@@ -2,7 +2,7 @@
 
 
 void dds::net::connector::_internal::variables::
-     EncDecHeader::writeId(
+     EncDecHeader::writeVariableId(
        BufferAddress buffer, int& offset, int id)
 {
   //- 

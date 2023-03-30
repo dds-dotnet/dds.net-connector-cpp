@@ -62,7 +62,7 @@ void dds::net::connector::_internal::variables::BaseVariable::reset()
 int dds::net::connector::_internal::variables::BaseVariable::getSizeOnBuffer()
 {
   return
-    EncDecHeader::ID_SIZE_ON_BUFFER +
+    EncDecHeader::VARIABLE_ID_SIZE_ON_BUFFER +
     EncDecHeader::VARIABLE_TYPE_SIZE_ON_BUFFER +
     getSubTypeSizeOnBuffer() +
     getValueSizeOnBuffer();
@@ -70,7 +70,7 @@ int dds::net::connector::_internal::variables::BaseVariable::getSizeOnBuffer()
 
 void dds::net::connector::_internal::variables::BaseVariable::writeOnBuffer(BufferAddress buffer, int& offset)
 {
-  EncDecHeader::writeId(buffer, offset, id);
+  EncDecHeader::writeVariableId(buffer, offset, id);
   EncDecHeader::writeVariableType(buffer, offset, variableType);
 
   writeSubTypeOnBuffer(buffer, offset);

@@ -13,10 +13,10 @@ namespace dds {
           class EncDecHeader {
 
           public:
-            static const int ID_SIZE_ON_BUFFER = sizeof(short);
+            static const int VARIABLE_ID_SIZE_ON_BUFFER = sizeof(short);
             static const int VARIABLE_TYPE_SIZE_ON_BUFFER = 2;
 
-            static void writeId(BufferAddress buffer, int& offset, int id);
+            static void writeVariableId(BufferAddress buffer, int& offset, int id);
             static void writeVariableType(BufferAddress buffer, int& offset, VariableType variableType);
           };
         }
