@@ -21,12 +21,14 @@
 *.smod
 
 # Compiled Static libraries
+**/dds.net-connector-cpp.lib/build/
 *.lai
 *.la
 *.a
 *.lib
 
 # Executables
+**/dds.net-connector-cpp.app/app
 *.exe
 *.out
 *.app
