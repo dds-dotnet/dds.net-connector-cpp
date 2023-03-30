@@ -60,8 +60,8 @@ INCLUDE_DIRS :=                                                  \
     $(foreach dir, $(CONN_SRCS_DIRS), -I$(SRC_ROOT_DIR)/$(dir))  \
     -I$(ROOT_DIR)                                                \
     -I$(INC_DIR)                                                 \
-	-I$(INC_INTERNAL_DIR)                                        \
-	-I$(INC_INTERNAL_VARIABLES_DIR)
+    -I$(INC_INTERNAL_DIR)                                        \
+    -I$(INC_INTERNAL_VARIABLES_DIR)
 
 
 
