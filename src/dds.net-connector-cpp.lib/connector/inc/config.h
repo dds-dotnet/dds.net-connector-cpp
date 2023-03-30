@@ -6,8 +6,7 @@
 #define BASE_TIME_SLOT_MSEC        50
 
 #define PLATFORM_GNU_LINUX         0x00010000
-#define PLATFORM_MAC_OS            0x00020000
-#define PLATFORM_WINDOWS           0x00040000
+#define PLATFORM_WINDOWS           0x00020000
 
 #ifndef TARGET_PLATFORM
 #define TARGET_PLATFORM            PLATFORM_GNU_LINUX
