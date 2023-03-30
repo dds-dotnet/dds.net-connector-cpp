@@ -19,7 +19,7 @@ namespace dds {
 #if TARGET_PLATFORM == PLATFORM_WINDOWS
         virtual char const* what() const
 #else
-        virtual const char* what() const noexcept
+        virtual const char* what() const
 #endif
         {
           return message != nullptr ? message : "Unknown exception";
