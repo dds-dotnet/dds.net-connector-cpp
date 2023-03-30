@@ -39,7 +39,12 @@ void dds::net::connector::_internal::variables::BaseVariable::assignId(int id)
   if (id < 0 || id > MAX_USHORT_VALUE)
   {
     char message[200];
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
     sprintf_s(message, sizeof(message),
+#else
+    sprintf(message,
+#endif
       "Variable %s cannot be assigned with out-of-range ID %d", name.c_str(), id);
 
     throw Error(message);
