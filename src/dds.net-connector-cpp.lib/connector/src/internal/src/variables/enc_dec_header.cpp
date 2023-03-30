@@ -2,6 +2,16 @@
 
 
 void dds::net::connector::_internal::variables::
+     EncDecHeader::writePacketId(
+       BufferAddress buffer, int& offset, PacketId id)
+{
+  int v = (int)id;
+
+  buffer[offset++] = (v >> 8) & 0x0ff;
+  buffer[offset++] = (v >> 0) & 0x0ff;
+}
+
+void dds::net::connector::_internal::variables::
      EncDecHeader::writeVariableId(
        BufferAddress buffer, int& offset, int id)
 {
