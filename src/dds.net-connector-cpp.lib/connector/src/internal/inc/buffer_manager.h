@@ -22,6 +22,7 @@ namespace dds {
         public:
 
           BufferManager();
+          ~BufferManager();
 
           BufferAddress get1k();
           BufferAddress get2k();

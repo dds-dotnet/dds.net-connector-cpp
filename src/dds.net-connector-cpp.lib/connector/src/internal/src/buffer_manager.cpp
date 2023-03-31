@@ -10,6 +10,20 @@ dds::net::connector::_internal::BufferManager::BufferManager()
 {
 }
 
+dds::net::connector::_internal::BufferManager::~BufferManager()
+{
+  buffLock.lock();
+
+  for (BufferDefinition& buff : buffers)
+  {
+    ::free(buff.address);
+  }
+
+  buffers.clear();
+
+  buffLock.unlock();
+}
+
 BufferAddress dds::net::connector::_internal::BufferManager::get1k()
 {
   return get(BYTES_IN_1K * 1);
