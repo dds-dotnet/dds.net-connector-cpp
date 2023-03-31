@@ -19,7 +19,7 @@ int main()
 
   cout << appName << endl;
   cout << "-----" << endl;
-  cout << "Press Ctrl+C to exit." << endl << endl;
+  cout << "Press Ctrl+C / input 'C' to exit." << endl << endl;
 
   try
   {
@@ -41,6 +41,6 @@ int main()
 void wait_for_exit_key()
 {
   char ch;
-  while ((ch = getc(stdin)) != 122);
+  while ((ch = getc(stdin)) != 'C');
 }
 
