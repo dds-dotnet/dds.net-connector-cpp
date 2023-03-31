@@ -19,8 +19,13 @@ namespace dds {
             static const int VARIABLE_TYPE_SIZE_ON_BUFFER = 2;
 
             static void writePacketId(BufferAddress buffer, int& offset, PacketId id);
+            static PacketId readPacketId(BufferAddress buffer, int& offset);
+
             static void writeVariableId(BufferAddress buffer, int& offset, int id);
+            static int readVariableId(BufferAddress buffer, int& offset);
+
             static void writeVariableType(BufferAddress buffer, int& offset, VariableType variableType);
+            static VariableType readVariableType(BufferAddress buffer, int& offset);
           };
         }
       }
