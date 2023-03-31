@@ -23,10 +23,11 @@ using namespace dds::net::connector::_internal;
 /*                                                                                   */
 /*************************************************************************************/
 
-dds::net::connector::DdsConnector::DdsConnector(
-  std::string& applicationName,
-  std::string& serverIPv4, ushort serverPortTCP,
-  Logger* logger)
+dds::net::connector::
+  DdsConnector::DdsConnector(
+    std::string& applicationName,
+    std::string& serverIPv4, ushort serverPortTCP,
+    Logger* logger)
 {
   this->applicationName = applicationName;
   this->serverAddressIPv4 = serverIPv4;
@@ -113,7 +114,8 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer, this);
 }
 
-dds::net::connector::DdsConnector::~DdsConnector()
+dds::net::connector::DdsConnector::
+  ~DdsConnector()
 {
   stop();
   delete this->bufferManager;
@@ -125,14 +127,18 @@ dds::net::connector::DdsConnector::~DdsConnector()
 /*                                                                                   */
 /*************************************************************************************/
 
-void dds::net::connector::DdsConnector::start()
+void
+  dds::net::connector::
+  DdsConnector::start()
 {
   dataReceiverThread->start();
   periodicUpdateThread->start();
   networkClient->connect(serverAddressIPv4, serverPortTCP);
 }
 
-void dds::net::connector::DdsConnector::stop()
+void
+  dds::net::connector::
+  DdsConnector::stop()
 {
   periodicUpdateThread->stop();
 
@@ -151,22 +157,30 @@ void dds::net::connector::DdsConnector::stop()
 /*                                                                                   */
 /*************************************************************************************/
 
-std::string dds::net::connector::DdsConnector::getLibraryVersion()
+std::string
+  dds::net::connector::
+  DdsConnector::getLibraryVersion()
 {
   return LIBRARY_VERSION;
 }
 
-std::string dds::net::connector::DdsConnector::getApplicationName()
+std::string
+  dds::net::connector::
+  DdsConnector::getApplicationName()
 {
   return this->applicationName;
 }
 
-std::string dds::net::connector::DdsConnector::getServerAddressIPv4()
+std::string
+  dds::net::connector::
+  DdsConnector::getServerAddressIPv4()
 {
   return this->serverAddressIPv4;
 }
 
-ushort dds::net::connector::DdsConnector::getServerPortTCP()
+ushort
+  dds::net::connector::
+  DdsConnector::getServerPortTCP()
 {
   return this->serverPortTCP;
 }
@@ -178,7 +192,10 @@ ushort dds::net::connector::DdsConnector::getServerPortTCP()
 /*                                                                                   */
 /*************************************************************************************/
 
-void dds::net::connector::DdsConnector::registerStringProvider(std::string& variableName, StringProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerStringProvider(
+    std::string& variableName, StringProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -197,7 +214,10 @@ void dds::net::connector::DdsConnector::registerStringProvider(std::string& vari
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerBooleanProvider(std::string& variableName, BooleanProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerBooleanProvider(
+    std::string& variableName, BooleanProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -216,7 +236,10 @@ void dds::net::connector::DdsConnector::registerBooleanProvider(std::string& var
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerByteProvider(std::string& variableName, ByteProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerByteProvider(
+    std::string& variableName, ByteProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -235,7 +258,10 @@ void dds::net::connector::DdsConnector::registerByteProvider(std::string& variab
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerWordProvider(std::string& variableName, WordProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerWordProvider(
+    std::string& variableName, WordProvider provider, Periodicity periodicity)
 {
   /*lock(variablesMutex)
           {
@@ -253,7 +279,10 @@ void dds::net::connector::DdsConnector::registerWordProvider(std::string& variab
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerDWordProvider(std::string& variableName, DWordProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerDWordProvider(
+    std::string& variableName, DWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -272,7 +301,10 @@ void dds::net::connector::DdsConnector::registerDWordProvider(std::string& varia
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerQWordProvider(std::string& variableName, QWordProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerQWordProvider(
+    std::string& variableName, QWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -291,7 +323,10 @@ void dds::net::connector::DdsConnector::registerQWordProvider(std::string& varia
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedByteProvider(std::string& variableName, UnsignedByteProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedByteProvider(
+    std::string& variableName, UnsignedByteProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -310,7 +345,10 @@ void dds::net::connector::DdsConnector::registerUnsignedByteProvider(std::string
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedWordProvider(std::string& variableName, UnsignedWordProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedWordProvider(
+    std::string& variableName, UnsignedWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -329,7 +367,10 @@ void dds::net::connector::DdsConnector::registerUnsignedWordProvider(std::string
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedDWordProvider(std::string& variableName, UnsignedDWordProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedDWordProvider(
+    std::string& variableName, UnsignedDWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -348,7 +389,10 @@ void dds::net::connector::DdsConnector::registerUnsignedDWordProvider(std::strin
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedQWordProvider(std::string& variableName, UnsignedQWordProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedQWordProvider(
+    std::string& variableName, UnsignedQWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -367,7 +411,10 @@ void dds::net::connector::DdsConnector::registerUnsignedQWordProvider(std::strin
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerSingleProvider(std::string& variableName, SingleProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerSingleProvider(
+    std::string& variableName, SingleProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -386,7 +433,10 @@ void dds::net::connector::DdsConnector::registerSingleProvider(std::string& vari
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerDoubleProvider(std::string& variableName, DoubleProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerDoubleProvider(
+    std::string& variableName, DoubleProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -405,7 +455,10 @@ void dds::net::connector::DdsConnector::registerDoubleProvider(std::string& vari
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerRawBytesProvider(std::string& variableName, RawBytesProvider provider, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerRawBytesProvider(
+    std::string& variableName, RawBytesProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -424,7 +477,9 @@ void dds::net::connector::DdsConnector::registerRawBytesProvider(std::string& va
           }*/
 }
 
-void dds::net::connector::DdsConnector::unregisterProvider(std::string& variableName)
+void
+  dds::net::connector::
+  DdsConnector::unregisterProvider(std::string& variableName)
 {
   /*
   lock(variablesMutex)
@@ -448,7 +503,10 @@ void dds::net::connector::DdsConnector::unregisterProvider(std::string& variable
 /*                                                                                   */
 /*************************************************************************************/
 
-void dds::net::connector::DdsConnector::registerStringConsumer(std::string& variableName, StringConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerStringConsumer(
+    std::string& variableName, StringConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -468,7 +526,10 @@ void dds::net::connector::DdsConnector::registerStringConsumer(std::string& vari
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerBooleanConsumer(std::string& variableName, BooleanConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerBooleanConsumer(
+    std::string& variableName, BooleanConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -488,7 +549,10 @@ void dds::net::connector::DdsConnector::registerBooleanConsumer(std::string& var
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerByteConsumer(std::string& variableName, ByteConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerByteConsumer(
+    std::string& variableName, ByteConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -508,7 +572,10 @@ void dds::net::connector::DdsConnector::registerByteConsumer(std::string& variab
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerWordConsumer(std::string& variableName, WordConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerWordConsumer(
+    std::string& variableName, WordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -528,7 +595,10 @@ void dds::net::connector::DdsConnector::registerWordConsumer(std::string& variab
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerDWordConsumer(std::string& variableName, DWordConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerDWordConsumer(
+    std::string& variableName, DWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -548,7 +618,10 @@ void dds::net::connector::DdsConnector::registerDWordConsumer(std::string& varia
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerQWordConsumer(std::string& variableName, QWordConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerQWordConsumer(
+    std::string& variableName, QWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -568,7 +641,10 @@ void dds::net::connector::DdsConnector::registerQWordConsumer(std::string& varia
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedByteConsumer(std::string& variableName, UnsignedByteConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedByteConsumer(
+    std::string& variableName, UnsignedByteConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -588,7 +664,10 @@ void dds::net::connector::DdsConnector::registerUnsignedByteConsumer(std::string
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedWordConsumer(std::string& variableName, UnsignedWordConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedWordConsumer(
+    std::string& variableName, UnsignedWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -608,7 +687,10 @@ void dds::net::connector::DdsConnector::registerUnsignedWordConsumer(std::string
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedDWordConsumer(std::string& variableName, UnsignedDWordConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedDWordConsumer(
+    std::string& variableName, UnsignedDWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -628,7 +710,10 @@ void dds::net::connector::DdsConnector::registerUnsignedDWordConsumer(std::strin
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerUnsignedQWordConsumer(std::string& variableName, UnsignedQWordConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerUnsignedQWordConsumer(
+    std::string& variableName, UnsignedQWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -648,7 +733,10 @@ void dds::net::connector::DdsConnector::registerUnsignedQWordConsumer(std::strin
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerSingleConsumer(std::string& variableName, SingleConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerSingleConsumer(
+    std::string& variableName, SingleConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -668,7 +756,10 @@ void dds::net::connector::DdsConnector::registerSingleConsumer(std::string& vari
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerDoubleConsumer(std::string& variableName, DoubleConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerDoubleConsumer(
+    std::string& variableName, DoubleConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -688,7 +779,10 @@ void dds::net::connector::DdsConnector::registerDoubleConsumer(std::string& vari
           }*/
 }
 
-void dds::net::connector::DdsConnector::registerRawBytesConsumer(std::string& variableName, RawBytesConsumer consumer, Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::registerRawBytesConsumer(
+    std::string& variableName, RawBytesConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -708,7 +802,9 @@ void dds::net::connector::DdsConnector::registerRawBytesConsumer(std::string& va
           }*/
 }
 
-void dds::net::connector::DdsConnector::unregisterConsumer(std::string& variableName)
+void
+  dds::net::connector::
+  DdsConnector::unregisterConsumer(std::string& variableName)
 {
   /*
   lock(variablesMutex)
@@ -731,7 +827,9 @@ void dds::net::connector::DdsConnector::unregisterConsumer(std::string& variable
 /*                                                                                   */
 /*************************************************************************************/
 
-static bool dds::net::connector::periodicUpdateWorker(void* connector)
+static bool
+  dds::net::connector::
+  periodicUpdateWorker(void* connector)
 {
   /*
   connector.iterationCounter++;
@@ -751,7 +849,9 @@ static bool dds::net::connector::periodicUpdateWorker(void* connector)
   return true;
 }
 
-void dds::net::connector::DdsConnector::doPeriodicUpdate(Periodicity periodicity)
+void
+  dds::net::connector::
+  DdsConnector::doPeriodicUpdate(Periodicity periodicity)
 {
   /*
   if (periodicity == Periodicity.Normal)
@@ -801,7 +901,9 @@ void dds::net::connector::DdsConnector::doPeriodicUpdate(Periodicity periodicity
 /*                                                                                   */
 /*************************************************************************************/
 
-void dds::net::connector::DdsConnector::registerAwaitingVariablesWithServer()
+void
+  dds::net::connector::
+  DdsConnector::registerAwaitingVariablesWithServer()
 {
   /*
   lock (variablesMutex)
@@ -858,7 +960,9 @@ void dds::net::connector::DdsConnector::registerAwaitingVariablesWithServer()
             }*/
 }
 
-void dds::net::connector::DdsConnector::unregisterVariablesFromServer()
+void
+  dds::net::connector::
+  DdsConnector::unregisterVariablesFromServer()
 {
   /*
   lock (variablesMutex)
@@ -915,7 +1019,10 @@ void dds::net::connector::DdsConnector::unregisterVariablesFromServer()
             }*/
 }
 
-void dds::net::connector::DdsConnector::sendUpdatedValuesToServer(std::list<_internal::variables::BaseVariable*>& vars)
+void
+  dds::net::connector::
+  DdsConnector::sendUpdatedValuesToServer(
+    std::list<_internal::variables::BaseVariable*>& vars)
 {
   /*
   int sizeRequired = 0;
@@ -951,7 +1058,9 @@ void dds::net::connector::DdsConnector::sendUpdatedValuesToServer(std::list<_int
 /*                                                                                   */
 /*************************************************************************************/
 
-static void dds::net::connector::onConnectedWithServer(void* connector)
+static void
+  dds::net::connector::
+  onConnectedWithServer(void* connector)
 {
   /*
   dds::net::connector::DdsConnector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
@@ -970,7 +1079,9 @@ static void dds::net::connector::onConnectedWithServer(void* connector)
   DataToServer.Enqueue(new(handshake, offset));*/
 }
 
-static void dds::net::connector::onDisconnectedFromServer(void* connector)
+static void
+  dds::net::connector::
+  onDisconnectedFromServer(void* connector)
 {
   /*
   lock(variablesMutex)
@@ -999,7 +1110,9 @@ static void dds::net::connector::onDisconnectedFromServer(void* connector)
 /*                                                                                   */
 /*************************************************************************************/
 
-static bool dds::net::connector::dataReceptionWorker(void* connector)
+static bool
+  dds::net::connector::
+  dataReceptionWorker(void* connector)
 {
   /*
   bool doneAnything = false;
