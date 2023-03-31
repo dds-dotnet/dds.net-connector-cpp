@@ -48,6 +48,7 @@ namespace dds {
           std::string& applicationName,
           std::string& serverIPv4, ushort serverPortTCP,
           Logger* logger = nullptr);
+        ~DdsConnector();
 
         void start();
         void stop();

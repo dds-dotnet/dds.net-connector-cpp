@@ -112,6 +112,12 @@ dds::net::connector::DdsConnector::DdsConnector(
   this->networkClient->setCallbackOnDisconnectedFromServer(onDisconnectedFromServer, this);
 }
 
+dds::net::connector::DdsConnector::~DdsConnector()
+{
+  stop();
+  delete this->bufferManager;
+}
+
 /*************************************************************************************/
 /*                                                                                   */
 /* Start / Stop                                                                      */
