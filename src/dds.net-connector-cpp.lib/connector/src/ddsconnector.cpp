@@ -60,10 +60,11 @@ dds::net::connector::DdsConnector::DdsConnector(
     char* message = this->bufferManager->get2k();
 
 #if TARGET_PLATFORM == PLATFORM_WINDOWS
-    sprintf_s(message, 2048, "Invalid IPv4 address: %s", serverIPv4.c_str());
+    sprintf_s(message, 2048,
 #else
-    sprintf(message, "Invalid IPv4 address: %s", serverIPv4.c_str());
+    sprintf(message,
 #endif
+      "Invalid IPv4 address: %s", serverIPv4.c_str());
 
     logger->error(message);
 
@@ -74,13 +75,12 @@ dds::net::connector::DdsConnector::DdsConnector(
 
 #if TARGET_PLATFORM == PLATFORM_WINDOWS
   sprintf_s(message, 2048,
-    "Initializing connector (v%s) with Server: %s:%d",
-    DdsConnector::getLibraryVersion().c_str(), serverIPv4.c_str(), serverPortTCP);
 #else
   sprintf(message,
-    "Initializing connector (v%s) with Server: %s:%d",
-    DdsConnector::getLibraryVersion().c_str(), serverIPv4.c_str(), serverPortTCP);
 #endif
+    "Initializing connector (v%s) with Server: %s:%d, App: %s",
+    DdsConnector::getLibraryVersion().c_str(),
+    serverIPv4.c_str(), serverPortTCP, applicationName.c_str());
 
   logger->info(message);
 
@@ -93,10 +93,11 @@ dds::net::connector::DdsConnector::DdsConnector(
   catch (std::exception& ex)
   {
 #if TARGET_PLATFORM == PLATFORM_WINDOWS
-    sprintf_s(message, 2048, "Cannot initialize network client - %s", ex.what());
+    sprintf_s(message, 2048,
 #else
-    sprintf(message, "Cannot initialize network client - %s", ex.what());
+    sprintf(message,
 #endif
+      "Cannot initialize network client - %s", ex.what());
 
     logger->error(message);
 
