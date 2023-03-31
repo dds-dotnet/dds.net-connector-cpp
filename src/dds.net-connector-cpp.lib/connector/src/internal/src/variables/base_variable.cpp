@@ -12,7 +12,9 @@
 #include <stdio.h>
 
 
-dds::net::connector::_internal::variables::BaseVariable::BaseVariable(std::string& name, VariableType variableType, Periodicity periodicity)
+dds::net::connector::_internal::variables::
+  BaseVariable::BaseVariable(
+    std::string& name, VariableType variableType, Periodicity periodicity)
 {
   this->id = -1;
   this->name = name;
@@ -20,7 +22,9 @@ dds::net::connector::_internal::variables::BaseVariable::BaseVariable(std::strin
   this->periodicity = periodicity;
 }
 
-void dds::net::connector::_internal::variables::BaseVariable::assignId(int id)
+void
+  dds::net::connector::_internal::variables::
+  BaseVariable::assignId(int id)
 {
   if (this->id != -1)
   {
@@ -53,13 +57,17 @@ void dds::net::connector::_internal::variables::BaseVariable::assignId(int id)
   this->id = id;
 }
 
-void dds::net::connector::_internal::variables::BaseVariable::reset()
+void
+  dds::net::connector::_internal::variables::
+  BaseVariable::reset()
 {
   id = -1;
   resetValue();
 }
 
-int dds::net::connector::_internal::variables::BaseVariable::getSizeOnBuffer()
+int
+  dds::net::connector::_internal::variables::
+  BaseVariable::getSizeOnBuffer()
 {
   return
     EncDecHeader::VARIABLE_ID_SIZE_ON_BUFFER +
@@ -68,7 +76,9 @@ int dds::net::connector::_internal::variables::BaseVariable::getSizeOnBuffer()
     getValueSizeOnBuffer();
 }
 
-void dds::net::connector::_internal::variables::BaseVariable::writeOnBuffer(BufferAddress buffer, int& offset)
+void
+  dds::net::connector::_internal::variables::
+  BaseVariable::writeOnBuffer(BufferAddress buffer, int& offset)
 {
   EncDecHeader::writeVariableId(buffer, offset, id);
   EncDecHeader::writeVariableType(buffer, offset, variableType);
