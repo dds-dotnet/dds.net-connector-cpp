@@ -13,7 +13,7 @@ void wait_for_exit_key();
 
 int main()
 {
-  string appName = "DDS.Net Connected App";
+  string appName = "DDS.Net C++ Connected App";
   string serverIP = "127.0.0.1";
   unsigned short serverPort = 44556;
 
