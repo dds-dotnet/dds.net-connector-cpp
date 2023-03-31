@@ -13,9 +13,9 @@ void wait_for_exit_key();
 
 int main()
 {
-    std::cout << "DDS.Net Connected App!" << std::endl;
-    std::cout << "======================" << std::endl;
-    std::cout << "Press Ctrl+C to exit." << std::endl << std::endl;
+    cout << "DDS.Net Connected App!" << endl;
+    cout << "======================" << endl;
+    cout << "Press Ctrl+C to exit." << endl << endl;
 
     string appName = "My CPP App";
     string serverIP = "127.0.0.1";
@@ -25,14 +25,14 @@ int main()
     {
       DdsConnector* connector = new DdsConnector(appName, serverIP, serverPort, new ConsoleLogger());
     }
-    catch (std::exception& ex)
+    catch (exception& ex)
     {
-      std::cout << "Exception! " << ex.what() << std::endl;
+      cout << "Exception! " << ex.what() << endl;
     }
 
     wait_for_exit_key();
 
-    std::cout << std::endl << std::endl << std::endl;
+    cout << endl << endl << endl;
 }
 
 void wait_for_exit_key()
