@@ -26,6 +26,9 @@ namespace dds {
 
             static void writeVariableType(BufferAddress buffer, int& offset, VariableType variableType);
             static VariableType readVariableType(BufferAddress buffer, int& offset);
+
+            static void writePeriodicity(BufferAddress buffer, int& offset, Periodicity value);
+            static Periodicity readPeriodicity(BufferAddress buffer, int& offset);
           };
         }
       }

@@ -73,3 +73,26 @@ VariableType
   return VARIABLE_TYPE_UNKNOWN;
 }
 
+
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecHeader::writePeriodicity(BufferAddress buffer, int& offset, Periodicity value)
+{
+  buffer[offset++] = value;
+}
+
+Periodicity
+  dds::net::connector::_internal::variables::
+  EncDecHeader::readPeriodicity(BufferAddress buffer, int& offset)
+{
+  int v = buffer[offset++];
+
+  if (v >= 0 && v <= LOWEST)
+  {
+    return (Periodicity)v;
+  }
+
+  return ON_CHANGE;
+}
+
