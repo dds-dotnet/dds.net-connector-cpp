@@ -56,6 +56,9 @@ namespace dds {
             
             static double readDouble(BufferAddress buffer, int& offset);
             static void writeDouble(BufferAddress buffer, int& offset, double value);
+
+          private:
+            static bool isLittleEndian();
           };
         }
       }
