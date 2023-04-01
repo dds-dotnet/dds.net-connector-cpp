@@ -1,13 +1,6 @@
 #include "src/internal/inc/variables/enc_dec_primitives.h"
 
 
-void
-  dds::net::connector::_internal::variables::
-  EncDecPrimitives::writePrimitiveType(BufferAddress buffer, int& offset, PrimitiveType value)
-{
-  buffer[offset++] = value;
-}
-
 PrimitiveType
   dds::net::connector::_internal::variables::
   EncDecPrimitives::readPrimitiveType(BufferAddress buffer, int& offset)
@@ -21,3 +14,382 @@ PrimitiveType
 
   return PRIMITIVE_TYPE_UNKNOWN;
 }
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writePrimitiveType(BufferAddress buffer, int& offset, PrimitiveType value)
+{
+  buffer[offset++] = value;
+}
+
+
+
+std::string&
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readString(BufferAddress buffer, int& offset)
+{
+  int length = buffer[offset++];
+  length = (length << 8) | buffer[offset++];
+
+  std::string retval = Encoding.Unicode.GetString(data, offset, length);
+  offset += length;
+
+  return retval;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeString(BufferAddress buffer, int& offset, std::string& value)
+{
+  int size = 0;
+  byte[] bytes = null!;
+
+  if (!string.IsNullOrEmpty(value))
+  {
+    bytes = Encoding.Unicode.GetBytes(value);
+    size = bytes.Length;
+  }
+
+  buffer[offset + 1] = (byte)(size & 0x0ff);
+  buffer[offset + 0] = (byte)((size >> 8) & 0x0ff);
+
+  offset += 2;
+
+  if (size > 0)
+  {
+    for (int i = 0; i < size; i++)
+    {
+      buffer[offset++] = bytes[i];
+    }
+  }
+}
+
+
+
+bool
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readBoolean(BufferAddress buffer, int& offset)
+{
+  return buffer[offset++] != 0;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeBoolean(BufferAddress buffer, int& offset, bool value)
+{
+  buffer[offset++] = value ? 1 : 0;
+}
+
+
+
+char
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readByte(BufferAddress buffer, int& offset)
+{
+  return buffer[offset++];
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeByte(BufferAddress buffer, int& offset, char value)
+{
+  buffer[offset++] = value;
+}
+
+
+
+short
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readWord(BufferAddress buffer, int& offset)
+{
+  int value = buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+
+  return (short)value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeWord(BufferAddress buffer, int& offset, short value)
+{
+  buffer[offset++] = (value >> 8) & 0x0ff;
+  buffer[offset++] = value & 0x0ff;
+}
+
+
+
+long
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readDWord(BufferAddress buffer, int& offset)
+{
+  long value = buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeDWord(BufferAddress buffer, int& offset, long value)
+{
+  buffer[offset++] = (value >> 24) & 0x0ff;
+  buffer[offset++] = (value >> 16) & 0x0ff;
+  buffer[offset++] = (value >> 8) & 0x0ff;
+  buffer[offset++] = (value >> 0) & 0x0ff;
+}
+
+
+
+long long
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readQWord(BufferAddress buffer, int& offset)
+{
+  long long value = buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeQWord(BufferAddress buffer, int& offset, long long value)
+{
+  buffer[offset++] = (value >> 56) & 0x0ff;
+  buffer[offset++] = (value >> 48) & 0x0ff;
+  buffer[offset++] = (value >> 40) & 0x0ff;
+  buffer[offset++] = (value >> 32) & 0x0ff;
+  buffer[offset++] = (value >> 24) & 0x0ff;
+  buffer[offset++] = (value >> 16) & 0x0ff;
+  buffer[offset++] = (value >> 8) & 0x0ff;
+  buffer[offset++] = (value >> 0) & 0x0ff;
+}
+
+
+
+unsigned char
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readUnsignedByte(BufferAddress buffer, int& offset)
+{
+  return (unsigned char)buffer[offset++];
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeUnsignedByte(BufferAddress buffer, int& offset, unsigned char value)
+{
+  buffer[offset++] = value;
+}
+
+
+
+unsigned short
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readUnsignedWord(BufferAddress buffer, int& offset)
+{
+  unsigned short value = buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeUnsignedWord(BufferAddress buffer, int& offset, unsigned short value)
+{
+  buffer[offset++] = (value >> 8) & 0x0ff;
+  buffer[offset++] = (value >> 0) & 0x0ff;
+}
+
+
+
+unsigned long
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readUnsignedDWord(BufferAddress buffer, int& offset)
+{
+  unsigned long value = buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeUnsignedDWord(BufferAddress buffer, int& offset, unsigned long value)
+{
+  buffer[offset++] = (value >> 24) & 0x0ff;
+  buffer[offset++] = (value >> 16) & 0x0ff;
+  buffer[offset++] = (value >> 8) & 0x0ff;
+  buffer[offset++] = (value >> 0) & 0x0ff;
+}
+
+
+
+unsigned long long
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readUnsignedQWord(BufferAddress buffer, int& offset)
+{
+  unsigned long long value = buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+  value = (value << 8) | buffer[offset++];
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeUnsignedQWord(BufferAddress buffer, int& offset, unsigned long long value)
+{
+  buffer[offset++] = (value >> 56) & 0x0ff;
+  buffer[offset++] = (value >> 48) & 0x0ff;
+  buffer[offset++] = (value >> 40) & 0x0ff;
+  buffer[offset++] = (value >> 32) & 0x0ff;
+  buffer[offset++] = (value >> 24) & 0x0ff;
+  buffer[offset++] = (value >> 16) & 0x0ff;
+  buffer[offset++] = (value >> 8) & 0x0ff;
+  buffer[offset++] = (value >> 0) & 0x0ff;
+}
+
+
+
+float
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readSingle(BufferAddress buffer, int& offset)
+{
+  float value;
+  
+  unsigned char* p = (unsigned char*)&value;
+
+  if (isLittleEndian())
+  {
+    p[0] = buffer[offset + 3];
+    p[1] = buffer[offset + 2];
+    p[2] = buffer[offset + 1];
+    p[3] = buffer[offset + 0]; // MSB
+  }
+  else
+  {
+    p[0] = buffer[offset + 0]; // MSB
+    p[1] = buffer[offset + 1];
+    p[2] = buffer[offset + 2];
+    p[3] = buffer[offset + 3];
+  }
+  
+  offset += 4;
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeSingle(BufferAddress buffer, int& offset, float value)
+{
+  unsigned char* p = (unsigned char*)&value;
+
+  if (isLittleEndian())
+  {
+    for (int i = 3; i >= 0; i--)
+    {
+      buffer[offset++] = p[i];
+    }
+  }
+  else
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      buffer[offset++] = p[i];
+    }
+  }
+}
+
+
+
+double
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::readDouble(BufferAddress buffer, int& offset)
+{
+  double value;
+
+  unsigned char* p = (unsigned char*)&value;
+
+  if (isLittleEndian())
+  {
+    p[0] = buffer[offset + 7];
+    p[1] = buffer[offset + 6];
+    p[2] = buffer[offset + 5];
+    p[3] = buffer[offset + 4];
+    p[4] = buffer[offset + 3];
+    p[5] = buffer[offset + 2];
+    p[6] = buffer[offset + 1];
+    p[7] = buffer[offset + 0]; // MSB
+  }
+  else
+  {
+    p[0] = buffer[offset + 0]; // MSB
+    p[1] = buffer[offset + 1];
+    p[2] = buffer[offset + 2];
+    p[3] = buffer[offset + 3];
+    p[4] = buffer[offset + 4];
+    p[5] = buffer[offset + 5];
+    p[6] = buffer[offset + 6];
+    p[7] = buffer[offset + 7];
+  }
+
+  offset += 8;
+
+  return value;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::writeDouble(BufferAddress buffer, int& offset, double value)
+{
+  unsigned char* p = (unsigned char*)&value;
+
+  if (isLittleEndian())
+  {
+    for (int i = 7; i >= 0; i--)
+    {
+      buffer[offset++] = p[i];
+    }
+  }
+  else
+  {
+    for (int i = 0; i < 8; i++)
+    {
+      buffer[offset++] = p[i];
+    }
+  }
+}
+
+
+
+
+static unsigned short test_value = 0x00AA;
+
+bool
+  dds::net::connector::_internal::variables::
+  EncDecPrimitives::isLittleEndian()
+{
+  unsigned char* p = (unsigned char*)&test_value;
+
+  if (*p == 0xAA)
+    return true;
+
+  return false;
+}
+
