@@ -40,7 +40,7 @@ std::string&
 void
   dds::net::connector::_internal::variables::
   EncDecPrimitives::writeString(BufferAddress buffer, int& offset, std::string& value)
-
+{
   /*int size = 0;
   byte[] bytes = null!;
 
