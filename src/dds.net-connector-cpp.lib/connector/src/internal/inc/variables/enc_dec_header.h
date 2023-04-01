@@ -17,6 +17,7 @@ namespace dds {
             static const int PACKET_ID_SIZE_ON_BUFFER = 2;
             static const int VARIABLE_ID_SIZE_ON_BUFFER = 2;
             static const int VARIABLE_TYPE_SIZE_ON_BUFFER = 2;
+            static const int PERIODICITY_SIZE_ON_BUFFER = 1;
 
             static void writePacketId(BufferAddress buffer, int& offset, PacketId id);
             static PacketId readPacketId(BufferAddress buffer, int& offset);
