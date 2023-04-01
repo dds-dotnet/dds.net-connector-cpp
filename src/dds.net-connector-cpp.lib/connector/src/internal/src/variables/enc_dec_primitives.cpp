@@ -28,20 +28,20 @@ std::string&
   dds::net::connector::_internal::variables::
   EncDecPrimitives::readString(BufferAddress buffer, int& offset)
 {
-  int length = buffer[offset++];
+  /*int length = buffer[offset++];
   length = (length << 8) | buffer[offset++];
 
   std::string retval = Encoding.Unicode.GetString(data, offset, length);
   offset += length;
 
-  return retval;
+  return retval;*/
 }
 
 void
   dds::net::connector::_internal::variables::
   EncDecPrimitives::writeString(BufferAddress buffer, int& offset, std::string& value)
-{
-  int size = 0;
+
+  /*int size = 0;
   byte[] bytes = null!;
 
   if (!string.IsNullOrEmpty(value))
@@ -61,7 +61,7 @@ void
     {
       buffer[offset++] = bytes[i];
     }
-  }
+  }*/
 }
 
 
