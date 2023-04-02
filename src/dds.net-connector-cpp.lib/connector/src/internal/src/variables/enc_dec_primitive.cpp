@@ -1,9 +1,9 @@
-#include "src/internal/inc/variables/enc_dec_primitives.h"
+#include "src/internal/inc/variables/enc_dec_primitive.h"
 
 
 PrimitiveType
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readPrimitiveType(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readPrimitiveType(BufferAddress buffer, int& offset)
 {
   int v = buffer[offset++];
 
@@ -17,7 +17,7 @@ PrimitiveType
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writePrimitiveType(BufferAddress buffer, int& offset, PrimitiveType value)
+  EncDecPrimitive::writePrimitiveType(BufferAddress buffer, int& offset, PrimitiveType value)
 {
   buffer[offset++] = value;
 }
@@ -26,7 +26,7 @@ void
 
 std::string&
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readString(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readString(BufferAddress buffer, int& offset)
 {
   /*int length = buffer[offset++];
   length = (length << 8) | buffer[offset++];
@@ -39,7 +39,7 @@ std::string&
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeString(BufferAddress buffer, int& offset, std::string& value)
+  EncDecPrimitive::writeString(BufferAddress buffer, int& offset, std::string& value)
 {
   /*int size = 0;
   byte[] bytes = null!;
@@ -68,14 +68,14 @@ void
 
 bool
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readBoolean(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readBoolean(BufferAddress buffer, int& offset)
 {
   return buffer[offset++] != 0;
 }
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeBoolean(BufferAddress buffer, int& offset, bool value)
+  EncDecPrimitive::writeBoolean(BufferAddress buffer, int& offset, bool value)
 {
   buffer[offset++] = value ? 1 : 0;
 }
@@ -84,14 +84,14 @@ void
 
 char
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readByte(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readByte(BufferAddress buffer, int& offset)
 {
   return buffer[offset++];
 }
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeByte(BufferAddress buffer, int& offset, char value)
+  EncDecPrimitive::writeByte(BufferAddress buffer, int& offset, char value)
 {
   buffer[offset++] = value;
 }
@@ -100,7 +100,7 @@ void
 
 short
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readWord(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readWord(BufferAddress buffer, int& offset)
 {
   int value = buffer[offset++];
   value = (value << 8) | buffer[offset++];
@@ -110,7 +110,7 @@ short
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeWord(BufferAddress buffer, int& offset, short value)
+  EncDecPrimitive::writeWord(BufferAddress buffer, int& offset, short value)
 {
   buffer[offset++] = (value >> 8) & 0x0ff;
   buffer[offset++] = value & 0x0ff;
@@ -120,7 +120,7 @@ void
 
 long
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readDWord(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readDWord(BufferAddress buffer, int& offset)
 {
   long value = buffer[offset++];
   value = (value << 8) | buffer[offset++];
@@ -132,7 +132,7 @@ long
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeDWord(BufferAddress buffer, int& offset, long value)
+  EncDecPrimitive::writeDWord(BufferAddress buffer, int& offset, long value)
 {
   buffer[offset++] = (value >> 24) & 0x0ff;
   buffer[offset++] = (value >> 16) & 0x0ff;
@@ -144,7 +144,7 @@ void
 
 long long
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readQWord(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readQWord(BufferAddress buffer, int& offset)
 {
   long long value = buffer[offset++];
   value = (value << 8) | buffer[offset++];
@@ -160,7 +160,7 @@ long long
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeQWord(BufferAddress buffer, int& offset, long long value)
+  EncDecPrimitive::writeQWord(BufferAddress buffer, int& offset, long long value)
 {
   buffer[offset++] = (value >> 56) & 0x0ff;
   buffer[offset++] = (value >> 48) & 0x0ff;
@@ -176,14 +176,14 @@ void
 
 unsigned char
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readUnsignedByte(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readUnsignedByte(BufferAddress buffer, int& offset)
 {
   return (unsigned char)buffer[offset++];
 }
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeUnsignedByte(BufferAddress buffer, int& offset, unsigned char value)
+  EncDecPrimitive::writeUnsignedByte(BufferAddress buffer, int& offset, unsigned char value)
 {
   buffer[offset++] = value;
 }
@@ -192,7 +192,7 @@ void
 
 unsigned short
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readUnsignedWord(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readUnsignedWord(BufferAddress buffer, int& offset)
 {
   unsigned short value = buffer[offset++];
   value = (value << 8) | buffer[offset++];
@@ -202,7 +202,7 @@ unsigned short
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeUnsignedWord(BufferAddress buffer, int& offset, unsigned short value)
+  EncDecPrimitive::writeUnsignedWord(BufferAddress buffer, int& offset, unsigned short value)
 {
   buffer[offset++] = (value >> 8) & 0x0ff;
   buffer[offset++] = (value >> 0) & 0x0ff;
@@ -212,7 +212,7 @@ void
 
 unsigned long
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readUnsignedDWord(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readUnsignedDWord(BufferAddress buffer, int& offset)
 {
   unsigned long value = buffer[offset++];
   value = (value << 8) | buffer[offset++];
@@ -224,7 +224,7 @@ unsigned long
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeUnsignedDWord(BufferAddress buffer, int& offset, unsigned long value)
+  EncDecPrimitive::writeUnsignedDWord(BufferAddress buffer, int& offset, unsigned long value)
 {
   buffer[offset++] = (value >> 24) & 0x0ff;
   buffer[offset++] = (value >> 16) & 0x0ff;
@@ -236,7 +236,7 @@ void
 
 unsigned long long
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readUnsignedQWord(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readUnsignedQWord(BufferAddress buffer, int& offset)
 {
   unsigned long long value = buffer[offset++];
   value = (value << 8) | buffer[offset++];
@@ -252,7 +252,7 @@ unsigned long long
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeUnsignedQWord(BufferAddress buffer, int& offset, unsigned long long value)
+  EncDecPrimitive::writeUnsignedQWord(BufferAddress buffer, int& offset, unsigned long long value)
 {
   buffer[offset++] = (value >> 56) & 0x0ff;
   buffer[offset++] = (value >> 48) & 0x0ff;
@@ -268,7 +268,7 @@ void
 
 float
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readSingle(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readSingle(BufferAddress buffer, int& offset)
 {
   float value;
   
@@ -296,7 +296,7 @@ float
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeSingle(BufferAddress buffer, int& offset, float value)
+  EncDecPrimitive::writeSingle(BufferAddress buffer, int& offset, float value)
 {
   unsigned char* p = (unsigned char*)&value;
 
@@ -320,7 +320,7 @@ void
 
 double
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::readDouble(BufferAddress buffer, int& offset)
+  EncDecPrimitive::readDouble(BufferAddress buffer, int& offset)
 {
   double value;
 
@@ -356,7 +356,7 @@ double
 
 void
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::writeDouble(BufferAddress buffer, int& offset, double value)
+  EncDecPrimitive::writeDouble(BufferAddress buffer, int& offset, double value)
 {
   unsigned char* p = (unsigned char*)&value;
 
@@ -383,7 +383,7 @@ static unsigned short test_value = 0x00AA;
 
 bool
   dds::net::connector::_internal::variables::
-  EncDecPrimitives::isLittleEndian()
+  EncDecPrimitive::isLittleEndian()
 {
   unsigned char* p = (unsigned char*)&test_value;
 

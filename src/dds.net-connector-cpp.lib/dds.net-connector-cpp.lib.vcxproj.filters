@@ -78,7 +78,7 @@
     <ClInclude Include="connector\inc\error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\src\internal\inc\variables\enc_dec_primitives.h">
+    <ClInclude Include="connector\src\internal\inc\variables\enc_dec_primitive.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,7 +104,7 @@
     <ClCompile Include="connector\src\internal\src\buffer_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\internal\src\variables\enc_dec_primitives.cpp">
+    <ClCompile Include="connector\src\internal\src\variables\enc_dec_primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
