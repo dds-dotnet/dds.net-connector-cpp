@@ -30,6 +30,14 @@ void
 
 
 
+int
+  dds::net::connector::_internal::variables::
+  EncDecPrimitive::getStringSizeOnBuffer(std::string& s)
+{
+  std::u16string u16 = u16Converter.from_bytes(s);
+  return u16.size() * 2;
+}
+
 std::string&
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readString(BufferAddress buffer, int& offset)

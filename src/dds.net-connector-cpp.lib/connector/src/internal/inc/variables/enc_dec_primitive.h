@@ -21,6 +21,7 @@ namespace dds {
             static PrimitiveType readPrimitiveType(BufferAddress buffer, int& offset);
             static void writePrimitiveType(BufferAddress buffer, int& offset, PrimitiveType value);
 
+            static int getStringSizeOnBuffer(std::string& s);
             static std::string& readString(BufferAddress buffer, int& offset);
             static void writeString(BufferAddress buffer, int& offset, std::string& value);
 
