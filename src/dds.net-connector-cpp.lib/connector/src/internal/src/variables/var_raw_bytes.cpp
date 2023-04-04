@@ -59,6 +59,19 @@ void
   dataSize = 0;
 }
 
+bool dds::net::connector::_internal::variables::RawBytesVariable::refreshValue()
+{
+  if (valueProvider != nullptr)
+  {
+    BufferAddress b = bufferManager->get2k();
+
+    int total = valueProvider(name, (unsigned char*)b, 2048);
+    return updateData(b, total);
+  }
+
+  return false;
+}
+
 void
   dds::net::connector::_internal::variables::
   RawBytesVariable::writeValueOnBuffer(BufferAddress buffer, int& offset)
