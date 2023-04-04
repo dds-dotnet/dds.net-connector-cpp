@@ -23,6 +23,8 @@ namespace dds {
             Periodicity periodicity;
 
             BaseVariable(std::string& name, VariableType variableType, Periodicity periodicity);
+            virtual ~BaseVariable();
+            
             void assignId(int id);
             void reset();
             

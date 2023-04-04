@@ -22,6 +22,10 @@ dds::net::connector::_internal::variables::
   this->periodicity = periodicity;
 }
 
+dds::net::connector::_internal::variables::BaseVariable::~BaseVariable()
+{
+}
+
 void
   dds::net::connector::_internal::variables::
   BaseVariable::assignId(int id)
