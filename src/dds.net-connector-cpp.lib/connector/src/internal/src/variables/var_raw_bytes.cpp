@@ -55,6 +55,11 @@ void
   dds::net::connector::_internal::variables::
   RawBytesVariable::resetValue()
 {
+  if (data != nullptr)
+  {
+    bufferManager->free((BufferAddress)data);
+  }
+
   data = nullptr;
   dataSize = 0;
 }
