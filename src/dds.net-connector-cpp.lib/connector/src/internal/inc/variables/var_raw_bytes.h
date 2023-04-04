@@ -27,6 +27,8 @@ namespace dds {
 
             int getSubTypeSizeOnBuffer() override;
             void writeSubTypeOnBuffer(BufferAddress buffer, int& offset) override;
+
+            bool updateData(BufferAddress buffer, int size);
           };
 
         }
