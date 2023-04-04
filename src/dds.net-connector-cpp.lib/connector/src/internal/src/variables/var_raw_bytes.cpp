@@ -22,6 +22,18 @@ dds::net::connector::_internal::variables::
   this->bufferManager = bufferManager;
 }
 
+dds::net::connector::_internal::variables::
+  RawBytesVariable::~RawBytesVariable()
+{
+  if (data != nullptr)
+  {
+    bufferManager->free((BufferAddress)data);
+  }
+
+  data = nullptr;
+  dataSize = 0;
+}
+
 std::string
   dds::net::connector::_internal::variables::
   RawBytesVariable::getPrintableTypeName()

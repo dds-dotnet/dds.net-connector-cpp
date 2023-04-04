@@ -27,6 +27,8 @@ namespace dds {
               RawBytesConsumer rawBytesConsumer,
               BufferManager *bufferManager);
 
+            ~RawBytesVariable();
+
             std::string getPrintableTypeName() override;
 
             int getSubTypeSizeOnBuffer() override;
