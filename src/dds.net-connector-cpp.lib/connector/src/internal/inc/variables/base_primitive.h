@@ -13,15 +13,12 @@ namespace dds {
           class BasePrimitive : public BaseVariable {
 
           public:
+            PrimitiveType primitiveType;
+
             BasePrimitive(std::string& name, PrimitiveType primitiveType, Periodicity periodicity);
 
             int getSubTypeSizeOnBuffer() override;
             void writeSubTypeOnBuffer(BufferAddress buffer, int& offset) override;
-
-            PrimitiveType getPrimitiveType();
-
-          private:
-            PrimitiveType primitiveType;
           };
 
         }
