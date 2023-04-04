@@ -60,8 +60,8 @@ std::string
 
 
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
-  std::string ret = u16Converter.to_bytes(u16);
-  return ret;
+  std::string u8 = u16Converter.to_bytes(u16);
+  return u8;
 }
 
 void
