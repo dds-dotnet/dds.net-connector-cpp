@@ -40,13 +40,28 @@ std::string&
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readString(BufferAddress buffer, int& offset)
 {
-  /*int length = buffer[offset++];
+  int length = buffer[offset++];
   length = (length << 8) | buffer[offset++];
 
-  std::string retval = Encoding.Unicode.GetString(data, offset, length);
-  offset += length;
 
-  return retval;*/
+  int strIndex = 0;
+  std::u16string u16(length, ' ');
+
+
+  for (int i = 0; i < length; i += 2)
+  {
+    unsigned short ch = buffer[offset + 1];
+    ch = (ch << 8) | buffer[offset + 0];
+
+    u16[strIndex++] = ch;
+
+    offset += 2;
+  }
+
+
+  std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
+  std::string ret = u16Converter.to_bytes(u16);
+  return ret;
 }
 
 void
