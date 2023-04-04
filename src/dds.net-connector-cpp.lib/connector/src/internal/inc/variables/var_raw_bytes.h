@@ -2,6 +2,7 @@
 #define DDS_DOT_NET_CONNECTOR_SRC_INTERNAL_INC_VARIABLES_VAR_RAW_BYTES_H_
 
 #include "src/internal/inc/variables/base_variable.h"
+#include "src/internal/inc/buffer_manager.h"
 
 
 namespace dds {
@@ -23,7 +24,8 @@ namespace dds {
               std::string& name,
               Periodicity periodicity,
               RawBytesProvider rawBytesProvider,
-              RawBytesConsumer rawBytesConsumer);
+              RawBytesConsumer rawBytesConsumer,
+              BufferManager *bufferManager);
 
             std::string getPrintableTypeName() override;
 
@@ -38,6 +40,10 @@ namespace dds {
             void writeValueOnBuffer(BufferAddress buffer, int& offset) override;
 
             bool updateData(BufferAddress buffer, int size);
+
+
+          private:
+            BufferManager* bufferManager;
           };
 
         }

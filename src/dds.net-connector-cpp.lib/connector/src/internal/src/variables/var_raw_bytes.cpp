@@ -9,7 +9,8 @@ dds::net::connector::_internal::variables::
     std::string& name,
     Periodicity periodicity,
     RawBytesProvider rawBytesProvider,
-    RawBytesConsumer rawBytesConsumer)
+    RawBytesConsumer rawBytesConsumer,
+    BufferManager* bufferManager)
   : BaseVariable(name, VARIABLE_TYPE_RAW_BYTES, periodicity)
 {
   valueProvider = rawBytesProvider;
@@ -17,6 +18,8 @@ dds::net::connector::_internal::variables::
 
   data = nullptr;
   dataSize = 0;
+
+  this->bufferManager = bufferManager;
 }
 
 std::string
