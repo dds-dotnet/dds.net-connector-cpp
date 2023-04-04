@@ -74,12 +74,28 @@ bool
   return false;
 }
 
-void dds::net::connector::_internal::variables::RawBytesVariable::invokeValueAwaiter()
+void
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::invokeValueAwaiter()
 {
   if (valueConsumer != nullptr)
   {
     valueConsumer(name, data, dataSize);
   }
+}
+
+int
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::getValueSizeOnBuffer()
+{
+  int total = 4;
+
+  if (data != nullptr && dataSize > 0)
+  {
+    total += dataSize;
+  }
+
+  return total;
 }
 
 void
