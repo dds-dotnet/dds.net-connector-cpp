@@ -55,27 +55,23 @@ void
   dds::net::connector::_internal::variables::
   EncDecPrimitive::writeString(BufferAddress buffer, int& offset, std::string& value)
 {
-  /*int size = 0;
-  byte[] bytes = null!;
-
-  if (!string.IsNullOrEmpty(value))
-  {
-    bytes = Encoding.Unicode.GetBytes(value);
-    size = bytes.Length;
-  }
-
-  buffer[offset + 1] = (byte)(size & 0x0ff);
-  buffer[offset + 0] = (byte)((size >> 8) & 0x0ff);
+  buffer[offset + 0] = (value.size() >> 8) & 0x0ff;
+  buffer[offset + 1] = value.size() & 0x0ff;
 
   offset += 2;
 
-  if (size > 0)
+  if (value.size() > 0)
   {
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < value.size(); i++)
     {
-      buffer[offset++] = bytes[i];
+      unsigned short v = value[i];
+
+      // Writing in little-endian format.
+
+      buffer[offset++] = (v >> 0) & 0x0ff;
+      buffer[offset++] = (v >> 8) & 0x0ff;
     }
-  }*/
+  }
 }
 
 
