@@ -25,8 +25,17 @@ namespace dds {
               RawBytesProvider rawBytesProvider,
               RawBytesConsumer rawBytesConsumer);
 
+            std::string getPrintableTypeName() override;
+
             int getSubTypeSizeOnBuffer() override;
             void writeSubTypeOnBuffer(BufferAddress buffer, int& offset) override;
+
+            void resetValue() override;
+            bool refreshValue() override;
+            void invokeValueAwaiter() override;
+
+            int getValueSizeOnBuffer() override;
+            void writeValueOnBuffer(BufferAddress buffer, int& offset) override;
 
             bool updateData(BufferAddress buffer, int size);
           };
