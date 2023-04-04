@@ -50,7 +50,7 @@ typedef void (*UnsignedQWordConsumer)(std::string& variableName, unsigned long l
 typedef void (*SingleConsumer)(std::string& variableName, float variableValue);
 typedef void (*DoubleConsumer)(std::string& variableName, double variableValue);
 
-typedef void (*RawBytesConsumer)(std::string& variableName, unsigned char* buffer, int bufferSize, int effectiveBytes);
+typedef void (*RawBytesConsumer)(std::string& variableName, unsigned char* buffer, int dataSize);
 
 
 typedef enum {
