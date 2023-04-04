@@ -31,7 +31,7 @@ int
   dds::net::connector::_internal::variables::
   EncDecPrimitive::getStringSizeOnBuffer(std::string& s)
 {
-  std::wstring_convert<std::codecvt<char16_t, char, std::mbstate_t>, char16_t> u16Converter;
+  std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
   std::u16string u16 = u16Converter.from_bytes(s);
   return u16.size() * 2;
 }
@@ -53,7 +53,7 @@ void
   dds::net::connector::_internal::variables::
   EncDecPrimitive::writeString(BufferAddress buffer, int& offset, std::string& value)
 {
-  std::wstring_convert<std::codecvt<char16_t, char, std::mbstate_t>, char16_t> u16Converter;
+  std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
   std::u16string u16 = u16Converter.from_bytes(value);
 
   buffer[offset + 0] = (u16.size() >> 8) & 0x0ff;
