@@ -6,7 +6,6 @@
 dds::net::connector::_internal::variables::
   BasePrimitive::BasePrimitive(
     std::string& name, PrimitiveType primitiveType, Periodicity periodicity)
-
   : BaseVariable(name, VARIABLE_TYPE_PRIMITIVE, periodicity)
 {
   this->primitiveType = primitiveType;
