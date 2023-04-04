@@ -163,6 +163,7 @@
     <ClInclude Include="connector\src\internal\inc\variables\base_variable.h" />
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h" />
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_primitive.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_boolean.h" />
     <ClInclude Include="connector\src\internal\inc\variables\var_raw_bytes.h" />
     <ClInclude Include="connector\src\internal\src\variables\base_variable.cpp" />
     <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="connector\src\internal\src\sync_queue.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\base_primitive.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\enc_dec_primitive.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_boolean.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\var_raw_bytes.cpp" />
     <ClCompile Include="connector\src\logger.cpp" />
   </ItemGroup>
