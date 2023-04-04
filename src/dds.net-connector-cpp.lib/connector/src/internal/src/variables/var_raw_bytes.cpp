@@ -17,7 +17,9 @@ dds::net::connector::_internal::variables::
   dataSize = 0;
 }
 
-int dds::net::connector::_internal::variables::RawBytesVariable::getSubTypeSizeOnBuffer()
+int
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::getSubTypeSizeOnBuffer()
 {
   //- 
   //- We do not have any sub-types here, unlike the primitive types.
@@ -25,6 +27,16 @@ int dds::net::connector::_internal::variables::RawBytesVariable::getSubTypeSizeO
   //- 
 
   return 0;
+}
+
+void
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::writeSubTypeOnBuffer(BufferAddress buffer, int& offset)
+{
+  //- 
+  //- We do not have any sub-types here, unlike the primitive types.
+  //- So, we do not write anything.
+  //- 
 }
 
 bool
