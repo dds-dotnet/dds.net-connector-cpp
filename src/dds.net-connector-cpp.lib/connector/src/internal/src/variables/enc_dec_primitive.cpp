@@ -1,6 +1,7 @@
 #include "src/internal/inc/variables/enc_dec_primitive.h"
 
 #include <codecvt>
+#include <locale>
 
 
 static std::wstring_convert<std::codecvt<char16_t, char, std::mbstate_t>, char16_t> u16Converter;
@@ -64,7 +65,7 @@ void
 
   if (u16.size() > 0)
   {
-    for (int i = 0; i < u16.size(); i++)
+    for (int i = 0; i < (int)u16.size(); i++)
     {
       unsigned short v = u16[i];
 
