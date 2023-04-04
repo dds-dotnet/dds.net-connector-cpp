@@ -25,7 +25,9 @@ void
   EncDecPrimitive::writePrimitiveType(buffer, offset, primitiveType);
 }
 
-PrimitiveType dds::net::connector::_internal::variables::BasePrimitive::getPrimitiveType()
+PrimitiveType
+  dds::net::connector::_internal::variables::
+  BasePrimitive::getPrimitiveType()
 {
   return primitiveType;
 }
