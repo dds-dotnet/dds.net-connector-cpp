@@ -74,6 +74,14 @@ bool
   return false;
 }
 
+void dds::net::connector::_internal::variables::RawBytesVariable::invokeValueAwaiter()
+{
+  if (valueConsumer != nullptr)
+  {
+    valueConsumer(name, data, dataSize);
+  }
+}
+
 void
   dds::net::connector::_internal::variables::
   RawBytesVariable::writeValueOnBuffer(BufferAddress buffer, int& offset)
