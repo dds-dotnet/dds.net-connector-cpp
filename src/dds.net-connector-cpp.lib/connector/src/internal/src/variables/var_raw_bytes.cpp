@@ -59,13 +59,15 @@ void
   dataSize = 0;
 }
 
-bool dds::net::connector::_internal::variables::RawBytesVariable::refreshValue()
+bool
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::refreshValue()
 {
   if (valueProvider != nullptr)
   {
-    BufferAddress b = bufferManager->get2k();
+    BufferAddress b = bufferManager->get4k();
 
-    int total = valueProvider(name, (unsigned char*)b, 2048);
+    int total = valueProvider(name, (unsigned char*)b, 4096);
     return updateData(b, total);
   }
 
@@ -103,7 +105,7 @@ bool
     }
     else
     {
-      delete data;
+      bufferManager->free((BufferAddress)data);
 
       data = nullptr;
       dataSize = 0;
@@ -123,7 +125,7 @@ bool
     {
       if (dataSize != size)
       {
-        delete data;
+        bufferManager->free((BufferAddress)data);
 
         data = (unsigned char*)buffer;
         dataSize = size;
