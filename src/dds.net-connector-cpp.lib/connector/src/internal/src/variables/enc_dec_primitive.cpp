@@ -71,8 +71,8 @@ void
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
   std::u16string u16 = u16Converter.from_bytes(value);
 
-  buffer[offset + 0] = (u16.size() >> 8) & 0x0ff;
-  buffer[offset + 1] = u16.size() & 0x0ff;
+  buffer[offset + 0] = ((u16.size() * 2) >> 8) & 0x0ff;
+  buffer[offset + 1] = (u16.size() * 2) & 0x0ff;
 
   offset += 2;
 
