@@ -32,6 +32,7 @@ namespace dds {
 
             int getValueSizeOnBuffer() override;
             void writeValueOnBuffer(BufferAddress buffer, int& offset) override;
+          };
         }
       }
     }
