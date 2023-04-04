@@ -35,7 +35,7 @@ int
 {
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
   std::u16string u16 = u16Converter.from_bytes(s);
-  return u16.size() * 2;
+  return 2 + (u16.size() * 2);
 }
 
 std::string
