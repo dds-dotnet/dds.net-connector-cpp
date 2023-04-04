@@ -1,5 +1,7 @@
 #include "src/internal/inc/variables/enc_dec_primitive.h"
 
+#include "inc/error.h"
+
 #include <codecvt>
 #include <locale>
 
@@ -70,6 +72,11 @@ void
 {
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
   std::u16string u16 = u16Converter.from_bytes(value);
+
+  if (u16.size() * 2 > 65535)
+  {
+    throw Error("Provided string is too large");
+  }
 
   buffer[offset + 0] = ((u16.size() * 2) >> 8) & 0x0ff;
   buffer[offset + 1] = (u16.size() * 2) & 0x0ff;
