@@ -158,5 +158,38 @@
     <ClCompile Include="connector\src\internal\src\variables\var_prim_boolean.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_byte.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_double.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_dword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_qword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_single.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_ubyte.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_udword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_uqword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_uword.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_word.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

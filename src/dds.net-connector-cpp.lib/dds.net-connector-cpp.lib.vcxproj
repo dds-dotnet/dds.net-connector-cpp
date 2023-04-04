@@ -189,6 +189,17 @@
     <ClCompile Include="connector\src\internal\src\variables\base_primitive.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\enc_dec_primitive.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\var_prim_boolean.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_byte.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_double.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_dword.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_qword.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_single.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_string.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_ubyte.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_udword.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_uqword.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_uword.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\var_prim_word.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\var_raw_bytes.cpp" />
     <ClCompile Include="connector\src\logger.cpp" />
   </ItemGroup>
