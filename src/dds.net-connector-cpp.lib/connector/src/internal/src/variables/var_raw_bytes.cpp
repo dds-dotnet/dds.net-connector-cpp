@@ -1,5 +1,7 @@
 #include "src/internal/inc/variables/var_raw_bytes.h"
 
+#include "src/internal/inc/variables/enc_dec_primitive.h"
+
 
 
 dds::net::connector::_internal::variables::
@@ -37,6 +39,25 @@ void
   //- We do not have any sub-types here, unlike the primitive types.
   //- So, we do not write anything.
   //- 
+}
+
+void
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::writeValueOnBuffer(BufferAddress buffer, int& offset)
+{
+  if (data != nullptr && dataSize > 0)
+  {
+    EncDecPrimitive::writeUnsignedDWord(buffer, offset, dataSize);
+
+    for (int i = 0; i < dataSize; i++)
+    {
+      buffer[offset++] = data[i];
+    }
+  }
+  else
+  {
+    EncDecPrimitive::writeUnsignedDWord(buffer, offset, 0);
+  }
 }
 
 bool
