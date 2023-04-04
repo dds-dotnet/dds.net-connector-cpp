@@ -19,6 +19,13 @@ dds::net::connector::_internal::variables::
   dataSize = 0;
 }
 
+std::string
+  dds::net::connector::_internal::variables::
+  RawBytesVariable::getPrintableTypeName()
+{
+  return std::string("RawBytes");
+}
+
 int
   dds::net::connector::_internal::variables::
   RawBytesVariable::getSubTypeSizeOnBuffer()
