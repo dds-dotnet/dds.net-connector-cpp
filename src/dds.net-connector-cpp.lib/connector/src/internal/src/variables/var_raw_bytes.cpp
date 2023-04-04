@@ -41,6 +41,12 @@ void
   //- 
 }
 
+void dds::net::connector::_internal::variables::RawBytesVariable::resetValue()
+{
+  data = nullptr;
+  dataSize = 0;
+}
+
 void
   dds::net::connector::_internal::variables::
   RawBytesVariable::writeValueOnBuffer(BufferAddress buffer, int& offset)
