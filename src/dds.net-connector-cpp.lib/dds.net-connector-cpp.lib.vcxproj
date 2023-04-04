@@ -159,6 +159,7 @@
     <ClInclude Include="connector\src\internal\inc\sync_queue_writer.h" />
     <ClInclude Include="connector\src\internal\inc\threaded_network_client.h" />
     <ClInclude Include="connector\inc\types.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\base_primitive.h" />
     <ClInclude Include="connector\src\internal\inc\variables\base_variable.h" />
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h" />
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_primitive.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="connector\src\internal\src\network_client.cpp" />
     <ClCompile Include="connector\src\internal\src\string_helper.cpp" />
     <ClCompile Include="connector\src\internal\src\sync_queue.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\base_primitive.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\enc_dec_primitive.cpp" />
     <ClCompile Include="connector\src\logger.cpp" />
   </ItemGroup>
