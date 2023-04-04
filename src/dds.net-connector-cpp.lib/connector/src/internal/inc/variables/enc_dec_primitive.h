@@ -22,7 +22,7 @@ namespace dds {
             static void writePrimitiveType(BufferAddress buffer, int& offset, PrimitiveType value);
 
             static int getStringSizeOnBuffer(std::string& s);
-            static std::string& readString(BufferAddress buffer, int& offset);
+            static std::string readString(BufferAddress buffer, int& offset);
             static void writeString(BufferAddress buffer, int& offset, std::string& value);
 
             static bool readBoolean(BufferAddress buffer, int& offset);

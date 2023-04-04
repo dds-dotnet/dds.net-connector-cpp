@@ -36,7 +36,7 @@ int
   return u16.size() * 2;
 }
 
-std::string&
+std::string
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readString(BufferAddress buffer, int& offset)
 {
