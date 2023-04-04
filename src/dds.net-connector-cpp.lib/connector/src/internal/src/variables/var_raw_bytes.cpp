@@ -141,9 +141,16 @@ bool
           if ((unsigned char)data[i] != ((unsigned char*)buffer)[i])
           {
             isDiff = true;
+            break;
           }
+        }
 
-          data[i] = ((unsigned char*)buffer)[i];
+        if (isDiff)
+        {
+          bufferManager->free((BufferAddress)data);
+
+          data = (unsigned char*)buffer;
+          dataSize = size;
         }
 
         return isDiff;
