@@ -17,6 +17,16 @@ dds::net::connector::_internal::variables::
   dataSize = 0;
 }
 
+int dds::net::connector::_internal::variables::RawBytesVariable::getSubTypeSizeOnBuffer()
+{
+  //- 
+  //- We do not have any sub-types here, unlike the primitive types.
+  //- Therefore, its sub-type will take "0" bytes on the data buffer.
+  //- 
+
+  return 0;
+}
+
 bool
   dds::net::connector::_internal::variables::
   RawBytesVariable::updateData(BufferAddress buffer, int size)
