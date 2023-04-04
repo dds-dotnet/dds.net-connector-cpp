@@ -164,6 +164,17 @@
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h" />
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_primitive.h" />
     <ClInclude Include="connector\src\internal\inc\variables\var_prim_boolean.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_byte.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_double.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_dword.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_qword.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_single.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_string.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_ubyte.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_udword.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_uqword.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_uword.h" />
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_word.h" />
     <ClInclude Include="connector\src\internal\inc\variables\var_raw_bytes.h" />
     <ClInclude Include="connector\src\internal\src\variables\base_variable.cpp" />
     <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp" />

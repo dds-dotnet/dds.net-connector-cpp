@@ -90,6 +90,39 @@
     <ClInclude Include="connector\src\internal\inc\variables\var_prim_boolean.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_byte.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_double.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_dword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_qword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_single.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_ubyte.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_udword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_uqword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_uword.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connector\src\internal\inc\variables\var_prim_word.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connector\src\ddsconnector.cpp">
