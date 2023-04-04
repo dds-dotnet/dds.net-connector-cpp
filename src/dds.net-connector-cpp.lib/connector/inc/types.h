@@ -27,7 +27,7 @@ typedef unsigned long long (*UnsignedQWordProvider)(std::string& variableName);
 typedef float (*SingleProvider)(std::string& variableName);
 typedef double (*DoubleProvider)(std::string& variableName);
 
-typedef int (RawBytesProvider)(std::string& variableName, unsigned char* buffer, int bufferSize);
+typedef int (*RawBytesProvider)(std::string& variableName, unsigned char* buffer, int bufferSize);
 
 
 //- 
