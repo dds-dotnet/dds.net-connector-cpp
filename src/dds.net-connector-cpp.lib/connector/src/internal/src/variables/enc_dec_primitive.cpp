@@ -55,16 +55,18 @@ void
   dds::net::connector::_internal::variables::
   EncDecPrimitive::writeString(BufferAddress buffer, int& offset, std::string& value)
 {
-  buffer[offset + 0] = (value.size() >> 8) & 0x0ff;
-  buffer[offset + 1] = value.size() & 0x0ff;
+  std::u16string u16 = u16Converter.from_bytes(value);
+
+  buffer[offset + 0] = (u16.size() >> 8) & 0x0ff;
+  buffer[offset + 1] = u16.size() & 0x0ff;
 
   offset += 2;
 
-  if (value.size() > 0)
+  if (u16.size() > 0)
   {
-    for (int i = 0; i < value.size(); i++)
+    for (int i = 0; i < u16.size(); i++)
     {
-      unsigned short v = value[i];
+      unsigned short v = u16[i];
 
       // Writing in little-endian format.
 
