@@ -126,7 +126,7 @@ bool
   dds::net::connector::_internal::variables::
   RawBytesVariable::updateData(BufferAddress buffer, int size)
 {
-  if (buffer == nullptr)
+  if (buffer == nullptr || size == 0)
   {
     if (data == nullptr)
     {
@@ -148,6 +148,7 @@ bool
     {
       data = (unsigned char*)buffer;
       dataSize = size;
+
       return true;
     }
     else
