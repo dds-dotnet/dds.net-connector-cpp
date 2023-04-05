@@ -200,7 +200,7 @@
     <ClCompile Include="connector\src\ddsconnector-comm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\internal\inc\packet_to_server.cpp">
+    <ClCompile Include="connector\src\internal\src\packet_to_server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="connector\src\internal\src\packet_preprocessor.cpp">
