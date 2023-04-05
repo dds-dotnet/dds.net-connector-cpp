@@ -94,59 +94,59 @@ void
 dds::net::connector::
 DdsConnector::unregisterVariablesFromServer()
 {
-  /*
-  lock (variablesMutex)
-            {
-                int sizeRequired = 0;
+  variablesLock.lock();
+  {
+    int sizeRequired = 0;
 
-                foreach (KeyValuePair<string, BaseVariable> v in uploadVariables)
-                {
-                    sizeRequired +=
-                        2 + Encoding.Unicode.GetBytes(v.first).Length + // Variable name
-                        Periodicity.Normal.GetSizeOnBuffer() +        // Periodicity
-                        1 +                                           // Provider/Consumer
-                        1;                                            // Register/Unregister
-                }
+    for (auto& v : uploadVariables)
+    {
+      sizeRequired +=
+        EncDecPrimitive::getStringSizeOnBuffer(v.second->name) + // Variable name
+        EncDecHeader::PERIODICITY_SIZE_ON_BUFFER +               // Periodicity
+        1 +                                                      // Provider/Consumer
+        1;                                                       // Register/Unregister
+    }
 
-                foreach (KeyValuePair<string, BaseVariable> v in downloadVariables)
-                {
-                    sizeRequired +=
-                        2 + Encoding.Unicode.GetBytes(v.first).Length + // Variable name
-                        Periodicity.Normal.GetSizeOnBuffer() +        // Periodicity
-                        1 +                                           // Provider/Consumer
-                        1;                                            // Register/Unregister
-                }
+    for (auto& v : downloadVariables)
+    {
+      sizeRequired +=
+        EncDecPrimitive::getStringSizeOnBuffer(v.second->name) + // Variable name
+        EncDecHeader::PERIODICITY_SIZE_ON_BUFFER +               // Periodicity
+        1 +                                                      // Provider/Consumer
+        1;                                                       // Register/Unregister
+    }
 
-                if (sizeRequired > 0)
-                {
-                    sizeRequired += EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER;
-                    sizeRequired += PacketId.VariablesRegistration.GetSizeOnBuffer();
+    if (sizeRequired > 0)
+    {
+      sizeRequired += EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER;
+      sizeRequired += EncDecHeader::PACKET_ID_SIZE_ON_BUFFER;
 
-                    byte[] buffer = new byte[sizeRequired];
-                    int bufferOffset = 0;
+      BufferAddress buffer = bufferManager->getBufferWithClosestSize(sizeRequired);
+      int bufferOffset = 0;
 
-                    buffer.WriteMessageHeader(ref bufferOffset, buffer.Length - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
-                    buffer.WritePacketId(ref bufferOffset, PacketId.VariablesRegistration);
+      EncDecHeader::writeMessageHeader(buffer, bufferOffset, sizeRequired - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
+      EncDecHeader::writePacketId(buffer, bufferOffset, PACKET_ID_VARIABLES_REGISTRATION);
 
-                    foreach (KeyValuePair<string, BaseVariable> v in uploadVariables)
-                    {
-                        EncDecPrimitive::WriteString(buffer, bufferOffset, v.first);
-                        EncDecHeader::writePeriodicity(buffer, bufferOffset, v.second->Periodicity);
-                        EncDecPrimitive::writeBoolean(buffer, bufferOffset, true); // Client is provider of data
-                        EncDecPrimitive::writeBoolean(buffer, bufferOffset, false); // Do register
-                    }
+      for (auto& v : uploadVariables)
+      {
+        EncDecPrimitive::writeString(buffer, bufferOffset, v.second->name);
+        EncDecHeader::writePeriodicity(buffer, bufferOffset, v.second->periodicity);
+        EncDecPrimitive::writeBoolean(buffer, bufferOffset, true); // Client is provider of data
+        EncDecPrimitive::writeBoolean(buffer, bufferOffset, false); // Do register
+      }
 
-                    foreach (KeyValuePair<string, BaseVariable> v in downloadVariables)
-                    {
-                        EncDecPrimitive::WriteString(buffer, bufferOffset, v.first);
-                        EncDecHeader::writePeriodicity(buffer, bufferOffset, v.second->Periodicity);
-                        EncDecPrimitive::writeBoolean(buffer, bufferOffset, false); // Client is consumer of data
-                        EncDecPrimitive::writeBoolean(buffer, bufferOffset, false); // Do register
-                    }
+      for (auto& v : downloadVariables)
+      {
+        EncDecPrimitive::writeString(buffer, bufferOffset, v.second->name);
+        EncDecHeader::writePeriodicity(buffer, bufferOffset, v.second->periodicity);
+        EncDecPrimitive::writeBoolean(buffer, bufferOffset, false); // Client is consumer of data
+        EncDecPrimitive::writeBoolean(buffer, bufferOffset, false); // Do register
+      }
 
-                    DataToServer.Enqueue(new _internal::PacketToServer(buffer, bufferOffset));
-                }
-            }*/
+      dataToServer->enqueue(new _internal::PacketToServer(buffer, bufferOffset));
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -165,13 +165,13 @@ DdsConnector::sendUpdatedValuesToServer(
             if (sizeRequired > 0)
             {
                 sizeRequired += EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER;
-                sizeRequired += PacketId.VariablesUpdateAtServer.GetSizeOnBuffer();
+                sizeRequired += EncDecHeader::PACKET_ID_SIZE_ON_BUFFER;
 
-                byte[] buffer = new byte[sizeRequired];
+                BufferAddress buffer = bufferManager->getBufferWithClosestSize(sizeRequired);
                 int bufferOffset = 0;
 
-                buffer.WriteMessageHeader(ref bufferOffset, buffer.Length - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
-                buffer.WritePacketId(ref bufferOffset, PacketId.VariablesUpdateAtServer);
+                EncDecHeader::writeMessageHeader(buffer, bufferOffset, sizeRequired - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
+                EncDecHeader::writePacketId(buffer, bufferOffset, PacketId.VariablesUpdateAtServer);
 
                 foreach (BaseVariable v in vals)
                 {
