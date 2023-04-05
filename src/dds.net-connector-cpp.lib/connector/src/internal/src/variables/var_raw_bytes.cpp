@@ -138,7 +138,13 @@ bool
   dds::net::connector::_internal::variables::
   RawBytesVariable::updateData(BufferAddress buffer, int size)
 {
-  if (buffer == nullptr || size == 0)
+  if (buffer != nullptr && size == 0)
+  {
+    bufferManager->free(buffer);
+    buffer = nullptr;
+  }
+
+  if (buffer == nullptr)
   {
     if (data == nullptr)
     {
@@ -176,26 +182,30 @@ bool
       }
       else
       {
-        bool isDiff = false;
+        bool isDifferent = false;
 
         for (int i = 0; i < dataSize; i++)
         {
           if ((unsigned char)data[i] != ((unsigned char*)buffer)[i])
           {
-            isDiff = true;
+            isDifferent = true;
             break;
           }
         }
 
-        if (isDiff)
+        if (isDifferent)
         {
           bufferManager->free((BufferAddress)data);
 
           data = (unsigned char*)buffer;
           dataSize = size;
         }
+        else
+        {
+          bufferManager->free(buffer);
+        }
 
-        return isDiff;
+        return isDifferent;
       }
     }
   }
