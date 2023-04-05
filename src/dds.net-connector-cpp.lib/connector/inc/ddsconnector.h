@@ -63,40 +63,40 @@ namespace dds {
         //- 
         //- Providers
         //- 
-        void registerStringProvider(std::string& variableName, StringProvider provider, Periodicity periodicity);
-        void registerBooleanProvider(std::string& variableName, BooleanProvider provider, Periodicity periodicity);
-        void registerByteProvider(std::string& variableName, ByteProvider provider, Periodicity periodicity);
-        void registerWordProvider(std::string& variableName, WordProvider provider, Periodicity periodicity);
-        void registerDWordProvider(std::string& variableName, DWordProvider provider, Periodicity periodicity);
-        void registerQWordProvider(std::string& variableName, QWordProvider provider, Periodicity periodicity);
-        void registerUnsignedByteProvider(std::string& variableName, UnsignedByteProvider provider, Periodicity periodicity);
-        void registerUnsignedWordProvider(std::string& variableName, UnsignedWordProvider provider, Periodicity periodicity);
-        void registerUnsignedDWordProvider(std::string& variableName, UnsignedDWordProvider provider, Periodicity periodicity);
-        void registerUnsignedQWordProvider(std::string& variableName, UnsignedQWordProvider provider, Periodicity periodicity);
-        void registerSingleProvider(std::string& variableName, SingleProvider provider, Periodicity periodicity);
-        void registerDoubleProvider(std::string& variableName, DoubleProvider provider, Periodicity periodicity);
-        void registerRawBytesProvider(std::string& variableName, RawBytesProvider provider, Periodicity periodicity);
+        void registerStringProvider(std::string variableName, StringProvider provider, Periodicity periodicity);
+        void registerBooleanProvider(std::string variableName, BooleanProvider provider, Periodicity periodicity);
+        void registerByteProvider(std::string variableName, ByteProvider provider, Periodicity periodicity);
+        void registerWordProvider(std::string variableName, WordProvider provider, Periodicity periodicity);
+        void registerDWordProvider(std::string variableName, DWordProvider provider, Periodicity periodicity);
+        void registerQWordProvider(std::string variableName, QWordProvider provider, Periodicity periodicity);
+        void registerUnsignedByteProvider(std::string variableName, UnsignedByteProvider provider, Periodicity periodicity);
+        void registerUnsignedWordProvider(std::string variableName, UnsignedWordProvider provider, Periodicity periodicity);
+        void registerUnsignedDWordProvider(std::string variableName, UnsignedDWordProvider provider, Periodicity periodicity);
+        void registerUnsignedQWordProvider(std::string variableName, UnsignedQWordProvider provider, Periodicity periodicity);
+        void registerSingleProvider(std::string variableName, SingleProvider provider, Periodicity periodicity);
+        void registerDoubleProvider(std::string variableName, DoubleProvider provider, Periodicity periodicity);
+        void registerRawBytesProvider(std::string variableName, RawBytesProvider provider, Periodicity periodicity);
 
-        void unregisterProvider(std::string& variableName);
+        void unregisterProvider(std::string variableName);
         
         //- 
         //- Consumers
         //- 
-        void registerStringConsumer(std::string& variableName, StringConsumer consumer, Periodicity periodicity);
-        void registerBooleanConsumer(std::string& variableName, BooleanConsumer consumer, Periodicity periodicity);
-        void registerByteConsumer(std::string& variableName, ByteConsumer consumer, Periodicity periodicity);
-        void registerWordConsumer(std::string& variableName, WordConsumer consumer, Periodicity periodicity);
-        void registerDWordConsumer(std::string& variableName, DWordConsumer consumer, Periodicity periodicity);
-        void registerQWordConsumer(std::string& variableName, QWordConsumer consumer, Periodicity periodicity);
-        void registerUnsignedByteConsumer(std::string& variableName, UnsignedByteConsumer consumer, Periodicity periodicity);
-        void registerUnsignedWordConsumer(std::string& variableName, UnsignedWordConsumer consumer, Periodicity periodicity);
-        void registerUnsignedDWordConsumer(std::string& variableName, UnsignedDWordConsumer consumer, Periodicity periodicity);
-        void registerUnsignedQWordConsumer(std::string& variableName, UnsignedQWordConsumer consumer, Periodicity periodicity);
-        void registerSingleConsumer(std::string& variableName, SingleConsumer consumer, Periodicity periodicity);
-        void registerDoubleConsumer(std::string& variableName, DoubleConsumer consumer, Periodicity periodicity);
-        void registerRawBytesConsumer(std::string& variableName, RawBytesConsumer consumer, Periodicity periodicity);
+        void registerStringConsumer(std::string variableName, StringConsumer consumer, Periodicity periodicity);
+        void registerBooleanConsumer(std::string variableName, BooleanConsumer consumer, Periodicity periodicity);
+        void registerByteConsumer(std::string variableName, ByteConsumer consumer, Periodicity periodicity);
+        void registerWordConsumer(std::string variableName, WordConsumer consumer, Periodicity periodicity);
+        void registerDWordConsumer(std::string variableName, DWordConsumer consumer, Periodicity periodicity);
+        void registerQWordConsumer(std::string variableName, QWordConsumer consumer, Periodicity periodicity);
+        void registerUnsignedByteConsumer(std::string variableName, UnsignedByteConsumer consumer, Periodicity periodicity);
+        void registerUnsignedWordConsumer(std::string variableName, UnsignedWordConsumer consumer, Periodicity periodicity);
+        void registerUnsignedDWordConsumer(std::string variableName, UnsignedDWordConsumer consumer, Periodicity periodicity);
+        void registerUnsignedQWordConsumer(std::string variableName, UnsignedQWordConsumer consumer, Periodicity periodicity);
+        void registerSingleConsumer(std::string variableName, SingleConsumer consumer, Periodicity periodicity);
+        void registerDoubleConsumer(std::string variableName, DoubleConsumer consumer, Periodicity periodicity);
+        void registerRawBytesConsumer(std::string variableName, RawBytesConsumer consumer, Periodicity periodicity);
 
-        void unregisterConsumer(std::string& variableName);
+        void unregisterConsumer(std::string variableName);
 
 
 

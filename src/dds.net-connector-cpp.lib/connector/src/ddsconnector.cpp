@@ -195,7 +195,7 @@ ushort
 void
   dds::net::connector::
   DdsConnector::registerStringProvider(
-    std::string& variableName, StringProvider provider, Periodicity periodicity)
+    std::string variableName, StringProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -217,7 +217,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerBooleanProvider(
-    std::string& variableName, BooleanProvider provider, Periodicity periodicity)
+    std::string variableName, BooleanProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -239,7 +239,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerByteProvider(
-    std::string& variableName, ByteProvider provider, Periodicity periodicity)
+    std::string variableName, ByteProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -261,7 +261,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerWordProvider(
-    std::string& variableName, WordProvider provider, Periodicity periodicity)
+    std::string variableName, WordProvider provider, Periodicity periodicity)
 {
   /*lock(variablesMutex)
           {
@@ -282,7 +282,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerDWordProvider(
-    std::string& variableName, DWordProvider provider, Periodicity periodicity)
+    std::string variableName, DWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -304,7 +304,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerQWordProvider(
-    std::string& variableName, QWordProvider provider, Periodicity periodicity)
+    std::string variableName, QWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -326,7 +326,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedByteProvider(
-    std::string& variableName, UnsignedByteProvider provider, Periodicity periodicity)
+    std::string variableName, UnsignedByteProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -348,7 +348,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedWordProvider(
-    std::string& variableName, UnsignedWordProvider provider, Periodicity periodicity)
+    std::string variableName, UnsignedWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -370,7 +370,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedDWordProvider(
-    std::string& variableName, UnsignedDWordProvider provider, Periodicity periodicity)
+    std::string variableName, UnsignedDWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -392,7 +392,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedQWordProvider(
-    std::string& variableName, UnsignedQWordProvider provider, Periodicity periodicity)
+    std::string variableName, UnsignedQWordProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -414,7 +414,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerSingleProvider(
-    std::string& variableName, SingleProvider provider, Periodicity periodicity)
+    std::string variableName, SingleProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -436,7 +436,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerDoubleProvider(
-    std::string& variableName, DoubleProvider provider, Periodicity periodicity)
+    std::string variableName, DoubleProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -458,7 +458,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerRawBytesProvider(
-    std::string& variableName, RawBytesProvider provider, Periodicity periodicity)
+    std::string variableName, RawBytesProvider provider, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -479,7 +479,7 @@ void
 
 void
   dds::net::connector::
-  DdsConnector::unregisterProvider(std::string& variableName)
+  DdsConnector::unregisterProvider(std::string variableName)
 {
   /*
   lock(variablesMutex)
@@ -506,7 +506,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerStringConsumer(
-    std::string& variableName, StringConsumer consumer, Periodicity periodicity)
+    std::string variableName, StringConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -529,7 +529,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerBooleanConsumer(
-    std::string& variableName, BooleanConsumer consumer, Periodicity periodicity)
+    std::string variableName, BooleanConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -552,7 +552,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerByteConsumer(
-    std::string& variableName, ByteConsumer consumer, Periodicity periodicity)
+    std::string variableName, ByteConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -575,7 +575,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerWordConsumer(
-    std::string& variableName, WordConsumer consumer, Periodicity periodicity)
+    std::string variableName, WordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -598,7 +598,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerDWordConsumer(
-    std::string& variableName, DWordConsumer consumer, Periodicity periodicity)
+    std::string variableName, DWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -621,7 +621,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerQWordConsumer(
-    std::string& variableName, QWordConsumer consumer, Periodicity periodicity)
+    std::string variableName, QWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -644,7 +644,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedByteConsumer(
-    std::string& variableName, UnsignedByteConsumer consumer, Periodicity periodicity)
+    std::string variableName, UnsignedByteConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -667,7 +667,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedWordConsumer(
-    std::string& variableName, UnsignedWordConsumer consumer, Periodicity periodicity)
+    std::string variableName, UnsignedWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -690,7 +690,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedDWordConsumer(
-    std::string& variableName, UnsignedDWordConsumer consumer, Periodicity periodicity)
+    std::string variableName, UnsignedDWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -713,7 +713,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerUnsignedQWordConsumer(
-    std::string& variableName, UnsignedQWordConsumer consumer, Periodicity periodicity)
+    std::string variableName, UnsignedQWordConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -736,7 +736,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerSingleConsumer(
-    std::string& variableName, SingleConsumer consumer, Periodicity periodicity)
+    std::string variableName, SingleConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -759,7 +759,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerDoubleConsumer(
-    std::string& variableName, DoubleConsumer consumer, Periodicity periodicity)
+    std::string variableName, DoubleConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -782,7 +782,7 @@ void
 void
   dds::net::connector::
   DdsConnector::registerRawBytesConsumer(
-    std::string& variableName, RawBytesConsumer consumer, Periodicity periodicity)
+    std::string variableName, RawBytesConsumer consumer, Periodicity periodicity)
 {
   /*
   lock(variablesMutex)
@@ -804,7 +804,7 @@ void
 
 void
   dds::net::connector::
-  DdsConnector::unregisterConsumer(std::string& variableName)
+  DdsConnector::unregisterConsumer(std::string variableName)
 {
   /*
   lock(variablesMutex)
