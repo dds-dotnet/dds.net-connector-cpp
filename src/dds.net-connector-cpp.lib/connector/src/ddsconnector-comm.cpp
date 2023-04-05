@@ -191,21 +191,25 @@ void
   dds::net::connector::
   onConnectedWithServer(void* connector)
 {
-  /*
-  dds::net::connector::DdsConnector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
-  byte[] handshake = new byte[
-    EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER +
-      PacketId.HandShake.GetSizeOnBuffer() +
-      2 + Encoding.Unicode.GetBytes(ApplicationName).Length +
-      2 + Encoding.Unicode.GetBytes(LibraryVersion).Length];
+  dds::net::connector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
+
+  std::string libraryVersion = conn->getLibraryVersion();
+
+  int requiredSize = EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER +
+    EncDecHeader::PACKET_ID_SIZE_ON_BUFFER +
+    EncDecPrimitive::getStringSizeOnBuffer(conn->applicationName) +
+    EncDecPrimitive::getStringSizeOnBuffer(libraryVersion);
+
+  BufferAddress handshake = conn->bufferManager->getBufferWithClosestSize(requiredSize);
+  
   int offset = 0;
 
-  handshake.WriteMessageHeader(ref offset, handshake.Length - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
-  handshake.WritePacketId(ref offset, PacketId.HandShake);
-  handshake.WriteString(ref offset, ApplicationName);
-  handshake.WriteString(ref offset, LibraryVersion);
+  EncDecHeader::writeMessageHeader(handshake, offset, requiredSize - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
+  EncDecHeader::writePacketId(handshake, offset, PACKET_ID_HANDSHAKE);
+  EncDecPrimitive::writeString(handshake, offset, conn->applicationName);
+  EncDecPrimitive::writeString(handshake, offset, libraryVersion);
 
-  DataToServer.Enqueue(new(handshake, offset));*/
+  conn->dataToServer->enqueue(new _internal::PacketToServer(handshake, offset));
 }
 
 void
