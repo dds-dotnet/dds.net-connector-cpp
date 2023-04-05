@@ -18,4 +18,6 @@ void
   dds::net::connector::_internal::
   PacketPreprocessor::addData(PacketFromServer* packet)
 {
+
+  delete packet;
 }
