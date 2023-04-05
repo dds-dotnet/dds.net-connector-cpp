@@ -195,20 +195,21 @@ bool
   dds::net::connector::
   periodicUpdateWorker(void* connector)
 {
-  /*
-  connector.iterationCounter++;
+  DdsConnector* conn = (DdsConnector*)connector;
 
-  connector.doPeriodicUpdate(Periodicity.Highest);
+  conn->iterationCounter++;
 
-  if (connector.iterationCounter % 2 == 0) connector.doPeriodicUpdate(Periodicity.High);
-  if (connector.iterationCounter % 4 == 0) connector.doPeriodicUpdate(Periodicity.Normal);
-  if (connector.iterationCounter % 8 == 0) connector.doPeriodicUpdate(Periodicity.Low);
+  conn->doPeriodicUpdate(HIGHEST);
 
-  if (connector.iterationCounter % 16 == 0)
+  if (conn->iterationCounter % 2 == 0) conn->doPeriodicUpdate(HIGH);
+  if (conn->iterationCounter % 4 == 0) conn->doPeriodicUpdate(NORMAL);
+  if (conn->iterationCounter % 8 == 0) conn->doPeriodicUpdate(LOW);
+
+  if (conn->iterationCounter % 16 == 0)
   {
-    connector.doPeriodicUpdate(Periodicity.Lowest);
-    connector.iterationCounter = 0;
-  }*/
+    conn->doPeriodicUpdate(LOWEST);
+    conn->iterationCounter = 0;
+  }
 
   return true;
 }
