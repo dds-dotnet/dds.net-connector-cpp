@@ -142,8 +142,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="connector\inc\config.h" />
     <ClInclude Include="connector\inc\ddsconnector.h" />
+    <ClInclude Include="connector\inc\types.h" />
+    <ClInclude Include="connector\inc\config.h" />
     <ClInclude Include="connector\inc\error.h" />
     <ClInclude Include="connector\inc\logger.h" />
     <ClInclude Include="connector\src\internal\inc\buffer_manager.h" />
@@ -159,7 +160,6 @@
     <ClInclude Include="connector\src\internal\inc\sync_queue_reader.h" />
     <ClInclude Include="connector\src\internal\inc\sync_queue_writer.h" />
     <ClInclude Include="connector\src\internal\inc\threaded_network_client.h" />
-    <ClInclude Include="connector\inc\types.h" />
     <ClInclude Include="connector\src\internal\inc\variables\base_primitive.h" />
     <ClInclude Include="connector\src\internal\inc\variables\base_variable.h" />
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h" />
@@ -177,14 +177,13 @@
     <ClInclude Include="connector\src\internal\inc\variables\var_prim_uword.h" />
     <ClInclude Include="connector\src\internal\inc\variables\var_prim_word.h" />
     <ClInclude Include="connector\src\internal\inc\variables\var_raw_bytes.h" />
-    <ClInclude Include="connector\src\internal\src\variables\base_variable.cpp" />
-    <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="connector\src\ddsconnector.cpp" />
+    <ClCompile Include="connector\src\ddsconnector-varreg.cpp" />
     <ClCompile Include="connector\src\ddsconnector-comm.cpp" />
     <ClCompile Include="connector\src\ddsconnector-pp.cpp" />
-    <ClCompile Include="connector\src\ddsconnector-varreg.cpp" />
-    <ClCompile Include="connector\src\ddsconnector.cpp" />
+    <ClCompile Include="connector\src\logger.cpp" />
     <ClCompile Include="connector\src\internal\src\packet_from_server.cpp" />
     <ClCompile Include="connector\src\internal\src\packet_to_server.cpp" />
     <ClCompile Include="connector\src\internal\src\buffer_manager.cpp" />
@@ -208,7 +207,8 @@
     <ClCompile Include="connector\src\internal\src\variables\var_prim_uword.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\var_prim_word.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\var_raw_bytes.cpp" />
-    <ClCompile Include="connector\src\logger.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\base_variable.cpp" />
+    <ClCompile Include="connector\src\internal\src\variables\enc_dec_header.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
