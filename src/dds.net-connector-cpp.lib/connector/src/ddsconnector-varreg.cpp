@@ -455,29 +455,25 @@ DdsConnector::registerBooleanConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-              #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new BooleanVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new BooleanVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -487,29 +483,25 @@ DdsConnector::registerByteConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-              #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new ByteVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new ByteVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -519,29 +511,25 @@ DdsConnector::registerWordConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-              #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new WordVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new WordVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -551,29 +539,25 @@ DdsConnector::registerDWordConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-             #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new DWordVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new DWordVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -583,29 +567,25 @@ DdsConnector::registerQWordConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-            #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new QWordVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new QWordVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -615,29 +595,25 @@ DdsConnector::registerUnsignedByteConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-              #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new UnsignedByteVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new UnsignedByteVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -647,29 +623,25 @@ DdsConnector::registerUnsignedWordConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-            #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new UnsignedWordVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new UnsignedWordVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -679,29 +651,25 @@ DdsConnector::registerUnsignedDWordConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-            #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new UnsignedDWordVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new UnsignedDWordVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -711,29 +679,25 @@ DdsConnector::registerUnsignedQWordConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-            #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new UnsignedQWordVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new UnsignedQWordVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -743,29 +707,25 @@ DdsConnector::registerSingleConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-          #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new SingleVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new SingleVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -775,29 +735,25 @@ DdsConnector::registerDoubleConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-          #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new DoubleVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new DoubleVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -807,29 +763,25 @@ DdsConnector::registerRawBytesConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-        #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-        variablesLock.unlock();
+      variablesLock.unlock();
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new RawBytesVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new RawBytesVariable(variableName, periodicity, nullptr, consumer, bufferManager);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
@@ -838,21 +790,17 @@ DdsConnector::unregisterConsumer(std::string variableName)
 {
   variablesLock.lock();
   {
+    if (downloadVariables.count(variableName) > 0)
+    {
+      downloadVariables.erase(variableName);
+    }
+
+    if (downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+      downloadVariablesToBeRegistered.erase(variableName);
+    }
   }
   variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0)
-            {
-              downloadVariables.erase(variableName);
-            }
-
-            if (downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-              downloadVariablesToBeRegistered.erase(variableName);
-            }
-          }*/
 }
 
 
