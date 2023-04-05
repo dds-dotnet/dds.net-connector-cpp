@@ -178,6 +178,7 @@ void
     }
 
     dataToServer->enqueue(new _internal::PacketToServer(buffer, bufferOffset));
+  }
 }
 
 /*************************************************************************************/
