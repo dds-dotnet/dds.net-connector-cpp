@@ -1,5 +1,50 @@
 #include "src/internal/inc/variables/enc_dec_header.h"
 
+#include "inc/config.h"
+#include "inc/error.h"
+
+
+static char message[1024];
+
+
+void
+  dds::net::connector::_internal::variables::
+  EncDecHeader::writeMessageHeader(BufferAddress buffer, int& offset, int totalBytes)
+{
+  buffer[offset++] = '#';
+  buffer[offset++] = '#';
+
+  buffer[offset++] = (totalBytes >> 24) & 0x0ff;
+  buffer[offset++] = (totalBytes >> 16) & 0x0ff;
+  buffer[offset++] = (totalBytes >> 8) & 0x0ff;
+  buffer[offset++] = (totalBytes >> 0) & 0x0ff;
+}
+
+int
+  dds::net::connector::_internal::variables::
+  EncDecHeader::readTotalBytesInMessage(BufferAddress buffer, int& offset)
+{
+  if (buffer[offset] == '#' && buffer[offset + 1] == '#')
+  {
+    offset += 2;
+
+    int v = buffer[offset++];
+    v = (v << 8) | buffer[offset++];
+    v = (v << 8) | buffer[offset++];
+    v = (v << 8) | buffer[offset++];
+
+    return v;
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(message, sizeof(message),
+#else
+  sprintf(message,
+#endif
+    "The message is not starting from given offset %d", offset);
+
+  throw Error(message);
+}
 
 void
   dds::net::connector::_internal::variables::
