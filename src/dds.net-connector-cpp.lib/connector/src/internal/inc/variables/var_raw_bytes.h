@@ -29,7 +29,7 @@ namespace dds {
 
             ~RawBytesVariable();
 
-            std::string getPrintableTypeName() override;
+            const char* getPrintableTypeName() override;
 
             int getSubTypeSizeOnBuffer() override;
             void writeSubTypeOnBuffer(BufferAddress buffer, int& offset) override;

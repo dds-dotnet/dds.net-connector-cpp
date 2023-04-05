@@ -17,11 +17,11 @@ dds::net::connector::_internal::variables::
   value = 0;
 }
 
-std::string
+const char*
   dds::net::connector::_internal::variables::
   UnsignedDWordVariable::getPrintableTypeName()
 {
-  return std::string("Unsigned DWord");
+  return "Unsigned DWord";
 }
 
 void

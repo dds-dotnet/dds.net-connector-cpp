@@ -16,11 +16,11 @@ dds::net::connector::_internal::variables::
   value = false;
 }
 
-std::string
+const char*
   dds::net::connector::_internal::variables::
   BooleanVariable::getPrintableTypeName()
 {
-  return std::string("Boolean");
+  return "Boolean";
 }
 
 void

@@ -24,7 +24,7 @@ namespace dds {
               UnsignedWordProvider unsignedWordProvider,
               UnsignedWordConsumer unsignedWordConsumer);
 
-            std::string getPrintableTypeName() override;
+            const char* getPrintableTypeName() override;
 
             void resetValue() override;
             bool refreshValue() override;

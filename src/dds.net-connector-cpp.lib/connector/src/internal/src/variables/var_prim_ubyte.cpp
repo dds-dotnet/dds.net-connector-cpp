@@ -17,11 +17,11 @@ dds::net::connector::_internal::variables::
   value = 0;
 }
 
-std::string
+const char*
   dds::net::connector::_internal::variables::
   UnsignedByteVariable::getPrintableTypeName()
 {
-  return std::string("Unsigned Byte");
+  return "Unsigned Byte";
 }
 
 void

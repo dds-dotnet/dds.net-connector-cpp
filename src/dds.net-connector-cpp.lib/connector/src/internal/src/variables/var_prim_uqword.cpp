@@ -17,11 +17,11 @@ dds::net::connector::_internal::variables::
   value = 0;
 }
 
-std::string
+const char*
   dds::net::connector::_internal::variables::
   UnsignedQWordVariable::getPrintableTypeName()
 {
-  return std::string("Unsigned QWord");
+  return "Unsigned QWord";
 }
 
 void

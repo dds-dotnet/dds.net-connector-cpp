@@ -34,11 +34,11 @@ dds::net::connector::_internal::variables::
   dataSize = 0;
 }
 
-std::string
+const char*
   dds::net::connector::_internal::variables::
   RawBytesVariable::getPrintableTypeName()
 {
-  return std::string("RawBytes");
+  return "RawBytes";
 }
 
 int

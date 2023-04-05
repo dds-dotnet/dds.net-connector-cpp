@@ -24,7 +24,7 @@ namespace dds {
               QWordProvider qWordProvider,
               QWordConsumer qWordConsumer);
 
-            std::string getPrintableTypeName() override;
+            const char* getPrintableTypeName() override;
 
             void resetValue() override;
             bool refreshValue() override;

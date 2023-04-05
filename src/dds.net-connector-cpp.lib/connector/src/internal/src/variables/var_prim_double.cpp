@@ -17,11 +17,11 @@ dds::net::connector::_internal::variables::
   value = 0.0;
 }
 
-std::string
+const char*
   dds::net::connector::_internal::variables::
   DoubleVariable::getPrintableTypeName()
 {
-  return std::string("Double");
+  return "Double";
 }
 
 void

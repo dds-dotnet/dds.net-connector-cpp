@@ -24,7 +24,7 @@ namespace dds {
               DoubleProvider doubleProvider,
               DoubleConsumer doubleConsumer);
 
-            std::string getPrintableTypeName() override;
+            const char* getPrintableTypeName() override;
 
             void resetValue() override;
             bool refreshValue() override;
