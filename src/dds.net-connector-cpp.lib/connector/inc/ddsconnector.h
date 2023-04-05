@@ -18,6 +18,7 @@ namespace dds {
 
       namespace _internal {
         class BufferManager;
+        class PacketPreprocessor;
         class ThreadedNetworkClient;
         class PacketFromServer;
         class PacketToServer;
@@ -108,6 +109,7 @@ namespace dds {
         Logger* logger;
 
         _internal::BufferManager* bufferManager;
+        _internal::PacketPreprocessor* packetPreprocessor;
 
         _internal::ThreadedNetworkClient* networkClient;
         _internal::SyncQueueReader<_internal::PacketFromServer*>* dataFromServer;
