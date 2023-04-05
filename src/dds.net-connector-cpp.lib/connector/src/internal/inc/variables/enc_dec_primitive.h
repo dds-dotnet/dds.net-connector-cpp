@@ -24,6 +24,7 @@ namespace dds {
             static int getStringSizeOnBuffer(const std::string s);
             static int getStringSizeOnBuffer(std::string& s);
             static std::string readString(BufferAddress buffer, int& offset);
+            static void writeString(BufferAddress buffer, int& offset, const std::string value);
             static void writeString(BufferAddress buffer, int& offset, std::string& value);
 
             static bool readBoolean(BufferAddress buffer, int& offset);
