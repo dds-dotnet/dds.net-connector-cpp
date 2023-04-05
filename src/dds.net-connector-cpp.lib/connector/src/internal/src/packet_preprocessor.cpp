@@ -12,3 +12,9 @@ dds::net::connector::_internal::
   PacketPreprocessor::~PacketPreprocessor()
 {
 }
+
+void
+  dds::net::connector::_internal::
+  PacketPreprocessor::addData(PacketFromServer* packet)
+{
+}

@@ -9,12 +9,15 @@ namespace dds {
       namespace _internal {
 
         class BufferManager;
+        class PacketFromServer;
 
         class PacketPreprocessor {
         public:
 
           PacketPreprocessor(BufferManager* bufferManager);
           ~PacketPreprocessor();
+
+          void addData(PacketFromServer* packet);
 
         private:
           BufferManager* bufferManager;
