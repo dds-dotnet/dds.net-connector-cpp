@@ -30,6 +30,15 @@ void
 
 
 int
+dds::net::connector::_internal::variables::
+EncDecPrimitive::getStringSizeOnBuffer(const std::string s)
+{
+  std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
+  std::u16string u16 = u16Converter.from_bytes(s);
+  return 2 + (u16.size() * 2);
+}
+
+int
   dds::net::connector::_internal::variables::
   EncDecPrimitive::getStringSizeOnBuffer(std::string& s)
 {
