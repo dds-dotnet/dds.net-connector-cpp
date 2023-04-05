@@ -31,8 +31,8 @@ using namespace dds::net::connector::_internal::variables;
 /*************************************************************************************/
 
 void
-dds::net::connector::
-DdsConnector::registerAwaitingVariablesWithServer()
+  dds::net::connector::
+  DdsConnector::registerAwaitingVariablesWithServer()
 {
   variablesLock.lock();
   {
@@ -91,8 +91,8 @@ DdsConnector::registerAwaitingVariablesWithServer()
 }
 
 void
-dds::net::connector::
-DdsConnector::unregisterVariablesFromServer()
+  dds::net::connector::
+  DdsConnector::unregisterVariablesFromServer()
 {
   variablesLock.lock();
   {
