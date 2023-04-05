@@ -185,6 +185,7 @@
     <ClCompile Include="connector\src\ddsconnector-pp.cpp" />
     <ClCompile Include="connector\src\ddsconnector-varreg.cpp" />
     <ClCompile Include="connector\src\ddsconnector.cpp" />
+    <ClCompile Include="connector\src\internal\src\packet_from_server.cpp" />
     <ClCompile Include="connector\src\internal\src\packet_to_server.cpp" />
     <ClCompile Include="connector\src\internal\src\buffer_manager.cpp" />
     <ClCompile Include="connector\src\internal\src\easy_thread.cpp" />
