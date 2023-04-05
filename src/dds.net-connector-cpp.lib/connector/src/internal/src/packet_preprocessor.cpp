@@ -22,7 +22,9 @@ void
   delete packet;
 }
 
-BufferAddress dds::net::connector::_internal::PacketPreprocessor::getSingleMessage()
+BufferAddress
+  dds::net::connector::_internal::
+  PacketPreprocessor::getSingleMessage()
 {
   return nullptr;
 }
