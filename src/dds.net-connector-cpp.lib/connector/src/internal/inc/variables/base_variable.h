@@ -28,8 +28,9 @@ namespace dds {
             void assignId(int id);
             void reset();
             
+            virtual const char* getPrintableTypeName() = 0;
+
             virtual void resetValue() = 0;
-            virtual std::string getPrintableTypeName() = 0;
             virtual bool refreshValue() = 0;
             virtual void invokeValueAwaiter() = 0;
 
