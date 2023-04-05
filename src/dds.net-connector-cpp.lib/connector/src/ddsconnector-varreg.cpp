@@ -55,6 +55,7 @@ DdsConnector::registerStringProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -81,6 +82,7 @@ DdsConnector::registerBooleanProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -107,6 +109,7 @@ DdsConnector::registerByteProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -133,7 +136,7 @@ DdsConnector::registerWordProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -160,7 +163,7 @@ DdsConnector::registerDWordProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -187,7 +190,7 @@ DdsConnector::registerQWordProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -214,7 +217,7 @@ DdsConnector::registerUnsignedByteProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -241,7 +244,7 @@ DdsConnector::registerUnsignedWordProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -268,7 +271,7 @@ DdsConnector::registerUnsignedDWordProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -295,7 +298,7 @@ DdsConnector::registerUnsignedQWordProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -322,7 +325,7 @@ DdsConnector::registerSingleProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -349,7 +352,7 @@ DdsConnector::registerDoubleProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -376,7 +379,7 @@ DdsConnector::registerRawBytesProvider(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision to the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -433,7 +436,7 @@ DdsConnector::registerStringConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+      variablesLock.unlock();
       throw Error(message);
     }
     else
@@ -466,7 +469,7 @@ DdsConnector::registerBooleanConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -498,7 +501,7 @@ DdsConnector::registerByteConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -530,7 +533,7 @@ DdsConnector::registerWordConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -562,7 +565,7 @@ DdsConnector::registerDWordConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -594,7 +597,7 @@ DdsConnector::registerQWordConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -626,7 +629,7 @@ DdsConnector::registerUnsignedByteConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -658,7 +661,7 @@ DdsConnector::registerUnsignedWordConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -690,7 +693,7 @@ DdsConnector::registerUnsignedDWordConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -722,7 +725,7 @@ DdsConnector::registerUnsignedQWordConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -754,7 +757,7 @@ DdsConnector::registerSingleConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -786,7 +789,7 @@ DdsConnector::registerDoubleConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
@@ -818,7 +821,7 @@ DdsConnector::registerRawBytesConsumer(
       sprintf(message,
 #endif
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
-
+        variablesLock.unlock();
       throw Error(message);
             }
             else
