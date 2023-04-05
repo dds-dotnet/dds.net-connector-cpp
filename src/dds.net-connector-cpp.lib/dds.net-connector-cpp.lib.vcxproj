@@ -152,6 +152,7 @@
     <ClInclude Include="connector\src\internal\inc\macros.h" />
     <ClInclude Include="connector\src\internal\inc\network_client.h" />
     <ClInclude Include="connector\src\internal\inc\packet_from_server.h" />
+    <ClInclude Include="connector\src\internal\inc\packet_preprocessor.h" />
     <ClInclude Include="connector\src\internal\inc\packet_to_server.h" />
     <ClInclude Include="connector\src\internal\inc\string_helper.h" />
     <ClInclude Include="connector\src\internal\inc\sync_queue.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="connector\src\internal\src\buffer_manager.cpp" />
     <ClCompile Include="connector\src\internal\src\easy_thread.cpp" />
     <ClCompile Include="connector\src\internal\src\network_client.cpp" />
+    <ClCompile Include="connector\src\internal\src\packet_preprocessor.cpp" />
     <ClCompile Include="connector\src\internal\src\string_helper.cpp" />
     <ClCompile Include="connector\src\internal\src\sync_queue.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\base_primitive.cpp" />
