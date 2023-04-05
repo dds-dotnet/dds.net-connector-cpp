@@ -424,15 +424,10 @@ DdsConnector::registerStringConsumer(
 {
   variablesLock.lock();
   {
-  }
-  variablesLock.unlock();
-  /*
-  variablesLock.lock();{}variablesLock.unlock();
-          {
-            if (downloadVariables.count(variableName) > 0 ||
-              downloadVariablesToBeRegistered.count(variableName) > 0)
-            {
-            #if TARGET_PLATFORM == PLATFORM_WINDOWS
+    if (downloadVariables.count(variableName) > 0 ||
+      downloadVariablesToBeRegistered.count(variableName) > 0)
+    {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
       sprintf_s(message, sizeof(message),
 #else
       sprintf(message,
@@ -440,13 +435,14 @@ DdsConnector::registerStringConsumer(
         "The variable named %s has already been registered for provision from the server.", variableName.c_str());
 
       throw Error(message);
-            }
-            else
-            {
-              downloadVariablesToBeRegistered[
-                variableName] = new StringVariable(variableName, periodicity, nullptr, consumer);
-            }
-          }*/
+    }
+    else
+    {
+      downloadVariablesToBeRegistered[
+        variableName] = new StringVariable(variableName, periodicity, nullptr, consumer);
+    }
+  }
+  variablesLock.unlock();
 }
 
 void
