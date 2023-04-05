@@ -443,8 +443,8 @@ DdsConnector::registerStringConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new StringVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new StringVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -475,8 +475,8 @@ DdsConnector::registerBooleanConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new BooleanVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new BooleanVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -507,8 +507,8 @@ DdsConnector::registerByteConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new ByteVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new ByteVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -539,8 +539,8 @@ DdsConnector::registerWordConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new WordVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new WordVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -571,8 +571,8 @@ DdsConnector::registerDWordConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new DWordVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new DWordVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -603,8 +603,8 @@ DdsConnector::registerQWordConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new QWordVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new QWordVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -635,8 +635,8 @@ DdsConnector::registerUnsignedByteConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new UnsignedByteVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new UnsignedByteVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -667,8 +667,8 @@ DdsConnector::registerUnsignedWordConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new UnsignedWordVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new UnsignedWordVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -699,8 +699,8 @@ DdsConnector::registerUnsignedDWordConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new UnsignedDWordVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new UnsignedDWordVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -731,8 +731,8 @@ DdsConnector::registerUnsignedQWordConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new UnsignedQWordVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new UnsignedQWordVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -763,8 +763,8 @@ DdsConnector::registerSingleConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new SingleVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new SingleVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -795,8 +795,8 @@ DdsConnector::registerDoubleConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new DoubleVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new DoubleVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
@@ -827,8 +827,8 @@ DdsConnector::registerRawBytesConsumer(
             }
             else
             {
-              downloadVariablesToBeRegistered.Add(
-                variableName, new RawBytesVariable(variableName, periodicity, nullptr, consumer));
+              downloadVariablesToBeRegistered[
+                variableName] = new RawBytesVariable(variableName, periodicity, nullptr, consumer);
             }
           }*/
 }
