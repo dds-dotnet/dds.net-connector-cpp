@@ -191,5 +191,8 @@
     <ClCompile Include="connector\src\internal\src\variables\var_prim_word.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connector\src\ddsconnector-varreg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

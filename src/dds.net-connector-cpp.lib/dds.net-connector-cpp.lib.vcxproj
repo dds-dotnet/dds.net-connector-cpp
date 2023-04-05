@@ -180,6 +180,7 @@
     <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="connector\src\ddsconnector-varreg.cpp" />
     <ClCompile Include="connector\src\ddsconnector.cpp" />
     <ClCompile Include="connector\src\internal\src\buffer_manager.cpp" />
     <ClCompile Include="connector\src\internal\src\easy_thread.cpp" />
