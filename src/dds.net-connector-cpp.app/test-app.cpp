@@ -30,7 +30,7 @@ int main()
   }
   catch (exception& ex)
   {
-    cout << "Exception! " << ex.what() << endl;
+    cout << "Error! " << ex.what() << endl;
   }
 
   wait_for_exit_key();
