@@ -109,6 +109,32 @@ BufferAddress dds::net::connector::_internal::BufferManager::get64M()
   return get(BYTES_IN_1M * 64);
 }
 
+BufferAddress
+  dds::net::connector::_internal::
+  BufferManager::getBufferWithClosestSize(int size)
+{
+  if (size <= (BYTES_IN_1K * 1))    return get1k();
+  if (size <= (BYTES_IN_1K * 2))    return get2k();
+  if (size <= (BYTES_IN_1K * 4))    return get4k();
+  if (size <= (BYTES_IN_1K * 8))    return get8k();
+  if (size <= (BYTES_IN_1K * 16))   return get16k();
+  if (size <= (BYTES_IN_1K * 32))   return get32k();
+  if (size <= (BYTES_IN_1K * 64))   return get64k();
+  if (size <= (BYTES_IN_1K * 128))  return get128k();
+  if (size <= (BYTES_IN_1K * 256))  return get256k();
+  if (size <= (BYTES_IN_1K * 512))  return get512k();
+
+  if (size <= (BYTES_IN_1M * 1))    return get1M();
+  if (size <= (BYTES_IN_1M * 2))    return get2M();
+  if (size <= (BYTES_IN_1M * 4))    return get4M();
+  if (size <= (BYTES_IN_1M * 8))    return get8M();
+  if (size <= (BYTES_IN_1M * 16))   return get16M();
+  if (size <= (BYTES_IN_1M * 32))   return get32M();
+  if (size <= (BYTES_IN_1M * 64))   return get64M();
+
+  return get(size);
+}
+
 BufferAddress dds::net::connector::_internal::BufferManager::get(int size)
 {
   buffLock.lock();

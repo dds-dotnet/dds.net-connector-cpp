@@ -42,6 +42,8 @@ namespace dds {
           BufferAddress get32M();
           BufferAddress get64M();
 
+          BufferAddress getBufferWithClosestSize(int size);
+
           BufferAddress get(int size);
           void free(BufferAddress freeBuffer);
           void GC();
