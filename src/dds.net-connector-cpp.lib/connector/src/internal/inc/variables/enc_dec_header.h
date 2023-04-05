@@ -14,6 +14,7 @@ namespace dds {
           class EncDecHeader {
 
           public:
+            static const int MESSAGE_HEADER_SIZE_ON_BUFFER = 6; // ##[Total Bytes]
             static const int PACKET_ID_SIZE_ON_BUFFER = 2;
             static const int VARIABLE_ID_SIZE_ON_BUFFER = 2;
             static const int VARIABLE_TYPE_SIZE_ON_BUFFER = 2;
