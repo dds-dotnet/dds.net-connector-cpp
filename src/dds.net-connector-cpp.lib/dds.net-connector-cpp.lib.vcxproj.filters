@@ -206,5 +206,8 @@
     <ClCompile Include="connector\src\internal\src\packet_preprocessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connector\src\ddsconnector-pp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
