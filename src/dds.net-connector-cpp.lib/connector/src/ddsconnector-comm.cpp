@@ -14,6 +14,7 @@
 #include "src/internal/inc/sync_queue_writer.h"
 #include "src/internal/inc/packet_to_server.h"
 #include "src/internal/inc/packet_from_server.h"
+#include "src/internal/inc/packet_preprocessor.h"
 
 #include "src/internal/inc/variables/base_variable.h"
 #include "src/internal/inc/variables/enc_dec_header.h"
@@ -181,6 +182,7 @@ void
   }
 }
 
+
 /*************************************************************************************/
 /*                                                                                   */
 /* Connection Events                                                                 */
@@ -249,22 +251,27 @@ bool
   dds::net::connector::
   dataReceptionWorker(void* connector)
 {
-  /*
+  dds::net::connector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
+
   bool doneAnything = false;
 
-  while (connector.DataFromServer.CanDequeue())
+  while (conn->dataFromServer->canDequeue())
   {
     doneAnything = true;
 
-    PacketPreprocessor.AddData(connector.DataFromServer.Dequeue());
+    _internal::PacketFromServer* packet = conn->dataFromServer->dequeue();
+
+    conn->packetPreprocessor->addData(packet);
 
     while (true)
     {
-      byte[] message = PacketPreprocessor.GetSingleMessage();
+      int size = 0;
+      BufferAddress message = conn->packetPreprocessor->getSingleMessage(size);
 
-      if (message != null)
+      if (message != nullptr)
       {
-        connector.ParsePacket(message);
+        conn->parsePacket(message, size);
+        conn->bufferManager->free(message);
       }
       else
       {
@@ -274,7 +281,4 @@ bool
   }
 
   return doneAnything;
-  */
-
-  return false;
 }
