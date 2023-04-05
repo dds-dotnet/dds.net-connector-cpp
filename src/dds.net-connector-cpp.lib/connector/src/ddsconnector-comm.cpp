@@ -150,36 +150,34 @@ DdsConnector::unregisterVariablesFromServer()
 }
 
 void
-dds::net::connector::
-DdsConnector::sendUpdatedValuesToServer(
-  std::list<_internal::variables::BaseVariable*>& vars)
+  dds::net::connector::
+  DdsConnector::sendUpdatedValuesToServer(
+    std::list<_internal::variables::BaseVariable*>& vars)
 {
-  /*
   int sizeRequired = 0;
 
-            foreach (BaseVariable v in vals)
-            {
-                sizeRequired += v.GetSizeOnBuffer();
-            }
+  for (auto& v : vars)
+  {
+    sizeRequired += v->getSizeOnBuffer();
+  }
 
-            if (sizeRequired > 0)
-            {
-                sizeRequired += EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER;
-                sizeRequired += EncDecHeader::PACKET_ID_SIZE_ON_BUFFER;
+  if (sizeRequired > 0)
+  {
+    sizeRequired += EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER;
+    sizeRequired += EncDecHeader::PACKET_ID_SIZE_ON_BUFFER;
 
-                BufferAddress buffer = bufferManager->getBufferWithClosestSize(sizeRequired);
-                int bufferOffset = 0;
+    BufferAddress buffer = bufferManager->getBufferWithClosestSize(sizeRequired);
+    int bufferOffset = 0;
 
-                EncDecHeader::writeMessageHeader(buffer, bufferOffset, sizeRequired - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
-                EncDecHeader::writePacketId(buffer, bufferOffset, PacketId.VariablesUpdateAtServer);
+    EncDecHeader::writeMessageHeader(buffer, bufferOffset, sizeRequired - EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER);
+    EncDecHeader::writePacketId(buffer, bufferOffset, PACKET_ID_VARIABLES_UPDATE_AT_SERVER);
 
-                foreach (BaseVariable v in vals)
-                {
-                    v.WriteOnBuffer(ref buffer, ref bufferOffset);
-                }
+    for (auto& v : vars)
+    {
+      v->writeOnBuffer(buffer, bufferOffset);
+    }
 
-                DataToServer.Enqueue(new _internal::PacketToServer(buffer, bufferOffset));
-            }*/
+    dataToServer->enqueue(new _internal::PacketToServer(buffer, bufferOffset));
 }
 
 /*************************************************************************************/
