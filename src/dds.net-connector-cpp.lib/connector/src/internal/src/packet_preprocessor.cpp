@@ -1,6 +1,7 @@
 #include "src/internal/inc/packet_preprocessor.h"
 
 #include "src/internal/inc/buffer_manager.h"
+#include "src/internal/inc/packet_from_server.h"
 
 dds::net::connector::_internal::
   PacketPreprocessor::PacketPreprocessor(BufferManager* bufferManager)
