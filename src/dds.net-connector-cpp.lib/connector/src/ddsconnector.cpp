@@ -191,7 +191,7 @@ ushort
 /*                                                                                   */
 /*************************************************************************************/
 
-static bool
+bool
   dds::net::connector::
   periodicUpdateWorker(void* connector)
 {

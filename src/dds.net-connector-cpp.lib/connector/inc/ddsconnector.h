@@ -37,10 +37,10 @@ namespace dds {
   namespace net {
     namespace connector {
 
-      static void onConnectedWithServer(void* connector);
-      static void onDisconnectedFromServer(void* connector);
-      static bool dataReceptionWorker(void* connector);
-      static bool periodicUpdateWorker(void* connector);
+      extern void onConnectedWithServer(void* connector);
+      extern void onDisconnectedFromServer(void* connector);
+      extern bool dataReceptionWorker(void* connector);
+      extern bool periodicUpdateWorker(void* connector);
 
       class DdsConnector {
       public:

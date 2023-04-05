@@ -179,9 +179,9 @@ DdsConnector::sendUpdatedValuesToServer(
 /*                                                                                   */
 /*************************************************************************************/
 
-static void
-dds::net::connector::
-onConnectedWithServer(void* connector)
+void
+  dds::net::connector::
+  onConnectedWithServer(void* connector)
 {
   /*
   dds::net::connector::DdsConnector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
@@ -200,9 +200,9 @@ onConnectedWithServer(void* connector)
   DataToServer.Enqueue(new(handshake, offset));*/
 }
 
-static void
-dds::net::connector::
-onDisconnectedFromServer(void* connector)
+void
+  dds::net::connector::
+  onDisconnectedFromServer(void* connector)
 {
   /*
   variablesLock.lock();
@@ -231,9 +231,9 @@ onDisconnectedFromServer(void* connector)
 /*                                                                                   */
 /*************************************************************************************/
 
-static bool
-dds::net::connector::
-dataReceptionWorker(void* connector)
+bool
+  dds::net::connector::
+  dataReceptionWorker(void* connector)
 {
   /*
   bool doneAnything = false;
