@@ -218,45 +218,46 @@ void
   dds::net::connector::
   DdsConnector::doPeriodicUpdate(Periodicity periodicity)
 {
-  /*
-  if (periodicity == Periodicity.Normal)
-            {
-                RegisterAwaitingVariablesWithServer();
-            }
+  if (periodicity == NORMAL)
+  {
+    registerAwaitingVariablesWithServer();
+  }
 
-            lock (variablesMutex)
-            {
-                List<BaseVariable> refreshed = new();
 
-                if (periodicity == Periodicity.High)
-                {
-                    foreach (KeyValuePair<string, BaseVariable> v in uploadVariables)
-                    {
-                        if (v.Value.Periodicity == periodicity ||
-                            v.Value.Periodicity == Periodicity.ON_CHANGE)
-                        {
-                            if (v.Value.RefreshValue())
-                            {
-                                refreshed.Add(v.Value);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (KeyValuePair<string, BaseVariable> v in uploadVariables)
-                    {
-                        if (v.Value.Periodicity == periodicity)
-                        {
-                            if (v.Value.RefreshValue())
-                            {
-                                refreshed.Add(v.Value);
-                            }
-                        }
-                    }
-                }
+  variablesLock.lock();
+  {
+    std::list<_internal::variables::BaseVariable*> refreshed;
 
-                SendUpdatedValuesToServer(refreshed);
-            }*/
+    if (periodicity == HIGH)
+    {
+      for (auto& v : uploadVariables)
+      {
+        if (v.second->periodicity == periodicity ||
+          v.second->periodicity == ON_CHANGE)
+        {
+          if (v.second->refreshValue())
+          {
+            refreshed.push_back(v.second);
+          }
+        }
+      }
+    }
+    else
+    {
+      for (auto& v : uploadVariables)
+      {
+        if (v.second->periodicity == periodicity)
+        {
+          if (v.second->refreshValue())
+          {
+            refreshed.push_back(v.second);
+          }
+        }
+      }
+    }
+
+    sendUpdatedValuesToServer(refreshed);
+  }
+  variablesLock.unlock();
 }
 
