@@ -24,7 +24,7 @@ void
 
 BufferAddress
   dds::net::connector::_internal::
-  PacketPreprocessor::getSingleMessage()
+  PacketPreprocessor::getSingleMessage(int& size)
 {
   return nullptr;
 }

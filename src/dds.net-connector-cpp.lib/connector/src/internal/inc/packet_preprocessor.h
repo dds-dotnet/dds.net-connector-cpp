@@ -20,7 +20,7 @@ namespace dds {
           ~PacketPreprocessor();
 
           void addData(PacketFromServer* packet);
-          BufferAddress getSingleMessage();
+          BufferAddress getSingleMessage(int& size);
 
         private:
           BufferManager* bufferManager;
