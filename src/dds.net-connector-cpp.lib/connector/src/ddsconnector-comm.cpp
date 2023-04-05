@@ -216,25 +216,27 @@ void
   dds::net::connector::
   onDisconnectedFromServer(void* connector)
 {
-  /*
-  variablesLock.lock();
+  dds::net::connector::DdsConnector* conn = (dds::net::connector::DdsConnector*)connector;
+
+  conn->variablesLock.lock();
+
+  for (auto& v : conn->uploadVariables)
   {
-    foreach(KeyValuePair<string, BaseVariable> v in uploadVariables)
-    {
-      v.second->Reset();
-      uploadVariablesToBeRegistered.Add(v.first, v.Value);
-    }
-
-    foreach(KeyValuePair<string, BaseVariable> v in downloadVariables)
-    {
-      v.second->Reset();
-      downloadVariablesToBeRegistered.Add(v.first, v.Value);
-    }
-
-    uploadVariables.Clear();
-    downloadVariables.Clear();
+    v.second->reset();
+    conn->uploadVariablesToBeRegistered[v.first] = v.second;
   }
-  */
+
+  for (auto& v : conn->downloadVariables)
+  {
+    v.second->reset();
+    conn->downloadVariablesToBeRegistered[v.first] = v.second;
+  }
+
+  conn->uploadVariables.clear();
+  conn->downloadVariables.clear();
+
+
+  conn->variablesLock.unlock();
 }
 
 /*************************************************************************************/
