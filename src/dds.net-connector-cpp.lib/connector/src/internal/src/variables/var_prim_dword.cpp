@@ -37,7 +37,7 @@ bool
 {
   if (valueProvider != nullptr)
   {
-    int newValue = valueProvider(name);
+    long newValue = valueProvider(name);
 
     if (value != newValue)
     {
