@@ -30,15 +30,6 @@ void
 
 
 int
-dds::net::connector::_internal::variables::
-EncDecPrimitive::getStringSizeOnBuffer(const std::string s)
-{
-  std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
-  std::u16string u16 = u16Converter.from_bytes(s);
-  return 2 + (u16.size() * 2);
-}
-
-int
   dds::net::connector::_internal::variables::
   EncDecPrimitive::getStringSizeOnBuffer(std::string& s)
 {
@@ -73,37 +64,6 @@ std::string
   std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
   std::string u8 = u16Converter.to_bytes(u16);
   return u8;
-}
-
-void
-  dds::net::connector::_internal::variables::
-  EncDecPrimitive::writeString(BufferAddress buffer, int& offset, const std::string value)
-{
-  std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> u16Converter;
-  std::u16string u16 = u16Converter.from_bytes(value);
-
-  if (u16.size() * 2 > 65535)
-  {
-    throw Error("Provided string is too large");
-  }
-
-  buffer[offset + 0] = ((u16.size() * 2) >> 8) & 0x0ff;
-  buffer[offset + 1] = (u16.size() * 2) & 0x0ff;
-
-  offset += 2;
-
-  if (u16.size() > 0)
-  {
-    for (int i = 0; i < (int)u16.size(); i++)
-    {
-      unsigned short v = u16[i];
-
-      // Writing in little-endian format.
-
-      buffer[offset++] = (v >> 0) & 0x0ff;
-      buffer[offset++] = (v >> 8) & 0x0ff;
-    }
-  }
 }
 
 void
