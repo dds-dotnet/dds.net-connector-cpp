@@ -6,6 +6,7 @@
 #include "src/internal/inc/internal_types.h"
 #include "src/internal/inc/string_helper.h"
 #include "src/internal/inc/buffer_manager.h"
+#include "src/internal/inc/packet_preprocessor.h"
 #include "src/internal/inc/threaded_network_client.h"
 #include "src/internal/inc/network_client.h"
 #include "src/internal/inc/easy_thread.h"
@@ -34,6 +35,7 @@ dds::net::connector::
   this->serverPortTCP = serverPortTCP;
   this->iterationCounter = 0;
   this->bufferManager = new BufferManager();
+  this->packetPreprocessor = new PacketPreprocessor(this->bufferManager);
 
   //- 
   //- Instantiating Logger when not provided
@@ -118,6 +120,7 @@ dds::net::connector::DdsConnector::
   ~DdsConnector()
 {
   stop();
+  delete this->packetPreprocessor;
   delete this->bufferManager;
 }
 
