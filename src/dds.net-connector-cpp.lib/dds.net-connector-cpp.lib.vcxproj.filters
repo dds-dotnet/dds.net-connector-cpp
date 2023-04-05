@@ -194,5 +194,8 @@
     <ClCompile Include="connector\src\ddsconnector-varreg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connector\src\ddsconnector-comm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
