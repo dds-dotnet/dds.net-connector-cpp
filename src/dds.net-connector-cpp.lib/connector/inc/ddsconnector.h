@@ -134,7 +134,10 @@ namespace dds {
         void unregisterVariablesFromServer();
         void sendUpdatedValuesToServer(std::list<_internal::variables::BaseVariable*>& vars);
 
-        void parsePacket(void* data, int size);
+        void parsePacket(void* buffer, int size);
+        void parseVariablesRegistration(void* buffer, int size, int& offset);
+        void parseVariablesUpdateAtServer(void* buffer, int size, int& offset);
+        void parseVariablesUpdateFromServer(void* buffer, int size, int& offset);
 
 
         friend void onConnectedWithServer(void* connector);
