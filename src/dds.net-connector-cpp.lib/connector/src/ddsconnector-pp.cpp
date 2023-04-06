@@ -130,6 +130,61 @@ void
   dds::net::connector::
   DdsConnector::parseVariablesRegistration(void* buffer, int size, int& offset)
 {
+  BufferAddress data = (BufferAddress)buffer;
+
+
+
+  variablesLock.lock();
+
+
+  while (offset < size)
+  {
+    string variableName = EncDecPrimitive::readString(data, offset);
+    unsigned short variableId = EncDecPrimitive::readUnsignedWord(data, offset);
+    bool isRegister = EncDecPrimitive::readBoolean(data, offset);
+
+    if (isRegister)
+    {
+      if (downloadVariablesToBeRegistered.count(variableName) > 0)
+      {
+        BaseVariable* theVar = downloadVariablesToBeRegistered[variableName];
+        theVar->assignId(variableId);
+
+        downloadVariables[variableName] = theVar;
+        downloadVariablesToBeRegistered.erase(variableName);
+      }
+      else if (uploadVariablesToBeRegistered.count(variableName) > 0)
+      {
+        BaseVariable* theVar = uploadVariablesToBeRegistered[variableName];
+        theVar->assignId(variableId);
+
+        uploadVariables[variableName] = theVar;
+        uploadVariablesToBeRegistered.erase(variableName);
+      }
+    }
+    else
+    {
+      if (downloadVariables.count(variableName) > 0)
+      {
+        BaseVariable* theVar = downloadVariables[variableName];
+        theVar->reset();
+
+        downloadVariablesToBeRegistered[variableName] = theVar;
+        downloadVariables.erase(variableName);
+      }
+      else if (uploadVariables.count(variableName) > 0)
+      {
+        BaseVariable* theVar = uploadVariables[variableName];
+        theVar->reset();
+
+        uploadVariablesToBeRegistered[variableName] = theVar;
+        uploadVariables.erase(variableName);
+      }
+    }
+  }
+
+
+  variablesLock.unlock();
 }
 
 
