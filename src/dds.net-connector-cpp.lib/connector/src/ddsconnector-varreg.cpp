@@ -2,13 +2,7 @@
 
 #include "inc/error.h"
 
-#include "src/internal/inc/macros.h"
 #include "src/internal/inc/internal_types.h"
-#include "src/internal/inc/string_helper.h"
-#include "src/internal/inc/buffer_manager.h"
-#include "src/internal/inc/threaded_network_client.h"
-#include "src/internal/inc/network_client.h"
-#include "src/internal/inc/easy_thread.h"
 
 #include "src/internal/inc/variables/base_variable.h"
 #include "src/internal/inc/variables/base_primitive.h"
