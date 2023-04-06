@@ -44,7 +44,9 @@ void
   BufferAddress data = (BufferAddress)buffer;
 
   BufferAddress logMessage = bufferManager->get4k();
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
   int logMessageSize = 4096;
+#endif
 
   int offset = 0;
 
