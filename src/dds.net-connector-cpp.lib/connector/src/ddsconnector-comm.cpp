@@ -6,9 +6,6 @@
 #include "src/internal/inc/internal_types.h"
 #include "src/internal/inc/string_helper.h"
 #include "src/internal/inc/buffer_manager.h"
-#include "src/internal/inc/threaded_network_client.h"
-#include "src/internal/inc/network_client.h"
-#include "src/internal/inc/easy_thread.h"
 
 #include "src/internal/inc/sync_queue_reader.h"
 #include "src/internal/inc/sync_queue_writer.h"
