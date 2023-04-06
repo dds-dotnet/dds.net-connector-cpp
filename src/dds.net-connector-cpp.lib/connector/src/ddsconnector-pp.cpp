@@ -143,6 +143,45 @@ void
   dds::net::connector::
   DdsConnector::parseVariablesUpdateAtServer(void* buffer, int size, int& offset)
 {
+  BufferAddress data = (BufferAddress)buffer;
+
+  BufferAddress logMessage = bufferManager->get4k();
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  int logMessageSize = 4096;
+#endif
+
+
+  variablesLock.lock();
+  
+
+  while (offset < size)
+  {
+    unsigned short variableId = EncDecPrimitive::readUnsignedWord(data, offset);
+    string errorMessage = EncDecPrimitive::readString(data, offset);
+
+    for (auto& v : uploadVariables)
+    {
+      if (v.second->id == variableId)
+      {
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+        sprintf_s(logMessage, logMessageSize,
+#else
+        sprintf(logMessage,
+#endif
+          "Variable %s cannot be updated at the server - %s", v.second->name.c_str(), errorMessage.c_str());
+
+        logger->error(logMessage);
+        break;
+      }
+    }
+  }
+
+
+  variablesLock.unlock();
+
+
+  bufferManager->free(logMessage);
 }
 
 
