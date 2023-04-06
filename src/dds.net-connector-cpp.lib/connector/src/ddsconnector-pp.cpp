@@ -32,6 +32,11 @@ using namespace std;
 using namespace dds::net::connector::_internal::variables;
 
 
+/*****************************************************************************/
+/*                                                                           */
+/* Main Parsing                                                              */
+/*                                                                           */
+/*****************************************************************************/
 void
   dds::net::connector::DdsConnector::
   parsePacket(void* buffer, int size)
@@ -112,18 +117,39 @@ void
   bufferManager->free(logMessage);
 }
 
+
+
+/*****************************************************************************/
+/*                                                                           */
+/* Variables' Registration                                                   */
+/*                                                                           */
+/*****************************************************************************/
 void
   dds::net::connector::
   DdsConnector::parseVariablesRegistration(void* buffer, int size, int& offset)
 {
 }
 
+
+
+/*****************************************************************************/
+/*                                                                           */
+/* Variables' Update at the Server                                           */
+/*                                                                           */
+/*****************************************************************************/
 void
   dds::net::connector::
   DdsConnector::parseVariablesUpdateAtServer(void* buffer, int size, int& offset)
 {
 }
 
+
+
+/*****************************************************************************/
+/*                                                                           */
+/* Variables' Update from the Server                                         */
+/*                                                                           */
+/*****************************************************************************/
 void
   dds::net::connector::
   DdsConnector::parseVariablesUpdateFromServer(void* buffer, int size, int& offset)
