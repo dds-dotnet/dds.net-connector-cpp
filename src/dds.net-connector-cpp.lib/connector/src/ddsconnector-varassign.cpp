@@ -68,6 +68,31 @@ bool
   dds::net::connector::
   DdsConnector::updatePrimitiveVariableWithBoolean(BasePrimitive* bpv, bool v)
 {
+  if (bpv->primitiveType == PRIMITIVE_TYPE_BOOLEAN)
+  {
+    BooleanVariable* bl = (BooleanVariable*)bpv;
+
+    if (bl->value != v)
+    {
+      bl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+  sprintf(errorMessage,
+#endif
+    "Received boolean cannot be assigned to %s of type %s",
+    bpv->name.c_str(), bpv->getPrintableTypeName());
+
+  logger->error(errorMessage);
+
   return false;
 }
 
