@@ -239,7 +239,7 @@ void
 
       if (!doneAnythingInIteration)
       {
-        sleep(10);
+        sleep_msec(10);
       }
     }
   } // while (isIOThreadStarted)
@@ -330,9 +330,9 @@ void
           std::string error = "Failed to resolve the hostname: ";
           error += this->ipv4;
 
-          logger->logError(error.c_str());
+          logger->error(error.c_str());
           dataLock.unlock();
-          return false;
+          return;
         }
 
         addr_list = (struct in_addr**)he->h_addr_list;
@@ -452,7 +452,7 @@ void
 
     logger->error(errorMessage.c_str());
 
-    sleep(1000);
+    sleep_msec(1000);
   }
   else
   {

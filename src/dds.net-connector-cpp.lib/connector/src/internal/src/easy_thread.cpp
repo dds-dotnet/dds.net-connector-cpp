@@ -84,7 +84,7 @@ void dds::net::connector::_internal::continuousThreadFunction(EasyThread* th)
 
     if (doneSomething == false && th->isThreadRunning == true)
     {
-      sleep(SLEEP_TIME_WHEN_NOT_DONE_ANYTHING_MSEC);
+      sleep_msec(SLEEP_TIME_WHEN_NOT_DONE_ANYTHING_MSEC);
     }
   }
 }
@@ -97,7 +97,7 @@ void dds::net::connector::_internal::periodicThreadFunction(EasyThread* th)
 
     if (th->isThreadRunning == true)
     {
-      sleep(th->periodicity);
+      sleep_msec(th->periodicity);
     }
   }
 }

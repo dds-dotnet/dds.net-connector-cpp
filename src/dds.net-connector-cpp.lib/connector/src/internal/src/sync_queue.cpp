@@ -71,7 +71,7 @@ T dds::net::connector::_internal::SyncQueue<T>::dequeue()
 
     lock.unlock();
     
-    sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
+    sleep_msec(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
   }
 }
 
@@ -114,7 +114,7 @@ void dds::net::connector::_internal::SyncQueue<T>::enqueue(T data)
 
     lock.unlock();
 
-    sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
+    sleep_msec(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
   }
 }
 

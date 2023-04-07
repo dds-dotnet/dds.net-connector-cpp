@@ -148,7 +148,7 @@ void
 
   unregisterVariablesFromServer();
 
-  sleep(100);
+  sleep_msec(100);
 
   dataReceiverThread->stop();
 
