@@ -46,6 +46,24 @@ dds::net::connector::_internal::
 
   this->ipv4 = "";
   this->tcpPort = 0;
+  this->socketFileDescriptor = -1;
+
+  memset(&this->targetSocketAddress, 0, sizeof(this->targetSocketAddress));
+
+#if   TARGET_PLATFORM == PLATFORM_WINDOWS
+
+  WSADATA wsaData;
+  int windowsStartupResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+  if (windowsStartupResult != 0)
+  {
+    std::string msg = "WSAStartup failed with return code: ";
+    msg += windowsStartupResult;
+
+    this->logger->error(msg.c_str());
+    return;
+}
+
+#endif
 }
 
 SyncQueueReader<PacketFromServer*>*
