@@ -73,6 +73,8 @@ namespace dds {
             int dataToServerQueueSize = 1000,
             int dataFromServerQueueSize = 1000);
 
+          ~NetworkClient();
+
           virtual SyncQueueReader<PacketFromServer*>* getDataQueueFromServer() override;
           virtual SyncQueueWriter<PacketToServer*>* getDataQueueToServer() override;
 

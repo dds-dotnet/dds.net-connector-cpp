@@ -84,6 +84,22 @@ dds::net::connector::_internal::
 #endif
 }
 
+dds::net::connector::_internal::
+  NetworkClient::~NetworkClient()
+{
+#if   TARGET_PLATFORM == PLATFORM_WINDOWS
+
+  wsaStartCount--;
+
+  if (wsaStartCount == 0)
+  {
+    WSACleanup();
+    this->logger->info("WSA Cleaned-up.");
+  }
+
+#endif
+}
+
 SyncQueueReader<PacketFromServer*>*
   dds::net::connector::_internal::
   NetworkClient::getDataQueueFromServer()
