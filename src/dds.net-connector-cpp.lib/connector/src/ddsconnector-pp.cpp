@@ -262,7 +262,7 @@ void
   variablesLock.lock();
 
 
-  Periodicity periodicity = EncDecHeader::readPeriodicity(data, offset);
+  /*Periodicity periodicity =*/ EncDecHeader::readPeriodicity(data, offset);
 
   while (offset < size)
   {
