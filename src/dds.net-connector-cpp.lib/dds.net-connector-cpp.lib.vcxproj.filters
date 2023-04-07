@@ -212,7 +212,7 @@
     <ClCompile Include="connector\src\internal\src\variables\enc_dec_header.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\ddsconnector-varassign.cpp">
+    <ClCompile Include="connector\src\ddsconnector-primassign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
