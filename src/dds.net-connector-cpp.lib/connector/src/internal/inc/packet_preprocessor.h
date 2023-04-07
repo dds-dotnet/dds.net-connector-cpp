@@ -28,9 +28,10 @@ namespace dds {
           BufferManager* bufferManager;
 
           std::mutex dataLock;
-          BufferAddress previousData = nullptr;
-          int previousDataStartIndex = 0;
-          int previousNextWriteIndex = 0;
+          BufferAddress previousData;
+          int previousDataSize;
+          int previousDataStartIndex;
+          int previousNextWriteIndex;
         };
 
       }
