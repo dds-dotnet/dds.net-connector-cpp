@@ -759,6 +759,31 @@ bool
   dds::net::connector::
   DdsConnector::updatePrimitiveVariableWithUnsignedQWord(BasePrimitive* bpv, unsigned long long v)
 {
+  if (bpv->primitiveType == PRIMITIVE_TYPE_UNSIGNED_QWORD)
+  {
+    UnsignedQWordVariable* uqwrd = (UnsignedQWordVariable*)bpv;
+
+    if (uqwrd->value != v)
+    {
+      uqwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+  sprintf(errorMessage,
+#endif
+    "Received Unsigned QWord cannot be assigned to %s of type %s",
+    bpv->name.c_str(), bpv->getPrintableTypeName());
+
+  logger->error(errorMessage);
+
   return false;
 }
 
