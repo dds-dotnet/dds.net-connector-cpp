@@ -34,8 +34,8 @@ namespace dds {
           disconnectedCallback onDisconnected;
           void* onDisconnectedObj;
 
-          SyncQueue<PacketToServer>* dataToServerQueue;
-          SyncQueue<PacketFromServer>* dataFromServerQueue;
+          SyncQueue<PacketToServer*>* dataToServerQueue;
+          SyncQueue<PacketFromServer*>* dataFromServerQueue;
         };
 
       }
