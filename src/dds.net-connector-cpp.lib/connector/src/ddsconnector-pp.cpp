@@ -246,8 +246,212 @@ void
 /* Variables' Update from the Server                                         */
 /*                                                                           */
 /*****************************************************************************/
+static char errorMessage[1024];
+
 void
   dds::net::connector::
   DdsConnector::parseVariablesUpdateFromServer(void* buffer, int size, int& offset)
 {
+  BufferAddress data = (BufferAddress)buffer;
+
+
+  list<BaseVariable*> updatedVariables;
+
+
+
+  variablesLock.lock();
+
+
+  Periodicity periodicity = EncDecHeader::readPeriodicity(data, offset);
+
+  while (offset < size)
+  {
+    unsigned short id = EncDecPrimitive::readUnsignedWord(data, offset);
+    VariableType mainType = EncDecHeader::readVariableType(data, offset);
+    BaseVariable* var = nullptr;
+
+    for (auto& v : downloadVariables)
+    {
+      if (id == v.second->id)
+      {
+        var = v.second;
+        break;
+      }
+    }
+
+    /************************************************************************/
+    /*                                                                      */
+    /* Processing RawBytes variable                                         */
+    /*                                                                      */
+    /************************************************************************/
+    if (mainType == VARIABLE_TYPE_RAW_BYTES)
+    {
+      int totalBytes = (int)EncDecPrimitive::readUnsignedDWord(data, offset);
+
+      //- 
+      //- The input value is not null
+      //- 
+      if (totalBytes > 0)
+      {
+        //- 
+        //- Not enough data is available
+        //- 
+        if (totalBytes + offset > size)
+        {
+          if (var != nullptr)
+          {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+            sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+            sprintf(errorMessage,
+#endif
+              "Insufficient data provided for %s", var->name.c_str());
+
+            throw Error(errorMessage);
+          }
+          else
+          {
+            throw Error("Insufficient data provided for unknown RawBytes variable");
+          }
+        }
+
+        //- 
+        //- Data is available and the types are matching
+        //- 
+        if (var != nullptr &&
+            var->variableType == VARIABLE_TYPE_RAW_BYTES)
+        {
+          RawBytesVariable* rbv = (RawBytesVariable*)var;
+
+          BufferAddress bytes = bufferManager->getBufferWithClosestSize(totalBytes);
+
+          for (int i = 0; i < totalBytes; i++)
+          {
+            bytes[i] = data[offset++];
+          }
+
+          if (rbv->updateData(bytes, totalBytes))
+          {
+            updatedVariables.push_back(var);
+          }
+        }
+        //- 
+        //- Data is available but the types are not matching
+        //- 
+        else
+        {
+          offset += totalBytes;
+        }
+      }
+      //- 
+      //- The input value is null
+      //- 
+      else
+      {
+        if (var != nullptr &&
+            var->variableType == VARIABLE_TYPE_RAW_BYTES)
+        {
+          RawBytesVariable* rbv = (RawBytesVariable*)var;
+
+          if (rbv->updateData(nullptr, 0))
+          {
+            updatedVariables.push_back(var);
+          }
+        }
+      }
+    }
+    /************************************************************************/
+    /*                                                                      */
+    /* Processing Primitive variable                                         */
+    /*                                                                      */
+    /************************************************************************/
+    else if (mainType == VARIABLE_TYPE_PRIMITIVE)
+    {
+      //- 
+      //- Discarding the value when we do not have locally registered variable.
+      //- 
+      if (var == nullptr || var->variableType != VARIABLE_TYPE_PRIMITIVE)
+      {
+        PrimitiveType pt = EncDecPrimitive::readPrimitiveType(data, offset);
+
+        switch (pt)
+        {
+        case PRIMITIVE_TYPE_STRING:         EncDecPrimitive::readString(data, offset);        break;
+        case PRIMITIVE_TYPE_BOOLEAN:        EncDecPrimitive::readBoolean(data, offset);       break;
+        case PRIMITIVE_TYPE_BYTE:           EncDecPrimitive::readByte(data, offset);          break;
+        case PRIMITIVE_TYPE_WORD:           EncDecPrimitive::readWord(data, offset);          break;
+        case PRIMITIVE_TYPE_DWORD:          EncDecPrimitive::readDWord(data, offset);         break;
+        case PRIMITIVE_TYPE_QWORD:          EncDecPrimitive::readQWord(data, offset);         break;
+        case PRIMITIVE_TYPE_UNSIGNED_BYTE:  EncDecPrimitive::readUnsignedByte(data, offset);  break;
+        case PRIMITIVE_TYPE_UNSIGNED_WORD:  EncDecPrimitive::readUnsignedWord(data, offset);  break;
+        case PRIMITIVE_TYPE_UNSIGNED_DWORD: EncDecPrimitive::readUnsignedDWord(data, offset); break;
+        case PRIMITIVE_TYPE_UNSIGNED_QWORD: EncDecPrimitive::readUnsignedQWord(data, offset); break;
+        case PRIMITIVE_TYPE_SINGLE:         EncDecPrimitive::readSingle(data, offset);        break;
+        case PRIMITIVE_TYPE_DOUBLE:         EncDecPrimitive::readDouble(data, offset);        break;
+        case PRIMITIVE_TYPE_UNKNOWN:                                                          break;
+        }
+
+        if (var != nullptr && var->variableType != VARIABLE_TYPE_PRIMITIVE)
+        {
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+          sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+          sprintf(errorMessage,
+#endif
+            "Cannot assign primitive value to non-primitive variable %s", var->name.c_str());
+
+          logger->error(errorMessage);
+        }
+      }
+
+      //- 
+      //- Processing the variable value when we have local primitive variable.
+      //- 
+      else if (var != nullptr && var->variableType == VARIABLE_TYPE_PRIMITIVE)
+      {
+        BasePrimitive* bpv = (BasePrimitive*)var;
+
+        PrimitiveType pt = EncDecPrimitive::readPrimitiveType(data, offset);
+        bool valueUpdated = false;
+
+        switch (pt)
+        {
+        case PRIMITIVE_TYPE_STRING:
+          {
+            string valueRead = EncDecPrimitive::readString(data, offset);
+            valueUpdated = updatePrimitiveVariableWithString(bpv, valueRead);
+          }
+          break;
+        case PRIMITIVE_TYPE_BOOLEAN:        valueUpdated = updatePrimitiveVariableWithBoolean(bpv, EncDecPrimitive::readBoolean(data, offset));             break;
+        case PRIMITIVE_TYPE_BYTE:           valueUpdated = updatePrimitiveVariableWithByte(bpv, EncDecPrimitive::readByte(data, offset));                   break;
+        case PRIMITIVE_TYPE_WORD:           valueUpdated = updatePrimitiveVariableWithWord(bpv, EncDecPrimitive::readWord(data, offset));                   break;
+        case PRIMITIVE_TYPE_DWORD:          valueUpdated = updatePrimitiveVariableWithDWord(bpv, EncDecPrimitive::readDWord(data, offset));                 break;
+        case PRIMITIVE_TYPE_QWORD:          valueUpdated = updatePrimitiveVariableWithQWord(bpv, EncDecPrimitive::readQWord(data, offset));                 break;
+        case PRIMITIVE_TYPE_UNSIGNED_BYTE:  valueUpdated = updatePrimitiveVariableWithUnsignedByte(bpv, EncDecPrimitive::readUnsignedByte(data, offset));   break;
+        case PRIMITIVE_TYPE_UNSIGNED_WORD:  valueUpdated = updatePrimitiveVariableWithUnsignedWord(bpv, EncDecPrimitive::readUnsignedWord(data, offset));   break;
+        case PRIMITIVE_TYPE_UNSIGNED_DWORD: valueUpdated = updatePrimitiveVariableWithUnsignedDWord(bpv, EncDecPrimitive::readUnsignedDWord(data, offset)); break;
+        case PRIMITIVE_TYPE_UNSIGNED_QWORD: valueUpdated = updatePrimitiveVariableWithUnsignedQWord(bpv, EncDecPrimitive::readUnsignedQWord(data, offset)); break;
+        case PRIMITIVE_TYPE_SINGLE:         valueUpdated = updatePrimitiveVariableWithSingle(bpv, EncDecPrimitive::readSingle(data, offset));               break;
+        case PRIMITIVE_TYPE_DOUBLE:         valueUpdated = updatePrimitiveVariableWithDouble(bpv, EncDecPrimitive::readDouble(data, offset));               break;
+        case PRIMITIVE_TYPE_UNKNOWN:                                                                                                                        break;
+        }
+
+        if (valueUpdated)
+        {
+          updatedVariables.push_back(var);
+        }
+      }
+    }
+
+  } // while (offset < data.Length)
+
+
+  variablesLock.unlock();
+
+
+
+  for (auto& v : updatedVariables)
+  {
+    v->invokeValueAwaiter();
+  }
 }

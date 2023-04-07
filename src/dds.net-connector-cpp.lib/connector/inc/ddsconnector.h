@@ -28,6 +28,7 @@ namespace dds {
 
         namespace variables {
           class BaseVariable;
+          class BasePrimitive;
         }
       }
     }
@@ -138,6 +139,19 @@ namespace dds {
         void parseVariablesRegistration(void* buffer, int size, int& offset);
         void parseVariablesUpdateAtServer(void* buffer, int size, int& offset);
         void parseVariablesUpdateFromServer(void* buffer, int size, int& offset);
+
+        bool updatePrimitiveVariableWithString(_internal::variables::BasePrimitive* bpv, std::string& v);
+        bool updatePrimitiveVariableWithBoolean(_internal::variables::BasePrimitive* bpv, bool v);
+        bool updatePrimitiveVariableWithByte(_internal::variables::BasePrimitive* bpv, char v);
+        bool updatePrimitiveVariableWithWord(_internal::variables::BasePrimitive* bpv, short v);
+        bool updatePrimitiveVariableWithDWord(_internal::variables::BasePrimitive* bpv, long v);
+        bool updatePrimitiveVariableWithQWord(_internal::variables::BasePrimitive* bpv, long long v);
+        bool updatePrimitiveVariableWithUnsignedByte(_internal::variables::BasePrimitive* bpv, unsigned char v);
+        bool updatePrimitiveVariableWithUnsignedWord(_internal::variables::BasePrimitive* bpv, unsigned short v);
+        bool updatePrimitiveVariableWithUnsignedDWord(_internal::variables::BasePrimitive* bpv, unsigned long v);
+        bool updatePrimitiveVariableWithUnsignedQWord(_internal::variables::BasePrimitive* bpv, unsigned long long v);
+        bool updatePrimitiveVariableWithSingle(_internal::variables::BasePrimitive* bpv, float v);
+        bool updatePrimitiveVariableWithDouble(_internal::variables::BasePrimitive* bpv, double v);
 
 
         friend void onConnectedWithServer(void* connector);
