@@ -23,6 +23,8 @@ namespace dds {
           bool canEnqueue() override;
           void enqueue(T data) override;
 
+          void clear();
+
 
         private:
           std::mutex lock;

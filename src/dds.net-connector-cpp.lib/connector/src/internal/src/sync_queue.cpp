@@ -117,3 +117,19 @@ void dds::net::connector::_internal::SyncQueue<T>::enqueue(T data)
     sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
   }
 }
+
+template<typename T>
+void dds::net::connector::_internal::SyncQueue<T>::clear()
+{
+  lock.lock();
+
+  for (int i = 0; i < queueSize; i++)
+  {
+    queueValidity[i] = false;
+  }
+
+  nextWriteIndex = 0;
+  nextReadIndex = 0;
+
+  lock.unlock();
+}
