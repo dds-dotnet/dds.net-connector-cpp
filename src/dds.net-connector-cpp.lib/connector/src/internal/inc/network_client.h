@@ -3,6 +3,8 @@
 
 #include "src/internal/inc/threaded_network_client.h"
 
+#include <mutex>
+
 
 namespace dds {
   namespace net {
@@ -36,6 +38,8 @@ namespace dds {
 
           SyncQueue<PacketToServer*>* dataToServerQueue;
           SyncQueue<PacketFromServer*>* dataFromServerQueue;
+
+          std::mutex dataLock;
         };
 
       }
