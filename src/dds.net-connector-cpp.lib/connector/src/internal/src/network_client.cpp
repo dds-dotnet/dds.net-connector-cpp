@@ -11,6 +11,12 @@ dds::net::connector::_internal::
   NetworkClient::NetworkClient(BufferManager* bufferManager)
 {
   this->bufferManager = bufferManager;
+
+  this->onConnected = nullptr;
+  this->onConnectedObj = nullptr;
+
+  this->onDisconnected = nullptr;
+  this->onDisconnectedObj = nullptr;
 }
 
 SyncQueueReader<PacketFromServer*>*
@@ -33,6 +39,8 @@ void
     connectedCallback callback,
     void* obj)
 {
+  onConnected = callback;
+  onConnectedObj = obj;
 }
 
 void
@@ -41,6 +49,8 @@ void
     disconnectedCallback callback,
     void* obj)
 {
+  onDisconnected = callback;
+  onDisconnectedObj = obj;
 }
 
 void

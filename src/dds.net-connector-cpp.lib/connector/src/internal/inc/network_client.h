@@ -26,6 +26,12 @@ namespace dds {
 
         private:
           BufferManager* bufferManager;
+
+          connectedCallback onConnected;
+          void* onConnectedObj;
+
+          disconnectedCallback onDisconnected;
+          void* onDisconnectedObj;
         };
 
       }
