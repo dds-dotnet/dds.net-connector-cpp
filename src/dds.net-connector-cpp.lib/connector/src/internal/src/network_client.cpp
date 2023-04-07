@@ -76,7 +76,6 @@ dds::net::connector::_internal::
     msg += windowsStartupResult;
 
     this->logger->error(msg.c_str());
-    return;
 }
   }
 
