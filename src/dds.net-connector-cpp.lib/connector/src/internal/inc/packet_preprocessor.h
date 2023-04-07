@@ -3,6 +3,8 @@
 
 #include "src/internal/inc/internal_types.h"
 
+#include <mutex>
+
 
 
 namespace dds {
@@ -24,6 +26,11 @@ namespace dds {
 
         private:
           BufferManager* bufferManager;
+
+          std::mutex ppmutex;
+          BufferAddress previousData = nullptr;
+          int previousDataStartIndex = 0;
+          int previousNextWriteIndex = 0;
         };
 
       }
