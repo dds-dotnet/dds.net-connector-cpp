@@ -6,9 +6,7 @@
 #include <thread>
 
 
-#define SLEEP_MS(msec)                     (std::this_thread::sleep_for(std::chrono::milliseconds(msec)))
-#define SLEEP(msec)                        (SLEEP_MS(msec))
-#define sleep(msec)                        (SLEEP(msec))
+#define sleep(msec)                        std::this_thread::sleep_for(std::chrono::milliseconds(msec))
 
 #define CONSOLE_COLOR_FG_BLACK             "\033[0;30m"
 #define CONSOLE_COLOR_FG_RED               "\033[0;31m"
