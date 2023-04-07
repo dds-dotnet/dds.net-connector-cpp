@@ -202,6 +202,87 @@ bool
   dds::net::connector::
   DdsConnector::updatePrimitiveVariableWithWord(BasePrimitive* bpv, short v)
 {
+  if (bpv->primitiveType == PRIMITIVE_TYPE_WORD)
+  {
+    WordVariable* wrd = (WordVariable*)bpv;
+
+    if (wrd->value != v)
+    {
+      wrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_DWORD)
+  {
+    DWordVariable* dwrd = (DWordVariable*)bpv;
+
+    if (dwrd->value != v)
+    {
+      dwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_QWORD)
+  {
+    QWordVariable* qwrd = (QWordVariable*)bpv;
+
+    if (qwrd->value != v)
+    {
+      qwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_SINGLE)
+  {
+    SingleVariable* sngl = (SingleVariable*)bpv;
+
+    if (sngl->value != v)
+    {
+      sngl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_DOUBLE)
+  {
+    DoubleVariable* dbl = (DoubleVariable*)bpv;
+
+    if (dbl->value != v)
+    {
+      dbl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+  sprintf(errorMessage,
+#endif
+    "Received Word cannot be assigned to %s of type %s",
+    bpv->name.c_str(), bpv->getPrintableTypeName());
+
+  logger->error(errorMessage);
+
   return false;
 }
 
