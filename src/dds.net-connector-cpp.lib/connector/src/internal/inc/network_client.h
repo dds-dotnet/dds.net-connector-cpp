@@ -3,9 +3,48 @@
 
 #include "src/internal/inc/threaded_network_client.h"
 
+#include "inc/config.h"
+
 #include <string>
 #include <mutex>
 #include <thread>
+
+
+#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
+
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <netdb.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <string.h>
+
+
+
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <winsock2.h>
+#include <WS2tcpip.h>
+#include <fcntl.h>
+
+#pragma comment(lib, "ws2_32.lib")
+
+
+
+#else
+
+//- 
+
+
+
+#endif
 
 
 namespace dds {
