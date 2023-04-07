@@ -89,7 +89,7 @@ dds::net::connector::
 
   try
   {
-    this->networkClient = new NetworkClient(this->bufferManager);
+    this->networkClient = new NetworkClient(this->logger, this->bufferManager);
     this->dataFromServer = this->networkClient->getDataQueueFromServer();
     this->dataToServer = this->networkClient->getDataQueueToServer();
   }
