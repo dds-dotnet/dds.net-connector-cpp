@@ -7,33 +7,52 @@
 using namespace dds::net::connector::_internal;
 
 
-dds::net::connector::_internal::NetworkClient::NetworkClient(BufferManager* bufferManager)
+dds::net::connector::_internal::
+  NetworkClient::NetworkClient(BufferManager* bufferManager)
 {
   this->bufferManager = bufferManager;
 }
 
-SyncQueueReader<PacketFromServer*>* dds::net::connector::_internal::NetworkClient::getDataQueueFromServer()
+SyncQueueReader<PacketFromServer*>*
+  dds::net::connector::_internal::
+  NetworkClient::getDataQueueFromServer()
 {
     return nullptr;
 }
 
-SyncQueueWriter<PacketToServer*>* dds::net::connector::_internal::NetworkClient::getDataQueueToServer()
+SyncQueueWriter<PacketToServer*>*
+  dds::net::connector::_internal::
+  NetworkClient::getDataQueueToServer()
 {
     return nullptr;
 }
 
-void dds::net::connector::_internal::NetworkClient::setCallbackOnConnectedWithServer(connectedCallback callback, void* obj)
+void
+  dds::net::connector::_internal::
+  NetworkClient::setCallbackOnConnectedWithServer(
+    connectedCallback callback,
+    void* obj)
 {
 }
 
-void dds::net::connector::_internal::NetworkClient::setCallbackOnDisconnectedFromServer(disconnectedCallback callback, void* obj)
+void
+  dds::net::connector::_internal::
+  NetworkClient::setCallbackOnDisconnectedFromServer(
+    disconnectedCallback callback,
+    void* obj)
 {
 }
 
-void dds::net::connector::_internal::NetworkClient::connect(std::string ipv4, unsigned short tcpPort)
+void
+  dds::net::connector::_internal::
+  NetworkClient::connect(
+    std::string ipv4,
+    unsigned short tcpPort)
 {
 }
 
-void dds::net::connector::_internal::NetworkClient::disconnect()
+void
+  dds::net::connector::_internal::
+  NetworkClient::disconnect()
 {
 }
