@@ -56,10 +56,16 @@ dds::net::connector::_internal::
   this->ipv4 = "";
   this->tcpPort = 0;
   this->isConnected = false;
+
   this->socketFileDescriptor = -1;
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+  this->socketFileDescriptor = INVALID_SOCKET;
+#else
+  #error "Cannot initialize this->socketFileDescriptor on selected platform"
+#endif
+
 
   memset(&this->targetSocketAddress, 0, sizeof(this->targetSocketAddress));
-
 
 
 #if   TARGET_PLATFORM == PLATFORM_WINDOWS
