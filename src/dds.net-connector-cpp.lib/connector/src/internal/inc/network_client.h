@@ -99,6 +99,7 @@ namespace dds {
 
           std::string ipv4;
           int tcpPort;
+          bool isConnected;
           socket_desc_t socketFileDescriptor;
           sockaddr_in targetSocketAddress;
 
