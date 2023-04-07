@@ -1,6 +1,5 @@
 #include "src/internal/inc/network_client.h"
 
-#include "inc/config.h"
 #include "inc/error.h"
 
 #include "src/internal/inc/sync_queue_reader.h"
