@@ -16,6 +16,15 @@ using namespace dds::net::connector;
 using namespace dds::net::connector::_internal;
 
 
+
+#if   TARGET_PLATFORM == PLATFORM_WINDOWS
+
+static int wsaStartCount = 0;
+
+#endif
+
+
+
 dds::net::connector::_internal::
   NetworkClient::NetworkClient(
     Logger* logger,
@@ -50,18 +59,27 @@ dds::net::connector::_internal::
 
   memset(&this->targetSocketAddress, 0, sizeof(this->targetSocketAddress));
 
+
+
 #if   TARGET_PLATFORM == PLATFORM_WINDOWS
 
+  if (wsaStartCount == 0)
+  {
   WSADATA wsaData;
+
   int windowsStartupResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+
   if (windowsStartupResult != 0)
   {
-    std::string msg = "WSAStartup failed with return code: ";
+      std::string msg = "WSAStartup failed with error code: ";
     msg += windowsStartupResult;
 
     this->logger->error(msg.c_str());
     return;
 }
+  }
+
+  wsaStartCount++;
 
 #endif
 }
