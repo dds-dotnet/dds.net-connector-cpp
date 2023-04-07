@@ -555,6 +555,115 @@ bool
   dds::net::connector::
   DdsConnector::updatePrimitiveVariableWithUnsignedWord(BasePrimitive* bpv, unsigned short v)
 {
+  if (bpv->primitiveType == PRIMITIVE_TYPE_DWORD)
+  {
+    DWordVariable* dwrd = (DWordVariable*)bpv;
+
+    if (dwrd->value != v)
+    {
+      dwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_QWORD)
+  {
+    QWordVariable* qwrd = (QWordVariable*)bpv;
+
+    if (qwrd->value != v)
+    {
+      qwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_UNSIGNED_WORD)
+  {
+    UnsignedWordVariable* uwrd = (UnsignedWordVariable*)bpv;
+
+    if (uwrd->value != v)
+    {
+      uwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_UNSIGNED_DWORD)
+  {
+    UnsignedDWordVariable* udwrd = (UnsignedDWordVariable*)bpv;
+
+    if (udwrd->value != v)
+    {
+      udwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_UNSIGNED_QWORD)
+  {
+    UnsignedQWordVariable* uqwrd = (UnsignedQWordVariable*)bpv;
+
+    if (uqwrd->value != v)
+    {
+      uqwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_SINGLE)
+  {
+    SingleVariable* sngl = (SingleVariable*)bpv;
+
+    if (sngl->value != v)
+    {
+      sngl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_DOUBLE)
+  {
+    DoubleVariable* dbl = (DoubleVariable*)bpv;
+
+    if (dbl->value != v)
+    {
+      dbl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+  sprintf(errorMessage,
+#endif
+    "Received Unsigned Word cannot be assigned to %s of type %s",
+    bpv->name.c_str(), bpv->getPrintableTypeName());
+
+  logger->error(errorMessage);
+
   return false;
 }
 
