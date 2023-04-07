@@ -14,7 +14,7 @@ namespace dds {
 
         class NetworkClient : public dds::net::connector::_internal::ThreadedNetworkClient {
         public:
-          NetworkClient(BufferManager*);
+          NetworkClient(BufferManager*, int dataToServerQueueSize = 1000, int dataFromServerQueueSize = 1000);
 
           virtual SyncQueueReader<PacketFromServer*>* getDataQueueFromServer() override;
           virtual SyncQueueWriter<PacketToServer*>* getDataQueueToServer() override;
