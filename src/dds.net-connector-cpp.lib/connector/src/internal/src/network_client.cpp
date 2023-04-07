@@ -1,6 +1,7 @@
 #include "src/internal/inc/network_client.h"
 
 #include "inc/error.h"
+#include "inc/logger.h"
 
 #include "src/internal/inc/sync_queue_reader.h"
 #include "src/internal/inc/sync_queue_writer.h"
@@ -11,15 +12,24 @@
 #include <exception>
 
 
+using namespace dds::net::connector;
 using namespace dds::net::connector::_internal;
 
 
 dds::net::connector::_internal::
   NetworkClient::NetworkClient(
+    Logger* logger,
     BufferManager* bufferManager,
     int dataToServerQueueSize,
     int dataFromServerQueueSize)
 {
+  this->logger = logger;
+
+  if (this->logger == nullptr)
+  {
+    this->logger = new BlankLogger();
+  }
+
   this->bufferManager = bufferManager;
 
   this->onConnected = nullptr;
