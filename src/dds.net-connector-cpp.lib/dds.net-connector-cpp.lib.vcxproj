@@ -179,6 +179,7 @@
     <ClInclude Include="connector\src\internal\inc\variables\var_raw_bytes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="connector\src\ddsconnector-varassign.cpp" />
     <ClCompile Include="connector\src\ddsconnector.cpp" />
     <ClCompile Include="connector\src\ddsconnector-varreg.cpp" />
     <ClCompile Include="connector\src\ddsconnector-comm.cpp" />

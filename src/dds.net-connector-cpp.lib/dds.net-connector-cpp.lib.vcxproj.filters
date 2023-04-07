@@ -69,12 +69,6 @@
     <ClInclude Include="connector\src\internal\inc\variables\enc_dec_header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="connector\src\internal\src\variables\base_variable.cpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="connector\src\internal\src\variables\enc_dec_header.cpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="connector\inc\error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -210,6 +204,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="connector\src\internal\src\packet_from_server.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\base_variable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\internal\src\variables\enc_dec_header.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="connector\src\ddsconnector-varassign.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
