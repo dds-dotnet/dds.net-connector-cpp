@@ -55,6 +55,7 @@ dds::net::connector::_internal::
 
   this->ipv4 = "";
   this->tcpPort = 0;
+  this->isConnected = false;
   this->socketFileDescriptor = -1;
 
   memset(&this->targetSocketAddress, 0, sizeof(this->targetSocketAddress));
