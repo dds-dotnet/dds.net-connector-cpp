@@ -121,6 +121,7 @@ dds::net::connector::DdsConnector::
 {
   stop();
   delete this->packetPreprocessor;
+  delete this->networkClient;
   delete this->bufferManager;
 }
 
