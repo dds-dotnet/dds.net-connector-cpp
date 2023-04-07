@@ -19,6 +19,10 @@ dds::net::connector::_internal::
 dds::net::connector::_internal::
   PacketPreprocessor::~PacketPreprocessor()
 {
+  if (previousData != nullptr)
+  {
+    bufferManager->free(previousData);
+}
 }
 
 void
