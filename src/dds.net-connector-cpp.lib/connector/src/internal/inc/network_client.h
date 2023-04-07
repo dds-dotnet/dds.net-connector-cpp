@@ -3,7 +3,9 @@
 
 #include "src/internal/inc/threaded_network_client.h"
 
+#include <string>
 #include <mutex>
+#include <thread>
 
 
 namespace dds {
@@ -12,7 +14,11 @@ namespace dds {
       namespace _internal {
 
         class BufferManager;
+        class NetworkClient;
         template<typename T> class SyncQueue;
+        void ioThreadFunc(NetworkClient* client);
+
+
 
         class NetworkClient : public dds::net::connector::_internal::ThreadedNetworkClient {
         public:
@@ -40,6 +46,12 @@ namespace dds {
           SyncQueue<PacketFromServer*>* dataFromServerQueue;
 
           std::mutex dataLock;
+
+          std::string ipv4;
+          int tcpPort;
+
+          bool isIOThreadStarted;
+          std::thread* ioThread;
         };
 
       }
