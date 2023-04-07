@@ -30,14 +30,14 @@ SyncQueueReader<PacketFromServer*>*
   dds::net::connector::_internal::
   NetworkClient::getDataQueueFromServer()
 {
-    return nullptr;
+    return dataFromServerQueue;
 }
 
 SyncQueueWriter<PacketToServer*>*
   dds::net::connector::_internal::
   NetworkClient::getDataQueueToServer()
 {
-    return nullptr;
+    return dataToServerQueue;
 }
 
 void
