@@ -52,6 +52,9 @@ namespace dds {
 
           bool isIOThreadStarted;
           std::thread* ioThread;
+
+
+          friend void ioThreadFunc(NetworkClient* client);
         };
 
       }
