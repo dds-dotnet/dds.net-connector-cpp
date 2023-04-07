@@ -322,7 +322,7 @@ bool
   {
     SingleVariable* sngl = (SingleVariable*)bpv;
 
-    float conv = v;
+    float conv = (float)v;
     bool ret = false;
 
     if (sngl->value != conv)
@@ -383,9 +383,9 @@ bool
   {
     DoubleVariable* dbl = (DoubleVariable*)bpv;
 
-    if (dbl->value != v)
+    if (dbl->value != (double)v)
     {
-      dbl->value = v;
+      dbl->value = (double)v;
       return true;
     }
     else
@@ -675,9 +675,9 @@ bool
   {
     QWordVariable* qwrd = (QWordVariable*)bpv;
 
-    if (qwrd->value != v)
+    if (qwrd->value != (long long)v)
     {
-      qwrd->value = v;
+      qwrd->value = (long long)v;
       return true;
     }
     else
@@ -717,9 +717,9 @@ bool
   {
     SingleVariable* sngl = (SingleVariable*)bpv;
 
-    if (sngl->value != v)
+    if (sngl->value != (float)v)
     {
-      sngl->value = v;
+      sngl->value = (float)v;
       return true;
     }
     else
