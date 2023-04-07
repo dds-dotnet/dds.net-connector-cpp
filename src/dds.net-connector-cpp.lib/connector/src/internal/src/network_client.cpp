@@ -77,6 +77,10 @@ dds::net::connector::_internal::
 
     this->logger->error(msg.c_str());
 }
+    else
+    {
+      this->logger->info("WSA Started.");
+  }
   }
 
   wsaStartCount++;
