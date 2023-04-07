@@ -20,6 +20,7 @@ namespace dds {
 
         class ThreadedNetworkClient {
         public:
+          virtual ~ThreadedNetworkClient(){}
 
           virtual SyncQueueReader<PacketFromServer*>* getDataQueueFromServer() = 0;
           virtual SyncQueueWriter<PacketToServer*>* getDataQueueToServer() = 0;
