@@ -23,10 +23,10 @@ int main()
 
   try
   {
-    DdsConnector* connector =
-      new DdsConnector(
+    DdsConnector connector(
         appName,
-        serverIP, serverPort, new ConsoleLogger());
+        serverIP, serverPort,
+        new ConsoleLogger());
   }
   catch (exception& ex)
   {
