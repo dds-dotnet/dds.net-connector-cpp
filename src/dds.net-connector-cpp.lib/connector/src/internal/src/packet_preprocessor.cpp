@@ -3,6 +3,11 @@
 #include "src/internal/inc/buffer_manager.h"
 #include "src/internal/inc/packet_from_server.h"
 
+#include "src/internal/inc/variables/enc_dec_header.h"
+
+
+using namespace dds::net::connector::_internal::variables;
+
 
 
 dds::net::connector::_internal::
@@ -143,5 +148,73 @@ BufferAddress
   dds::net::connector::_internal::
   PacketPreprocessor::getSingleMessage(int& size)
 {
+  dataLock.lock();
+
+
+  //- 
+  //- Do we have any data available?
+  //- 
+  if (previousData != nullptr)
+  {
+    BufferAddress buffer = previousData;
+    int bufferSize = previousDataSize;
+    int bufferStartIndex = previousDataStartIndex;
+    int bufferNextWriteIndex = previousNextWriteIndex;
+
+    //- 
+    //- Do we have full header?
+    //- 
+
+    int index = bufferStartIndex;
+
+    while (index < (bufferNextWriteIndex - 1))
+    {
+      // Finding '##'
+
+      if (buffer[index] == '#' &&
+          buffer[index + 1] == '#')
+      {
+        bufferStartIndex = index;
+        int readableBytes = bufferNextWriteIndex - index;
+
+        if (readableBytes >= EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER)
+        {
+          int dataBytes = EncDecHeader::readTotalBytesInMessage(buffer, index);
+          int availableBytes = bufferNextWriteIndex - index;
+
+          if (availableBytes >= dataBytes)
+          {
+            BufferAddress packet = bufferManager->getBufferWithClosestSize(dataBytes);
+
+            for (int i = 0; i < dataBytes; i++)
+            {
+              packet[i] = buffer[index++];
+            }
+
+            previousDataStartIndex = index;
+
+            dataLock.unlock();
+            return packet;
+          }
+        }
+
+        break;
+      }
+
+      index++;
+    }
+
+    previousDataStartIndex = bufferStartIndex;
+
+    dataLock.unlock();
+    return nullptr;
+  }
+
+
+  //- 
+  //- We do not have any data available.
+  //- 
+  
+  dataLock.unlock();
   return nullptr;
 }
