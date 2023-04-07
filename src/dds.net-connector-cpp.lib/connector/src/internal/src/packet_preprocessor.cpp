@@ -157,7 +157,6 @@ BufferAddress
   if (previousData != nullptr)
   {
     BufferAddress buffer = previousData;
-    int bufferSize = previousDataSize;
     int bufferStartIndex = previousDataStartIndex;
     int bufferNextWriteIndex = previousNextWriteIndex;
 
