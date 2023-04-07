@@ -897,5 +897,75 @@ bool
   dds::net::connector::
   DdsConnector::updatePrimitiveVariableWithDouble(BasePrimitive* bpv, double v)
 {
+  if (bpv->primitiveType == PRIMITIVE_TYPE_QWORD)
+  {
+    QWordVariable* qwrd = (QWordVariable*)bpv;
+
+    long long conv = (long long)v;
+    bool ret = false;
+
+    if (qwrd->value != conv)
+    {
+      qwrd->value = conv;
+      ret = true;
+    }
+
+    return ret;
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_UNSIGNED_QWORD)
+  {
+    UnsignedQWordVariable* uqwrd = (UnsignedQWordVariable*)bpv;
+
+    unsigned long long conv = (unsigned long long)v;
+    bool ret = false;
+
+    if (uqwrd->value != conv)
+    {
+      uqwrd->value = conv;
+      ret = true;
+    }
+
+    return ret;
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_SINGLE)
+  {
+    SingleVariable* sngl = (SingleVariable*)bpv;
+
+    float conv = (float)v;
+    bool ret = false;
+
+    if (sngl->value != conv)
+    {
+      sngl->value = conv;
+      ret = true;
+    }
+
+    return ret;
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_DOUBLE)
+  {
+    DoubleVariable* dbl = (DoubleVariable*)bpv;
+
+    if (dbl->value != v)
+    {
+      dbl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+  sprintf(errorMessage,
+#endif
+    "Received Double cannot be assigned to %s of type %s",
+    bpv->name.c_str(), bpv->getPrintableTypeName());
+
+  logger->error(errorMessage);
+
   return false;
 }
