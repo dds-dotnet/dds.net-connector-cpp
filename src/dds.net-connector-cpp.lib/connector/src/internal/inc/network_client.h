@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <winsock2.h>
 #include <WS2tcpip.h>
+#include <ws2def.h>
 #include <fcntl.h>
 
 #pragma comment(lib, "ws2_32.lib")

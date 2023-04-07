@@ -66,21 +66,21 @@ dds::net::connector::_internal::
 
   if (wsaStartCount == 0)
   {
-  WSADATA wsaData;
+    WSADATA wsaData;
 
-  int windowsStartupResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    int windowsStartupResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
-  if (windowsStartupResult != 0)
-  {
+    if (windowsStartupResult != 0)
+    {
       std::string msg = "WSAStartup failed with error code: ";
-    msg += windowsStartupResult;
+      msg += windowsStartupResult;
 
-    this->logger->error(msg.c_str());
-}
+      this->logger->error(msg.c_str());
+    }
     else
     {
       this->logger->info("WSA Started.");
-  }
+    }
   }
 
   wsaStartCount++;
@@ -141,9 +141,147 @@ void
 
 void
   dds::net::connector::_internal::
-  ioThreadFunc(NetworkClient* client)
+  ioThreadFunc(NetworkClient* net)
 {
+  while (net->isIOThreadStarted)
+  {
+    if (net->isConnected == false)
+    {
+      net->socketFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
 
+
+#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
+      if (net->socketFileDescriptor == -1)
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+      if (net->socketFileDescriptor == INVALID_SOCKET)
+#else
+      #error "Cannot check socket validity on selected platform"
+#endif
+      {
+        std::string msg = "Socket cannot be created for TCP Client connecting with ";
+        msg += net->ipv4;
+        msg += ":";
+        msg += net->tcpPort;
+
+        net->logger->error(msg.c_str());
+
+        net->isIOThreadStarted = false;
+        return;
+      }
+      try
+      {
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+        {
+            Blocking = false
+        };
+      }
+      catch (Exception)
+      {
+        try
+        {
+          socket ? .Close();
+          socket ? .Dispose();
+        }
+        catch { }
+
+        socket = null!;
+      }
+    }
+    else
+    {
+      if (!socket.Connected)
+      {
+        try
+        {
+          socket.ConnectAsync(targetEndPoint);
+
+          dataToServerQueue.Clear();
+          dataFromServerQueue.Clear();
+
+          ConnectedWithServer ? .Invoke();
+        }
+        catch
+        {
+          Thread.Sleep(100);
+        }
+      }
+      else
+      {
+        bool doneAnythingInIteration = false;
+
+        try
+        {
+          //- 
+          //- Receiving data
+          //- 
+
+          if (socket.Available > 0)
+          {
+            doneAnythingInIteration = true;
+
+            byte[] bytes = new byte[socket.Available];
+
+            int totalReceived = socket.Receive(bytes, SocketFlags.None);
+
+            dataFromServerQueue.Enqueue(new PacketFromServer(bytes));
+          }
+
+          //- 
+          //- Transmitting data
+          //- 
+
+          while (dataToServerQueue.CanDequeue())
+          {
+            doneAnythingInIteration = true;
+
+            PacketToServer packet = dataToServerQueue.Dequeue();
+
+            socket.Send(packet.Data, packet.TotalBytesToBeSent, SocketFlags.None);
+          }
+        }
+        catch
+        {
+          DisconnectedFromServer ? .Invoke();
+
+          try
+          {
+            socket ? .Close();
+            socket ? .Dispose();
+          }
+          catch { }
+
+          socket = null!;
+        }
+
+        if (!doneAnythingInIteration)
+        {
+          Thread.Sleep(10);
+        }
+      }
+    }
+  } // while (isIOThreadStarted)
+
+  if (socket ? .Connected == true)
+  {
+    try
+    {
+      DisconnectedFromServer ? .Invoke();
+      socket ? .DisconnectAsync(false);
+    }
+    catch { }
+  }
+
+
+#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
+  if (net->socketFileDescriptor != -1)
+  {
+    close(socketFileDescriptor);
+  }
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+  closesocket(socketFileDescriptor);
+#else
+#error "Cannot close socket on selected platform"
+#endif
 }
 
 
