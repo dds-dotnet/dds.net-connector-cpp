@@ -9,6 +9,8 @@
 
 #include "src/internal/inc/string_helper.h"
 
+#include <exception>
+
 
 using namespace dds::net::connector::_internal;
 
@@ -123,4 +125,26 @@ void
   dds::net::connector::_internal::
   NetworkClient::disconnect()
 {
+  dataLock.lock();
+
+
+
+  if (isIOThreadStarted)
+  {
+    try
+    {
+      isIOThreadStarted = false;
+
+      ioThread->join();
+      ioThread = nullptr;
+    }
+    catch (std::exception&)
+    {
+
+    }
+  }
+
+
+
+  dataLock.unlock();
 }
