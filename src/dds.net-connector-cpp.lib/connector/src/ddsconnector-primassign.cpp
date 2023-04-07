@@ -290,6 +290,74 @@ bool
   dds::net::connector::
   DdsConnector::updatePrimitiveVariableWithDWord(BasePrimitive* bpv, long v)
 {
+  if (bpv->primitiveType == PRIMITIVE_TYPE_DWORD)
+  {
+    DWordVariable* dwrd = (DWordVariable*)bpv;
+
+    if (dwrd->value != v)
+    {
+      dwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_QWORD)
+  {
+    QWordVariable* qwrd = (QWordVariable*)bpv;
+
+    if (qwrd->value != v)
+    {
+      qwrd->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_SINGLE)
+  {
+    SingleVariable* sngl = (SingleVariable*)bpv;
+
+    float conv = v;
+    bool ret = false;
+
+    if (sngl->value != conv)
+    {
+      sngl->value = conv;
+      ret = true;
+    }
+
+    return ret;
+  }
+  else if (bpv->primitiveType == PRIMITIVE_TYPE_DOUBLE)
+  {
+    DoubleVariable* dbl = (DoubleVariable*)bpv;
+
+    if (dbl->value != v)
+    {
+      dbl->value = v;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+#if TARGET_PLATFORM == PLATFORM_WINDOWS
+  sprintf_s(errorMessage, sizeof(errorMessage),
+#else
+  sprintf(errorMessage,
+#endif
+    "Received DWord cannot be assigned to %s of type %s",
+    bpv->name.c_str(), bpv->getPrintableTypeName());
+
+  logger->error(errorMessage);
+
   return false;
 }
 
