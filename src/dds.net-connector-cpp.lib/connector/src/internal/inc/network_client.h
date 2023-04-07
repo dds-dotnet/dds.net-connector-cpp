@@ -85,6 +85,7 @@ namespace dds {
           virtual void connect(std::string ipv4, unsigned short tcpPort) override;
           virtual void disconnect() override;
 
+
         private:
           Logger* logger;
           BufferManager* bufferManager;
@@ -108,6 +109,10 @@ namespace dds {
 
           bool isIOThreadStarted;
           std::thread* ioThread;
+
+          bool createSocket();
+          void connectWithServer();
+          bool isDataAvailable(int timeoutSecond = 0, int timeoutMicrosecond = 100);
 
 
           friend void ioThreadFunc(NetworkClient* client);

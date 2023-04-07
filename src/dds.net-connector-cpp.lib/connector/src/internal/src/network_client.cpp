@@ -3,13 +3,21 @@
 #include "inc/error.h"
 #include "inc/logger.h"
 
+#include "src/internal/inc/macros.h"
+
 #include "src/internal/inc/sync_queue_reader.h"
 #include "src/internal/inc/sync_queue_writer.h"
 #include "src/internal/inc/sync_queue.h"
 
+#include "src/internal/inc/packet_from_server.h"
+#include "src/internal/inc/packet_to_server.h"
+
+#include "src/internal/inc/buffer_manager.h"
 #include "src/internal/inc/string_helper.h"
 
 #include <exception>
+
+#include <stdio.h>
 
 
 using namespace dds::net::connector;
@@ -151,144 +159,98 @@ void
   dds::net::connector::_internal::
   ioThreadFunc(NetworkClient* net)
 {
+  net->isConnected = false;
+
+  //- 
+  //- Creating socket
+  //- 
+  if (net->createSocket() == false)
+  {
+    net->isIOThreadStarted = false;
+    return;
+  }
+
+
+  //- 
+  //- The thread functionality
+  //- 
   while (net->isIOThreadStarted)
   {
     if (net->isConnected == false)
     {
-      net->socketFileDescriptor = socket(AF_INET, SOCK_STREAM, 0);
-
-
-#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
-      if (net->socketFileDescriptor == -1)
-#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
-      if (net->socketFileDescriptor == INVALID_SOCKET)
-#else
-      #error "Cannot check socket validity on selected platform"
-#endif
-      {
-        std::string msg = "Socket cannot be created for TCP Client connecting with ";
-        msg += net->ipv4;
-        msg += ":";
-        msg += net->tcpPort;
-
-        net->logger->error(msg.c_str());
-
-        net->isIOThreadStarted = false;
-        return;
-      }
-      try
-      {
-        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
-        {
-            Blocking = false
-        };
-      }
-      catch (Exception)
-      {
-        try
-        {
-          socket ? .Close();
-          socket ? .Dispose();
-        }
-        catch { }
-
-        socket = null!;
-      }
+      net->connectWithServer();
     }
     else
     {
-      if (!socket.Connected)
+      bool doneAnythingInIteration = false;
+
+      try
       {
-        try
+        //- 
+        //- Receiving data
+        //- 
+
+        if (net->isDataAvailable())
         {
-          socket.ConnectAsync(targetEndPoint);
+          doneAnythingInIteration = true;
 
-          dataToServerQueue.Clear();
-          dataFromServerQueue.Clear();
+          BufferAddress bytes = net->bufferManager->get4k();
 
-          ConnectedWithServer ? .Invoke();
+          int totalReceived = recv(net->socketFileDescriptor, bytes, 4096, 0);
+
+          if (totalReceived <= 0)
+          {
+            net->isConnected = false;
+            net->bufferManager->free(bytes);
+
+            throw std::exception();
+          }
+          else
+          {
+            net->dataFromServerQueue->enqueue(new PacketFromServer(bytes, totalReceived));
+          }
         }
-        catch
+
+        //- 
+        //- Transmitting data
+        //- 
+
+        while (net->dataToServerQueue->canDequeue())
         {
-          Thread.Sleep(100);
+          doneAnythingInIteration = true;
+
+          PacketToServer* packet = net->dataToServerQueue->dequeue();
+
+          send(net->socketFileDescriptor, packet->buffer, packet->size, 0);
+
+          net->bufferManager->free(packet->buffer);
+          delete(packet);
         }
       }
-      else
+      catch (std::exception&)
       {
-        bool doneAnythingInIteration = false;
+        net->isConnected = false;
 
-        try
+        if (net->onDisconnected != nullptr)
         {
-          //- 
-          //- Receiving data
-          //- 
-
-          if (socket.Available > 0)
-          {
-            doneAnythingInIteration = true;
-
-            byte[] bytes = new byte[socket.Available];
-
-            int totalReceived = socket.Receive(bytes, SocketFlags.None);
-
-            dataFromServerQueue.Enqueue(new PacketFromServer(bytes));
-          }
-
-          //- 
-          //- Transmitting data
-          //- 
-
-          while (dataToServerQueue.CanDequeue())
-          {
-            doneAnythingInIteration = true;
-
-            PacketToServer packet = dataToServerQueue.Dequeue();
-
-            socket.Send(packet.Data, packet.TotalBytesToBeSent, SocketFlags.None);
-          }
+          net->onDisconnected(net->onDisconnectedObj);
         }
-        catch
-        {
-          DisconnectedFromServer ? .Invoke();
+      }
 
-          try
-          {
-            socket ? .Close();
-            socket ? .Dispose();
-          }
-          catch { }
-
-          socket = null!;
-        }
-
-        if (!doneAnythingInIteration)
-        {
-          Thread.Sleep(10);
-        }
+      if (!doneAnythingInIteration)
+      {
+        sleep(10);
       }
     }
   } // while (isIOThreadStarted)
 
-  if (socket ? .Connected == true)
-  {
-    try
-    {
-      DisconnectedFromServer ? .Invoke();
-      socket ? .DisconnectAsync(false);
-    }
-    catch { }
-  }
 
-
-#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
-  if (net->socketFileDescriptor != -1)
-  {
-    close(socketFileDescriptor);
-  }
+#if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
+  close(net->socketFileDescriptor);
 #elif   TARGET_PLATFORM == PLATFORM_WINDOWS
-  closesocket(socketFileDescriptor);
+  closesocket(net->socketFileDescriptor);
 #else
-#error "Cannot close socket on selected platform"
+  #error "Cannot close socket on selected platform"
 #endif
 }
 
@@ -313,6 +275,85 @@ void
     {
       this->ipv4 = ipv4;
       this->tcpPort = tcpPort;
+
+#if   TARGET_PLATFORM == PLATFORM_WINDOWS
+
+      unsigned long _temp;
+
+      if (inet_pton(AF_INET, this->ipv4.c_str(), &_temp) != 1)
+      {
+        struct addrinfo* result = NULL, hints;
+
+        ZeroMemory(&hints, sizeof(hints));
+
+        hints.ai_family = AF_INET;
+        hints.ai_socktype = SOCK_STREAM;
+        hints.ai_protocol = IPPROTO_TCP;
+
+        char _target_port_str[7];
+
+        sprintf_s(_target_port_str, "%d", tcpPort);
+
+        if (getaddrinfo(this->ipv4.c_str(), _target_port_str, &hints, &result) != 0)
+        {
+          std::string error = "Failed to resolve the hostname: ";
+          error += this->ipv4;
+
+          logger->error(error.c_str());
+          dataLock.unlock();
+          return;
+        }
+
+        for (struct addrinfo* ptr = result; ptr != NULL; ptr = ptr->ai_next)
+        {
+          targetSocketAddress = *((struct sockaddr_in*)ptr->ai_addr);
+          break;
+        }
+      }
+      else
+      {
+        inet_pton(AF_INET, this->ipv4.c_str(), &targetSocketAddress.sin_addr.s_addr);
+      }
+
+      targetSocketAddress.sin_family = AF_INET;
+      targetSocketAddress.sin_port = htons(tcpPort);
+
+#elif TARGET_PLATFORM == PLATFORM_GNU_LINUX
+
+      if (inet_addr(this->ipv4.c_str()) == INADDR_NONE)
+      {
+        struct hostent* he;
+        struct in_addr** addr_list;
+
+        if ((he = gethostbyname(this->ipv4.c_str())) == NULL)
+        {
+          std::string error = "Failed to resolve the hostname: ";
+          error += this->ipv4;
+
+          logger->logError(error.c_str());
+          dataLock.unlock();
+          return false;
+        }
+
+        addr_list = (struct in_addr**)he->h_addr_list;
+
+        for (int i = 0; addr_list[i] != NULL; i++)
+        {
+          targetSocketAddress.sin_addr = *addr_list[i];
+          break;
+        }
+      }
+      else
+      {
+        targetSocketAddress.sin_addr.s_addr = inet_addr(this->ipv4.c_str());
+      }
+
+      targetSocketAddress.sin_family = AF_INET;
+      targetSocketAddress.sin_port = htons(tcpPort);
+
+#else
+      #error "No conversion of IP address defined for selected platform"
+#endif
     }
     else
     {
@@ -358,4 +399,155 @@ void
 
 
   dataLock.unlock();
+}
+
+bool
+  dds::net::connector::_internal::
+  NetworkClient::createSocket()
+{
+  socketFileDescriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+
+#if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
+  if (socketFileDescriptor == -1)
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+  if (socketFileDescriptor == INVALID_SOCKET)
+#else
+#error "Cannot check socket validity on selected platform"
+#endif
+  {
+    std::string msg = "Socket cannot be created for TCP Client being connected with ";
+    msg += ipv4;
+    msg += ":";
+    msg += tcpPort;
+
+    logger->error(msg.c_str());
+
+    return false;
+  }
+
+  return true;
+}
+
+void
+  dds::net::connector::_internal::
+  NetworkClient::connectWithServer()
+{
+  int connectionStatus =
+    ::connect(socketFileDescriptor,
+      (struct sockaddr*)&(targetSocketAddress),
+      sizeof(targetSocketAddress));
+
+#if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
+  if (connectionStatus < 0)
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+  if (connectionStatus == SOCKET_ERROR)
+#else
+#error "Cannot check socket connection status for selected platform"
+#endif
+  {
+    std::string errorMessage = "Unable to connect to ";
+    errorMessage += ipv4;
+    errorMessage += ":";
+    errorMessage += tcpPort;
+
+    logger->error(errorMessage.c_str());
+
+    sleep(1000);
+  }
+  else
+  {
+#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
+    int status = fcntl(socketFileDescriptor, F_SETFL, fcntl(socketFileDescriptor, F_GETFL, 0) | O_NONBLOCK);
+
+    if (status == -1)
+    {
+      std::string errorMessage = "Unable to set TCP connection with ";
+      errorMessage += ipv4;
+      errorMessage += ":";
+      errorMessage += tcpPort;
+      errorMessage += " as non-blocking";
+
+      logger->warning(errorMessage.c_str());
+    }
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+    u_long mode = 1;
+    int nonBlockingModeResult = ioctlsocket(socketFileDescriptor, FIONBIO, &mode);
+
+    if (nonBlockingModeResult == SOCKET_ERROR)
+    {
+      std::string errorMessage = "Unable to set TCP connection with ";
+      errorMessage += ipv4;
+      errorMessage += ":";
+      errorMessage += tcpPort;
+      errorMessage += " as non-blocking";
+
+      logger->warning(errorMessage.c_str());
+    }
+#else
+#error "Cannot set socket to non-blocking for selected platform"
+#endif
+    dataToServerQueue->clear();
+    dataFromServerQueue->clear();
+
+    if (onConnected != nullptr)
+    {
+      onConnected(onConnectedObj);
+    }
+
+    isConnected = true;
+  }
+}
+
+bool
+  dds::net::connector::_internal::
+  NetworkClient::isDataAvailable(int timeoutSecond, int timeoutMicrosecond)
+{
+#if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
+
+  timeval tv;
+  fd_set readfds;
+
+  tv.tv_sec = timeoutSecond;
+  tv.tv_usec = timeoutMicrosecond;
+
+  FD_ZERO(&readfds);
+  FD_SET(socketFileDescriptor, &readfds);
+
+  // don't care about write and exception descriptors
+  select(socketFileDescriptor + 1, &readfds, NULL, NULL, &tv);
+
+  if (FD_ISSET(socketFileDescriptor, &readfds))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+
+#elif TARGET_PLATFORM == PLATFORM_WINDOWS
+
+  timeval tv;
+  fd_set readfds;
+
+  tv.tv_sec = timeoutSecond;
+  tv.tv_usec = timeoutMicrosecond;
+
+  FD_ZERO(&readfds);
+  FD_SET(socketFileDescriptor, &readfds);
+
+  select((int)socketFileDescriptor + 1, &readfds, NULL, NULL, &tv);
+
+  if (FD_ISSET(socketFileDescriptor, &readfds))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+
+#else
+#error "Cannot check packet availability on selected platform"
+#endif
 }
