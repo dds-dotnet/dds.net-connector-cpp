@@ -57,6 +57,8 @@ dds::net::connector::_internal::
   this->tcpPort = 0;
   this->isConnected = false;
 
+
+#if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
   this->socketFileDescriptor = -1;
 #elif   TARGET_PLATFORM == PLATFORM_WINDOWS
   this->socketFileDescriptor = INVALID_SOCKET;
