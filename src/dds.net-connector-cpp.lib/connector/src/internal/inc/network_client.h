@@ -24,6 +24,8 @@
 #include <fcntl.h>
 #include <string.h>
 
+#define socket_desc_t  int
+
 
 
 #elif   TARGET_PLATFORM == PLATFORM_WINDOWS
@@ -35,6 +37,8 @@
 #include <fcntl.h>
 
 #pragma comment(lib, "ws2_32.lib")
+
+#define socket_desc_t SOCKET
 
 
 
@@ -88,6 +92,8 @@ namespace dds {
 
           std::string ipv4;
           int tcpPort;
+          socket_desc_t socketFileDescriptor;
+          sockaddr_in targetSocketAddress;
 
           bool isIOThreadStarted;
           std::thread* ioThread;
