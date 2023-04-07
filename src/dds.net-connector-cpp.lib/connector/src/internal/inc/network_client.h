@@ -10,6 +10,7 @@ namespace dds {
       namespace _internal {
 
         class BufferManager;
+        template<typename T> class SyncQueue;
 
         class NetworkClient : public dds::net::connector::_internal::ThreadedNetworkClient {
         public:
@@ -32,6 +33,9 @@ namespace dds {
 
           disconnectedCallback onDisconnected;
           void* onDisconnectedObj;
+
+          SyncQueue<PacketToServer>* dataToServerQueue;
+          SyncQueue<PacketFromServer>* dataFromServerQueue;
         };
 
       }
