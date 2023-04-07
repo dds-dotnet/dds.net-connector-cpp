@@ -3,10 +3,17 @@
 #include "src/internal/inc/buffer_manager.h"
 #include "src/internal/inc/packet_from_server.h"
 
+
+
 dds::net::connector::_internal::
   PacketPreprocessor::PacketPreprocessor(BufferManager* bufferManager)
 {
   this->bufferManager = bufferManager;
+
+  this->previousData = nullptr;
+  this->previousDataSize = 0;
+  this->previousDataStartIndex = 0;
+  this->previousNextWriteIndex = 0;
 }
 
 dds::net::connector::_internal::
