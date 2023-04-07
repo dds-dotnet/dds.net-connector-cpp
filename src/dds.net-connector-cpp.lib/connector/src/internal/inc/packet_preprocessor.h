@@ -27,7 +27,7 @@ namespace dds {
         private:
           BufferManager* bufferManager;
 
-          std::mutex ppmutex;
+          std::mutex dataLock;
           BufferAddress previousData = nullptr;
           int previousDataStartIndex = 0;
           int previousNextWriteIndex = 0;
