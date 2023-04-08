@@ -68,7 +68,7 @@ void my_double_consumer(std::string& variableName, double variableValue)
   {
     y = variableValue;
 
-    cout << "TESTX, TESTY = " << x << ", " << y << endl;
+    cout << x << ", " << y << endl;
   }
 }
 
