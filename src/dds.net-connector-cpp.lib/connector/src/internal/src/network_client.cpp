@@ -33,6 +33,11 @@ static int wsaStartCount = 0;
 
 
 
+/*********************************************************************************/
+/*                                                                               */
+/* Init / deinit                                                                 */
+/*                                                                               */
+/*********************************************************************************/
 dds::net::connector::_internal::
   NetworkClient::NetworkClient(
     Logger* logger,
@@ -123,6 +128,15 @@ dds::net::connector::_internal::
 #endif
 }
 
+
+
+/*********************************************************************************/
+/*                                                                               */
+/* External interface                                                            */
+/*     - Data queues                                                             */
+/*     - Connection callbacks                                                    */
+/*                                                                               */
+/*********************************************************************************/
 SyncQueueReader<PacketFromServer*>*
   dds::net::connector::_internal::
   NetworkClient::getDataQueueFromServer()
@@ -158,102 +172,12 @@ void
 }
 
 
-void
-  dds::net::connector::_internal::
-  ioThreadFunc(NetworkClient* net)
-{
-  net->isConnected = false;
 
-  //- 
-  //- The thread functionality
-  //- 
-  while (net->isIOThreadStarted)
-  {
-    if (net->isConnected == false)
-    {
-      net->connectWithServer();
-
-      if (net->isConnected == false)
-      {
-        sleep_msec(500);
-      }
-    }
-    else
-    {
-      bool doneAnythingInIteration = false;
-
-      try
-      {
-        //- 
-        //- Receiving data
-        //- 
-
-        if (net->isDataAvailable())
-        {
-          doneAnythingInIteration = true;
-
-          BufferAddress bytes = net->bufferManager->get4k();
-
-          int totalReceived = recv(net->socketFileDescriptor, bytes, 4096, 0);
-
-          if (totalReceived <= 0)
-          {
-            net->isConnected = false;
-            net->closeSocket();
-
-            if (net->onDisconnected != nullptr)
-            {
-              net->onDisconnected(net->onDisconnectedObj);
-            }
-
-            net->bufferManager->free(bytes);
-
-            throw std::exception();
-          }
-          else
-          {
-            net->dataFromServerQueue->enqueue(new PacketFromServer(bytes, totalReceived));
-          }
-        }
-
-        //- 
-        //- Transmitting data
-        //- 
-
-        while (net->dataToServerQueue->canDequeue())
-        {
-          doneAnythingInIteration = true;
-
-          PacketToServer* packet = net->dataToServerQueue->dequeue();
-
-          send(net->socketFileDescriptor, packet->buffer, packet->size, 0);
-
-          net->bufferManager->free(packet->buffer);
-          delete(packet);
-        }
-      }
-      catch (std::exception&)
-      {
-        net->isConnected = false;
-        net->closeSocket();
-
-        if (net->onDisconnected != nullptr)
-        {
-          net->onDisconnected(net->onDisconnectedObj);
-        }
-      }
-
-      if (!doneAnythingInIteration)
-      {
-        sleep_msec(10);
-      }
-    }
-  } // while (isIOThreadStarted)
-
-  net->closeSocket();
-}
-
-
+/*********************************************************************************/
+/*                                                                               */
+/* Starting / stopping the connectivity handling routine                         */
+/*                                                                               */
+/*********************************************************************************/
 void
   dds::net::connector::_internal::
   NetworkClient::connect(
@@ -400,6 +324,17 @@ void
   dataLock.unlock();
 }
 
+
+
+/*********************************************************************************/
+/*                                                                               */
+/* Internal                                                                      */
+/*     - Creating socket                                                         */
+/*     - Closing socket                                                          */
+/*     - Connecting with the server                                              */
+/*     - Checking data availability                                              */
+/*                                                                               */
+/*********************************************************************************/
 bool
   dds::net::connector::_internal::
   NetworkClient::createSocket()
@@ -473,7 +408,7 @@ void
       {
         unableToConnectMessageFlag = true;
 
-        std::string errorMessage = "Unable to connect to ";
+        std::string errorMessage = "Unable to connect with ";
         errorMessage += ipv4;
         errorMessage += ":";
         errorMessage += std::to_string(tcpPort);
@@ -583,3 +518,109 @@ bool
 #error "Cannot check packet availability on selected platform"
 #endif
 }
+
+
+
+/*********************************************************************************/
+/*                                                                               */
+/* Internal                                                                      */
+/*     - Working thread                                                          */
+/*                                                                               */
+/*********************************************************************************/
+void
+  dds::net::connector::_internal::
+  ioThreadFunc(NetworkClient* net)
+{
+  net->isConnected = false;
+
+  while (net->isIOThreadStarted)
+  {
+    if (net->isConnected == false)
+    {
+      net->connectWithServer();
+
+      // Wait when not connected upon attempt
+      if (net->isConnected == false)
+      {
+        sleep_msec(500);
+      }
+    }
+    else
+    {
+      bool doneAnythingInIteration = false;
+
+      try
+      {
+        //- 
+        //- Receiving data
+        //- 
+
+        if (net->isDataAvailable())
+        {
+          doneAnythingInIteration = true;
+
+          BufferAddress bytes = net->bufferManager->get4k();
+
+          int totalReceived = recv(net->socketFileDescriptor, bytes, 4096, 0);
+
+          if (totalReceived <= 0)
+          {
+            // Disconnected from the server
+
+            net->bufferManager->free(bytes);
+
+            throw std::exception();
+          }
+          else
+          {
+            // Data is received from the server
+
+            net->dataFromServerQueue->enqueue(new PacketFromServer(bytes, totalReceived));
+          }
+        }
+
+        //- 
+        //- Transmitting data
+        //- 
+
+        while (net->dataToServerQueue->canDequeue())
+        {
+          doneAnythingInIteration = true;
+
+          PacketToServer* packet = net->dataToServerQueue->dequeue();
+
+          int totalSent = send(net->socketFileDescriptor, packet->buffer, packet->size, 0);
+
+          if (totalSent <= 0)
+          {
+            // Disconnected from the server
+            throw std::exception();
+          }
+          else
+          {
+            net->bufferManager->free(packet->buffer);
+            delete(packet);
+          }
+        }
+      }
+      catch (std::exception&)
+      {
+        net->isConnected = false;
+        net->closeSocket();
+
+        if (net->onDisconnected != nullptr)
+        {
+          net->onDisconnected(net->onDisconnectedObj);
+        }
+      }
+
+      if (!doneAnythingInIteration)
+      {
+        sleep_msec(10);
+      }
+    }
+  } // while (isIOThreadStarted)
+
+  net->closeSocket();
+}
+
