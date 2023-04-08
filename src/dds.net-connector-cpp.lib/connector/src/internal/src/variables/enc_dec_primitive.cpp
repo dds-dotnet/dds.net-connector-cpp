@@ -47,7 +47,7 @@ std::string
 
 
   int strIndex = 0;
-  std::u16string u16(length, ' ');
+  std::u16string u16(length / 2, ' ');
 
 
   for (int i = 0; i < length; i += 2)
