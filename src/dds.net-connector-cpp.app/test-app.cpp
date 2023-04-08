@@ -9,7 +9,10 @@
 using namespace std;
 using namespace dds::net::connector;
 
+
 void wait_for_exit_key();
+void my_double_consumer(std::string& variableName, double variableValue);
+
 
 int main()
 {
@@ -27,20 +30,43 @@ int main()
         appName,
         serverIP, serverPort,
         new ConsoleLogger());
+
+    connector.registerDoubleConsumer("TESTX", my_double_consumer, ON_CHANGE);
+    connector.registerDoubleConsumer("TESTY", my_double_consumer, ON_CHANGE);
+
+    connector.start();
+
+    wait_for_exit_key();
   }
   catch (exception& ex)
   {
     cout << "Error! " << ex.what() << endl;
   }
 
-  wait_for_exit_key();
-
   cout << endl << endl << endl;
 }
+
 
 void wait_for_exit_key()
 {
   char ch;
   while ((ch = getc(stdin)) != 'C');
+}
+
+
+static double x, y;
+
+void my_double_consumer(std::string& variableName, double variableValue)
+{
+  if (variableName == "TESTX")
+  {
+    x = variableValue;
+  }
+  else if (variableName == "TESTY")
+  {
+    y = variableValue;
+
+    cout << "TESTX, TESTY = " << x << ", " << y << endl;
+  }
 }
 
