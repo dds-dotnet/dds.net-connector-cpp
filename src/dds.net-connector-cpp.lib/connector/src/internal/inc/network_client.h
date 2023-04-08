@@ -110,7 +110,12 @@ namespace dds {
           bool isIOThreadStarted;
           std::thread* ioThread;
 
+
+          bool unableToConnectMessageFlag;
+          bool isSocketCreated;
+
           bool createSocket();
+          void closeSocket();
           void connectWithServer();
           bool isDataAvailable(int timeoutSecond = 0, int timeoutMicrosecond = 100);
 

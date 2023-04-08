@@ -65,6 +65,9 @@ dds::net::connector::_internal::
   this->tcpPort = 0;
   this->isConnected = false;
 
+  this->unableToConnectMessageFlag = false;
+  this->isSocketCreated = false;
+
 
 #if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
   this->socketFileDescriptor = -1;
@@ -162,16 +165,6 @@ void
   net->isConnected = false;
 
   //- 
-  //- Creating socket
-  //- 
-  if (net->createSocket() == false)
-  {
-    net->isIOThreadStarted = false;
-    return;
-  }
-
-
-  //- 
   //- The thread functionality
   //- 
   while (net->isIOThreadStarted)
@@ -179,6 +172,11 @@ void
     if (net->isConnected == false)
     {
       net->connectWithServer();
+
+      if (net->isConnected == false)
+      {
+        sleep_msec(500);
+      }
     }
     else
     {
@@ -201,6 +199,13 @@ void
           if (totalReceived <= 0)
           {
             net->isConnected = false;
+            net->closeSocket();
+
+            if (net->onDisconnected != nullptr)
+            {
+              net->onDisconnected(net->onDisconnectedObj);
+            }
+
             net->bufferManager->free(bytes);
 
             throw std::exception();
@@ -230,6 +235,7 @@ void
       catch (std::exception&)
       {
         net->isConnected = false;
+        net->closeSocket();
 
         if (net->onDisconnected != nullptr)
         {
@@ -244,14 +250,7 @@ void
     }
   } // while (isIOThreadStarted)
 
-
-#if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
-  close(net->socketFileDescriptor);
-#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
-  closesocket(net->socketFileDescriptor);
-#else
-  #error "Cannot close socket on selected platform"
-#endif
+  net->closeSocket();
 }
 
 
@@ -405,96 +404,129 @@ bool
   dds::net::connector::_internal::
   NetworkClient::createSocket()
 {
-  socketFileDescriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+  if (isSocketCreated == false)
+  {
+    socketFileDescriptor = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 #if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
-  if (socketFileDescriptor == -1)
+    if (socketFileDescriptor == -1)
 #elif   TARGET_PLATFORM == PLATFORM_WINDOWS
-  if (socketFileDescriptor == INVALID_SOCKET)
+    if (socketFileDescriptor == INVALID_SOCKET)
 #else
 #error "Cannot check socket validity on selected platform"
 #endif
-  {
-    std::string msg = "Socket cannot be created for TCP Client being connected with ";
-    msg += ipv4;
-    msg += ":";
-    msg += tcpPort;
+    {
+      std::string msg = "Socket cannot be created for TCP Client being connected with ";
+      msg += ipv4;
+      msg += ":";
+      msg += std::to_string(tcpPort);
 
-    logger->error(msg.c_str());
+      logger->error(msg.c_str());
 
-    return false;
+      isSocketCreated = false;
+    }
+
+    isSocketCreated = true;
   }
 
-  return true;
+  return isSocketCreated;
+}
+
+void
+  dds::net::connector::_internal::
+  NetworkClient::closeSocket()
+{
+  if (isSocketCreated == true)
+  {
+    isSocketCreated = false;
+
+#if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
+    close(socketFileDescriptor);
+#elif   TARGET_PLATFORM == PLATFORM_WINDOWS
+    closesocket(socketFileDescriptor);
+#else
+#error "Cannot close socket on selected platform"
+#endif
+  }
 }
 
 void
   dds::net::connector::_internal::
   NetworkClient::connectWithServer()
 {
-  int connectionStatus =
-    ::connect(socketFileDescriptor,
-      (struct sockaddr*)&(targetSocketAddress),
-      sizeof(targetSocketAddress));
+  if (createSocket())
+  {
+    int connectionStatus =
+      ::connect(socketFileDescriptor,
+        (struct sockaddr*)&(targetSocketAddress),
+        sizeof(targetSocketAddress));
 
 #if     TARGET_PLATFORM == PLATFORM_GNU_LINUX
-  if (connectionStatus < 0)
+    if (connectionStatus < 0)
 #elif   TARGET_PLATFORM == PLATFORM_WINDOWS
-  if (connectionStatus == SOCKET_ERROR)
+    if (connectionStatus == SOCKET_ERROR)
 #else
-#error "Cannot check socket connection status for selected platform"
+    #error "Cannot check socket connection status for selected platform"
 #endif
-  {
-    std::string errorMessage = "Unable to connect to ";
-    errorMessage += ipv4;
-    errorMessage += ":";
-    errorMessage += tcpPort;
+    {
+      if (unableToConnectMessageFlag == false)
+      {
+        unableToConnectMessageFlag = true;
 
-    logger->error(errorMessage.c_str());
+        std::string errorMessage = "Unable to connect to ";
+        errorMessage += ipv4;
+        errorMessage += ":";
+        errorMessage += std::to_string(tcpPort);
 
-    sleep_msec(1000);
-  }
-  else
-  {
+        logger->error(errorMessage.c_str());
+        closeSocket();
+      }
+    }
+    else
+    {
+      unableToConnectMessageFlag = false;
+
 #if   TARGET_PLATFORM == PLATFORM_GNU_LINUX
-    int status = fcntl(socketFileDescriptor, F_SETFL, fcntl(socketFileDescriptor, F_GETFL, 0) | O_NONBLOCK);
+      int status = fcntl(socketFileDescriptor, F_SETFL, fcntl(socketFileDescriptor, F_GETFL, 0) | O_NONBLOCK);
 
-    if (status == -1)
-    {
-      std::string errorMessage = "Unable to set TCP connection with ";
-      errorMessage += ipv4;
-      errorMessage += ":";
-      errorMessage += tcpPort;
-      errorMessage += " as non-blocking";
+      if (status == -1)
+      {
+        std::string errorMessage = "Unable to set TCP connection with ";
+        errorMessage += ipv4;
+        errorMessage += ":";
+        errorMessage += std::to_string(tcpPort);
+        errorMessage += " as non-blocking";
 
-      logger->warning(errorMessage.c_str());
-    }
+        logger->warning(errorMessage.c_str());
+      }
 #elif   TARGET_PLATFORM == PLATFORM_WINDOWS
-    u_long mode = 1;
-    int nonBlockingModeResult = ioctlsocket(socketFileDescriptor, FIONBIO, &mode);
+      u_long mode = 1;
+      int nonBlockingModeResult = ioctlsocket(socketFileDescriptor, FIONBIO, &mode);
 
-    if (nonBlockingModeResult == SOCKET_ERROR)
-    {
-      std::string errorMessage = "Unable to set TCP connection with ";
-      errorMessage += ipv4;
-      errorMessage += ":";
-      errorMessage += tcpPort;
-      errorMessage += " as non-blocking";
+      if (nonBlockingModeResult == SOCKET_ERROR)
+      {
+        std::string errorMessage = "Unable to set TCP connection with ";
+        errorMessage += ipv4;
+        errorMessage += ":";
+        errorMessage += std::to_string(tcpPort);
+        errorMessage += " as non-blocking";
 
-      logger->warning(errorMessage.c_str());
-    }
+        logger->warning(errorMessage.c_str());
+      }
 #else
 #error "Cannot set socket to non-blocking for selected platform"
 #endif
-    dataToServerQueue->clear();
-    dataFromServerQueue->clear();
 
-    if (onConnected != nullptr)
-    {
-      onConnected(onConnectedObj);
+      dataToServerQueue->clear();
+      dataFromServerQueue->clear();
+
+      if (onConnected != nullptr)
+      {
+        onConnected(onConnectedObj);
+      }
+
+      isConnected = true;
     }
-
-    isConnected = true;
   }
 }
 
