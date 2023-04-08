@@ -37,6 +37,8 @@ int main()
     connector.start();
 
     wait_for_exit_key();
+
+    connector.stop();
   }
   catch (exception& ex)
   {
