@@ -193,6 +193,8 @@ BufferAddress
             previousDataStartIndex = index;
 
             dataLock.unlock();
+
+            size = dataBytes;
             return packet;
           }
         }
@@ -206,6 +208,8 @@ BufferAddress
     previousDataStartIndex = bufferStartIndex;
 
     dataLock.unlock();
+
+    size = 0;
     return nullptr;
   }
 
