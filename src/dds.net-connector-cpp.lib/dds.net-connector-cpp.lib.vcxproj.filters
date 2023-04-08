@@ -137,9 +137,6 @@
     <ClCompile Include="connector\src\internal\src\easy_thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connector\src\internal\src\sync_queue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="connector\src\internal\src\buffer_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

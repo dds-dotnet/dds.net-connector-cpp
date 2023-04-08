@@ -192,7 +192,6 @@
     <ClCompile Include="connector\src\internal\src\network_client.cpp" />
     <ClCompile Include="connector\src\internal\src\packet_preprocessor.cpp" />
     <ClCompile Include="connector\src\internal\src\string_helper.cpp" />
-    <ClCompile Include="connector\src\internal\src\sync_queue.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\base_primitive.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\enc_dec_primitive.cpp" />
     <ClCompile Include="connector\src\internal\src\variables\var_prim_boolean.cpp" />
