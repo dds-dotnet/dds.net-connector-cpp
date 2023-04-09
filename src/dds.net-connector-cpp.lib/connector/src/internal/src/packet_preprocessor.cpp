@@ -71,24 +71,16 @@ void
   }
 
   //- 
-  //- Compacting the buffer
+  //- Compacting the data
   //- 
-  if (bufferNextWriteIndex != bufferStartIndex)
+  if (bufferStartIndex > 0)
   {
-    int timesShifted = 0;
-
     for (int i = 0; i < (bufferNextWriteIndex - bufferStartIndex); i++)
     {
       buffer[i] = buffer[bufferStartIndex + i];
-      timesShifted++;
     }
 
-    bufferStartIndex = 0;
-    bufferNextWriteIndex -= timesShifted;
-  }
-  else
-  {
-    bufferNextWriteIndex = 0;
+    bufferNextWriteIndex -= bufferStartIndex;
     bufferStartIndex = 0;
   }
 
@@ -156,30 +148,31 @@ BufferAddress
   //- 
   if (previousData != nullptr)
   {
-    BufferAddress buffer = previousData;
-    int bufferStartIndex = previousDataStartIndex;
-    int bufferNextWriteIndex = previousNextWriteIndex;
+    BufferAddress data = previousData;
+    int dataStartIndex = previousDataStartIndex;
+    int dataEndIndex = previousNextWriteIndex;
 
     //- 
     //- Do we have full header?
     //- 
 
-    int index = bufferStartIndex;
+    int index = dataStartIndex;
 
-    while (index < (bufferNextWriteIndex - 1))
+    while (index < (dataEndIndex - 1))
     {
       // Finding '##'
 
-      if (buffer[index] == '#' &&
-          buffer[index + 1] == '#')
+      if (data[index] == '#' &&
+          data[index + 1] == '#')
       {
-        bufferStartIndex = index;
-        int readableBytes = bufferNextWriteIndex - index;
+        dataStartIndex = index;
+
+        int readableBytes = dataEndIndex - index;
 
         if (readableBytes >= EncDecHeader::MESSAGE_HEADER_SIZE_ON_BUFFER)
         {
-          int dataBytes = EncDecHeader::readTotalBytesInMessage(buffer, index);
-          int availableBytes = bufferNextWriteIndex - index;
+          int dataBytes = EncDecHeader::readTotalBytesInMessage(data, index);
+          int availableBytes = dataEndIndex - index;
 
           if (availableBytes >= dataBytes)
           {
@@ -187,7 +180,7 @@ BufferAddress
 
             for (int i = 0; i < dataBytes; i++)
             {
-              packet[i] = buffer[index++];
+              packet[i] = data[index++];
             }
 
             previousDataStartIndex = index;
@@ -204,8 +197,6 @@ BufferAddress
 
       index++;
     }
-
-    previousDataStartIndex = bufferStartIndex;
 
     dataLock.unlock();
 

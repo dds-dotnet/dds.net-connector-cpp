@@ -28,10 +28,10 @@ int
   {
     offset += 2;
 
-    int v = buffer[offset++];
-    v = (v << 8) | buffer[offset++];
-    v = (v << 8) | buffer[offset++];
-    v = (v << 8) | buffer[offset++];
+    int v = (unsigned char)buffer[offset++];
+    v = (v << 8) | (unsigned char)buffer[offset++];
+    v = (v << 8) | (unsigned char)buffer[offset++];
+    v = (v << 8) | (unsigned char)buffer[offset++];
 
     return v;
   }
@@ -85,8 +85,8 @@ int
   dds::net::connector::_internal::variables::
   EncDecHeader::readVariableId(BufferAddress buffer, int& offset)
 {
-  int value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  int value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
   return value;
 }
@@ -107,8 +107,8 @@ VariableType
   dds::net::connector::_internal::variables::
   EncDecHeader::readVariableType(BufferAddress buffer, int& offset)
 {
-  int v = buffer[offset++];
-  v = (v << 8) | buffer[offset++];
+  int v = (unsigned char)buffer[offset++];
+  v = (v << 8) | (unsigned char)buffer[offset++];
 
   if (v >= 0 && v < VARIABLE_TYPE_UNKNOWN)
   {
@@ -131,7 +131,7 @@ Periodicity
   dds::net::connector::_internal::variables::
   EncDecHeader::readPeriodicity(BufferAddress buffer, int& offset)
 {
-  int v = buffer[offset++];
+  int v = (unsigned char)buffer[offset++];
 
   if (v >= 0 && v <= LOWEST)
   {

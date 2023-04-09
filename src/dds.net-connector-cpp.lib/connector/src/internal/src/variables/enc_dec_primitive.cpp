@@ -10,7 +10,7 @@ PrimitiveType
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readPrimitiveType(BufferAddress buffer, int& offset)
 {
-  int v = buffer[offset++];
+  int v = (unsigned char)buffer[offset++];
 
   if (v >= 0 && v < PRIMITIVE_TYPE_UNKNOWN)
   {
@@ -42,8 +42,8 @@ std::string
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readString(BufferAddress buffer, int& offset)
 {
-  int length = buffer[offset++];
-  length = (length << 8) | buffer[offset++];
+  int length = (unsigned char)buffer[offset++];
+  length = (length << 8) | (unsigned char)buffer[offset++];
 
 
   int strIndex = 0;
@@ -52,8 +52,8 @@ std::string
 
   for (int i = 0; i < length; i += 2)
   {
-    unsigned short ch = buffer[offset + 1];
-    ch = (ch << 8) | buffer[offset + 0];
+    unsigned short ch = (unsigned char)buffer[offset + 1];
+    ch = (ch << 8) | (unsigned char)buffer[offset + 0];
 
     u16[strIndex++] = ch;
 
@@ -227,8 +227,8 @@ unsigned short
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readUnsignedWord(BufferAddress buffer, int& offset)
 {
-  unsigned short value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  unsigned short value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
   return value;
 }
@@ -247,10 +247,10 @@ unsigned long
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readUnsignedDWord(BufferAddress buffer, int& offset)
 {
-  unsigned long value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  unsigned long value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
   return value;
 }
@@ -271,14 +271,14 @@ unsigned long long
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readUnsignedQWord(BufferAddress buffer, int& offset)
 {
-  unsigned long long value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  unsigned long long value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
   return value;
 }
@@ -309,17 +309,17 @@ float
 
   if (isLittleEndian())
   {
-    p[0] = buffer[offset + 3];
-    p[1] = buffer[offset + 2];
-    p[2] = buffer[offset + 1];
-    p[3] = buffer[offset + 0]; // MSB
+    p[0] = (unsigned char)buffer[offset + 3];
+    p[1] = (unsigned char)buffer[offset + 2];
+    p[2] = (unsigned char)buffer[offset + 1];
+    p[3] = (unsigned char)buffer[offset + 0]; // MSB
   }
   else
   {
-    p[0] = buffer[offset + 0]; // MSB
-    p[1] = buffer[offset + 1];
-    p[2] = buffer[offset + 2];
-    p[3] = buffer[offset + 3];
+    p[0] = (unsigned char)buffer[offset + 0]; // MSB
+    p[1] = (unsigned char)buffer[offset + 1];
+    p[2] = (unsigned char)buffer[offset + 2];
+    p[3] = (unsigned char)buffer[offset + 3];
   }
   
   offset += 4;
@@ -361,25 +361,25 @@ double
 
   if (isLittleEndian())
   {
-    p[0] = buffer[offset + 7];
-    p[1] = buffer[offset + 6];
-    p[2] = buffer[offset + 5];
-    p[3] = buffer[offset + 4];
-    p[4] = buffer[offset + 3];
-    p[5] = buffer[offset + 2];
-    p[6] = buffer[offset + 1];
-    p[7] = buffer[offset + 0]; // MSB
+    p[0] = (unsigned char)buffer[offset + 7];
+    p[1] = (unsigned char)buffer[offset + 6];
+    p[2] = (unsigned char)buffer[offset + 5];
+    p[3] = (unsigned char)buffer[offset + 4];
+    p[4] = (unsigned char)buffer[offset + 3];
+    p[5] = (unsigned char)buffer[offset + 2];
+    p[6] = (unsigned char)buffer[offset + 1];
+    p[7] = (unsigned char)buffer[offset + 0]; // MSB
   }
   else
   {
-    p[0] = buffer[offset + 0]; // MSB
-    p[1] = buffer[offset + 1];
-    p[2] = buffer[offset + 2];
-    p[3] = buffer[offset + 3];
-    p[4] = buffer[offset + 4];
-    p[5] = buffer[offset + 5];
-    p[6] = buffer[offset + 6];
-    p[7] = buffer[offset + 7];
+    p[0] = (unsigned char)buffer[offset + 0]; // MSB
+    p[1] = (unsigned char)buffer[offset + 1];
+    p[2] = (unsigned char)buffer[offset + 2];
+    p[3] = (unsigned char)buffer[offset + 3];
+    p[4] = (unsigned char)buffer[offset + 4];
+    p[5] = (unsigned char)buffer[offset + 5];
+    p[6] = (unsigned char)buffer[offset + 6];
+    p[7] = (unsigned char)buffer[offset + 7];
   }
 
   offset += 8;
