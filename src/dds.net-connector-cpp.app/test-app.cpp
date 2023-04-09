@@ -48,18 +48,18 @@ int main()
     connector.registerDoubleConsumer("Circle-X", circle_values_consumer, ON_CHANGE);
     connector.registerDoubleConsumer("Circle-Y", circle_values_consumer, ON_CHANGE);
 
-    connector.registerStringProvider("Test-String", test_string_producer, ON_CHANGE);
-    connector.registerBooleanProvider("Test-Boolean", test_boolean_producer, ON_CHANGE);
-    connector.registerByteProvider("Test-Byte", test_byte_producer, ON_CHANGE);
-    connector.registerWordProvider("Test-Word", test_word_producer, ON_CHANGE);
-    connector.registerDWordProvider("Test-DWord", test_dword_producer, ON_CHANGE);
-    connector.registerQWordProvider("Test-QWord", test_qword_producer, ON_CHANGE);
-    connector.registerUnsignedByteProvider("Test-UnsignedByte", test_unsigned_byte_producer, ON_CHANGE);
-    connector.registerUnsignedWordProvider("Test-UnsignedWord", test_unsigned_word_producer, ON_CHANGE);
-    connector.registerUnsignedDWordProvider("Test-UnsignedDWord", test_unsigned_dword_producer, ON_CHANGE);
-    connector.registerUnsignedQWordProvider("Test-UnsignedQWord", test_unsigned_qword_producer, ON_CHANGE);
-    connector.registerSingleProvider("Test-Single", test_single_producer, ON_CHANGE);
-    connector.registerDoubleProvider("Test-Double", test_double_producer, ON_CHANGE);
+    connector.registerStringProvider("Test-String", test_string_producer, LOW);
+    connector.registerBooleanProvider("Test-Boolean", test_boolean_producer, LOW);
+    connector.registerByteProvider("Test-Byte", test_byte_producer, LOW);
+    connector.registerWordProvider("Test-Word", test_word_producer, LOW);
+    connector.registerDWordProvider("Test-DWord", test_dword_producer, LOW);
+    connector.registerQWordProvider("Test-QWord", test_qword_producer, LOW);
+    connector.registerUnsignedByteProvider("Test-UnsignedByte", test_unsigned_byte_producer, LOW);
+    connector.registerUnsignedWordProvider("Test-UnsignedWord", test_unsigned_word_producer, LOW);
+    connector.registerUnsignedDWordProvider("Test-UnsignedDWord", test_unsigned_dword_producer, LOW);
+    connector.registerUnsignedQWordProvider("Test-UnsignedQWord", test_unsigned_qword_producer, LOW);
+    connector.registerSingleProvider("Test-Single", test_single_producer, LOW);
+    connector.registerDoubleProvider("Test-Double", test_double_producer, LOW);
 
     connector.start();
 
@@ -104,67 +104,70 @@ void circle_values_consumer(string& variableName, double variableValue)
 
 
 bool test_boolean = false;
-double test_value = -100.5;
+double test_value_signed = -100.5;
+unsigned long long test_value_unsigned = 0;
 
 string test_string_producer(string& variableName)
 {
   string s = "Test Value = ";
-  s += to_string(test_value);
+  s += to_string(test_value_signed);
+  s += ", ";
+  s += to_string(test_value_unsigned);
   return s;
 }
 bool test_boolean_producer(string& variableName)
 {
-  test_boolean != test_boolean;
+  test_boolean = !test_boolean;
   return test_boolean;
 }
 char test_byte_producer(string& variableName)
 {
-  return (char)test_value;
+  return (char)test_value_signed;
 }
 short test_word_producer(string& variableName)
 {
-  return (short)test_value;
+  return (short)test_value_signed;
 }
 long test_dword_producer(string& variableName)
 {
-  return (long)test_value;
+  return (long)test_value_signed;
 }
 long long test_qword_producer(string& variableName)
 {
-  return (long long)test_value;
+  return (long long)test_value_signed;
 }
 unsigned char test_unsigned_byte_producer(string& variableName)
 {
-  return (unsigned char)test_value;
+  return (unsigned char)test_value_unsigned;
 }
 unsigned short test_unsigned_word_producer(string& variableName)
 {
-  return (unsigned short)test_value;
+  return (unsigned short)test_value_unsigned;
 }
 unsigned long test_unsigned_dword_producer(string& variableName)
 {
-  return (unsigned long)test_value;
+  return (unsigned long)test_value_unsigned;
 }
 unsigned long long test_unsigned_qword_producer(string& variableName)
 {
-  return (unsigned long long)test_value;
+  return test_value_unsigned++;
 }
 float test_single_producer(string& variableName)
 {
-  return (float)test_value;
+  return (float)test_value_signed;
 }
 double test_double_producer(string& variableName)
 {
-  if (test_value <= -100.0)
+  if (test_value_signed <= -100.0)
   {
-    test_value = 100.5;
+    test_value_signed = 100.5;
   }
   else
   {
-    test_value = -100.5;
+    test_value_signed = -100.5;
   }
 
-  return test_value;
+  return test_value_signed;
 }
 
 
