@@ -11,7 +11,7 @@ using namespace dds::net::connector;
 
 
 void wait_for_exit_key();
-void my_double_consumer(std::string& variableName, double variableValue);
+void circle_values_consumer(std::string& variableName, double variableValue);
 
 
 int main()
@@ -31,8 +31,8 @@ int main()
         serverIP, serverPort,
         new ConsoleLogger());
 
-    connector.registerDoubleConsumer("TESTX", my_double_consumer, ON_CHANGE);
-    connector.registerDoubleConsumer("TESTY", my_double_consumer, ON_CHANGE);
+    connector.registerDoubleConsumer("Circle-X", circle_values_consumer, ON_CHANGE);
+    connector.registerDoubleConsumer("Circle-Y", circle_values_consumer, ON_CHANGE);
 
     connector.start();
 
@@ -58,13 +58,13 @@ void wait_for_exit_key()
 
 static double x, y;
 
-void my_double_consumer(std::string& variableName, double variableValue)
+void circle_values_consumer(std::string& variableName, double variableValue)
 {
-  if (variableName == "TESTX")
+  if (variableName == "Circle-X")
   {
     x = variableValue;
   }
-  else if (variableName == "TESTY")
+  else if (variableName == "Circle-Y")
   {
     y = variableValue;
 
