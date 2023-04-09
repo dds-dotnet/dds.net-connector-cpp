@@ -30,6 +30,44 @@
 &nbsp;
 
 
+## Providers and Consumers
+
+In this context, ***Providers*** are functions that provide data to the library for transferring to the target *DDS.Net Server* for onward sharing with corresponding consumers; and ***Consumers*** are functions that consume delivered data from connected *DDS.Net Server* through the library. Function signatures and their corresponding library registration functions are enlisted here.
+
+| Data type         | Provider / consumer function signature              | Registration function in dds::net::connector::DdsConnector     |
+|-------------------|-----------------------------------------------------|----------------------------------------------------------------|
+| *String*          | | |
+|                   | | |
+| *Boolean*         | | |
+|                   | | |
+| *Byte*            | | |
+|                   | | |
+| *Word*            | | |
+|                   | | |
+| *DWord*           | | |
+|                   | | |
+| *QWord*           | | |
+|                   | | |
+| *Unsigned Byte*   | | |
+|                   | | |
+| *Unsigned Word*   | | |
+|                   | | |
+| *Unsigned DWord*  | | |
+|                   | | |
+| *Unsigned QWord*  | | |
+|                   | | |
+| *Single*          | | |
+|                   | | |
+| *Double*          | | |
+|                   | | |
+| *Raw Bytes*       | | |
+|                   | | |
+
+
+
+
+&nbsp;
+
 ## Sample application
 
 Sample use of the library is done in following simple application:
