@@ -412,13 +412,13 @@ void
 
 
 
-static unsigned short test_value = 0x00AA;
+static unsigned short endianess_test_value = 0x00AA;
 
 bool
   dds::net::connector::_internal::variables::
   EncDecPrimitive::isLittleEndian()
 {
-  unsigned char* p = (unsigned char*)&test_value;
+  unsigned char* p = (unsigned char*)&endianess_test_value;
 
   if (*p == 0xAA)
     return true;
