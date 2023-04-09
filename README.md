@@ -34,34 +34,34 @@
 
 In this context, ***Providers*** are functions that provide data to the library for transferring to the target *DDS.Net Server* for onward sharing with corresponding consumers; and ***Consumers*** are functions that consume delivered data from connected *DDS.Net Server* through the library. Function signatures and their corresponding library registration functions are enlisted here.
 
-| Data type         | Provider / consumer function signature              | Registration function in dds::net::connector::DdsConnector     |
-|-------------------|-----------------------------------------------------|----------------------------------------------------------------|
-| *String*          | | |
-|                   | | |
-| *Boolean*         | | |
-|                   | | |
-| *Byte*            | | |
-|                   | | |
-| *Word*            | | |
-|                   | | |
-| *DWord*           | | |
-|                   | | |
-| *QWord*           | | |
-|                   | | |
-| *Unsigned Byte*   | | |
-|                   | | |
-| *Unsigned Word*   | | |
-|                   | | |
-| *Unsigned DWord*  | | |
-|                   | | |
-| *Unsigned QWord*  | | |
-|                   | | |
-| *Single*          | | |
-|                   | | |
-| *Double*          | | |
-|                   | | |
-| *Raw Bytes*       | | |
-|                   | | |
+| Data type         | Provider / consumer function signature                                      | Registration function in dds::net::connector::DdsConnector     |
+|-------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------|
+| *String*          | std::string (\*provider)(std::string& varName)                              | |
+|                   | void (\*consumer)(std::string& varName, std::string& value)                 | |
+| *Boolean*         | bool (\*provider)(std::string& varName)                                     | |
+|                   | void (\*consumer)(std::string& varName, bool value)                         | |
+| *Byte*            | char (\*provider)(std::string& varName)                                     |  |
+|                   | void (\*consumer)(std::string& varName, char value)                         | |
+| *Word*            | short (\*provider)(std::string& varName)                                    | |
+|                   | void (\*consumer)(std::string& varName, short value)                        | |
+| *DWord*           | long (\*provider)(std::string& varName)                                     | |
+|                   | void (\*consumer)(std::string& varName, long value)                         | |
+| *QWord*           | long long (\*provider)(std::string& varName)                                | |
+|                   | void (\*consumer)(std::string& varName, long long value)                    | |
+| *Unsigned Byte*   | unsigned char (\*provider)(std::string& varName)                            | |
+|                   | void (\*consumer)(std::string& varName, unsigned char value)                | |
+| *Unsigned Word*   | unsigned short (\*provider)(std::string& varName)                           | |
+|                   | void (\*consumer)(std::string& varName, unsigned short value)               | |
+| *Unsigned DWord*  | unsigned long (\*provider)(std::string& varName)                            | |
+|                   | void (\*consumer)(std::string& varName, unsigned long value)                | |
+| *Unsigned QWord*  | unsigned long long (\*provider)(std::string& varName)                       | |
+|                   | void (\*consumer)(std::string& varName, unsigned long long value)           | |
+| *Single*          | float (\*provider)(std::string& varName)                                    | |
+|                   | void (\*consumer)(std::string& varName, float value)                        | |
+| *Double*          | double (\*provider)(std::string& varName)                                   | |
+|                   | void (\*consumer)(std::string& varName, double value)                       | |
+| *Raw Bytes*       | int (\*provider)(std::string& varName, unsigned char\* buff, int size)      | |
+|                   | void (\*consumer)(std::string& varName, unsigned char\* buff, int size)     | |
 
 
 
