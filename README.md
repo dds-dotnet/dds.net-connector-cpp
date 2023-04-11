@@ -39,12 +39,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerStringProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerStringProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***std::string*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerStringConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerStringConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, const std::string& ***value***)
 
 
@@ -52,12 +52,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerBooleanProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerBooleanProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***bool*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerBooleanConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerBooleanConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, bool ***value***)
 
 
@@ -65,12 +65,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerByteProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerByteProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***char*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerByteConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerByteConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, char ***value***)
 
 
@@ -78,12 +78,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerWordProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerWordProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***short*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerWordConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerWordConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, short ***value***)
 
 
@@ -91,12 +91,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerDWordProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerDWordProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***long*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerDWordConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerDWordConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, long ***value***)
 
 
@@ -104,12 +104,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerQWordProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerQWordProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***long long*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerQWordConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerQWordConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, long long ***value***)
 
 
@@ -117,12 +117,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedByteProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedByteProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***unsigned char*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedByteConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedByteConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, unsigned char ***value***)
 
 
@@ -130,12 +130,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedWordProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedWordProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***unsigned short*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedWordConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedWordConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, unsigned short ***value***)
 
 
@@ -143,12 +143,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedDWordProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedDWordProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***unsigned long*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedDWordConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedDWordConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, unsigned long ***value***)
 
 
@@ -156,12 +156,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedQWordProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedQWordProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***unsigned long long*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerUnsignedQWordConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerUnsignedQWordConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, unsigned long long ***value***)
 
 
@@ -169,12 +169,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerSingleProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerSingleProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***float*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerSingleConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerSingleConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, float ***value***)
 
 
@@ -182,12 +182,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerDoubleProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerDoubleProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***double*** (\*provider)(const std::string& ***varName***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerDoubleConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerDoubleConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, double ***value***)
 
 
@@ -195,12 +195,12 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 > Provider:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerRawBytesProvider*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerRawBytesProvider***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       ***int*** (\*provider)(const std::string& ***varName***, unsigned char\* ***in_buff***, int ***size***)
 
 > Consumer:
 
-  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::*registerRawBytesConsumer*
+  * &nbsp; &nbsp;  Registration function: &nbsp; &nbsp;    dds::net::connector::DdsConnector::***registerRawBytesConsumer***
   * &nbsp; &nbsp;  Function signature: &nbsp; &nbsp;       void (\*consumer)(const std::string& ***varName***, unsigned char\* ***in_buff***, int ***size***)
 
 
