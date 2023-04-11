@@ -104,7 +104,7 @@ void circle_values_consumer(string& variableName, double variableValue)
 
 
 bool test_boolean = false;
-double test_value_signed = -100.5;
+double test_value_signed = -100.555;
 unsigned long long test_value_unsigned = 0;
 
 string test_string_producer(string& variableName)
@@ -160,11 +160,11 @@ double test_double_producer(string& variableName)
 {
   if (test_value_signed <= -100.0)
   {
-    test_value_signed = 100.5;
+    test_value_signed = 100.555;
   }
   else
   {
-    test_value_signed = -100.5;
+    test_value_signed = -100.555;
   }
 
   return test_value_signed;
