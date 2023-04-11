@@ -174,10 +174,10 @@ double test_double_producer(const string& variableName)
 int test_bytes_producer(const std::string& varName, unsigned char* in_buff, int size)
 {
   in_buff[0] = (unsigned char)test_value_unsigned;
-  in_buff[1] = (unsigned char)test_value_unsigned;
-  in_buff[2] = (unsigned char)test_value_unsigned;
-  in_buff[3] = (unsigned char)test_value_unsigned;
-  in_buff[4] = (unsigned char)test_value_unsigned;
+  in_buff[1] = (unsigned char)test_value_unsigned + 1;
+  in_buff[2] = (unsigned char)test_value_unsigned + 2;
+  in_buff[3] = (unsigned char)test_value_unsigned + 3;
+  in_buff[4] = (unsigned char)test_value_unsigned + 4;
 
   return 5;
 }
