@@ -12,20 +12,20 @@ using namespace dds::net::connector;
 
 void wait_for_exit_key();
 
-void circle_values_consumer(string& variableName, double variableValue);
+void circle_values_consumer(const string& variableName, double variableValue);
 
-string test_string_producer(string& variableName);
-bool test_boolean_producer(string& variableName);
-char test_byte_producer(string& variableName);
-short test_word_producer(string& variableName);
-long test_dword_producer(string& variableName);
-long long test_qword_producer(string& variableName);
-unsigned char test_unsigned_byte_producer(string& variableName);
-unsigned short test_unsigned_word_producer(string& variableName);
-unsigned long test_unsigned_dword_producer(string& variableName);
-unsigned long long test_unsigned_qword_producer(string& variableName);
-float test_single_producer(string& variableName);
-double test_double_producer(string& variableName);
+string test_string_producer(const string& variableName);
+bool test_boolean_producer(const string& variableName);
+char test_byte_producer(const string& variableName);
+short test_word_producer(const string& variableName);
+long test_dword_producer(const string& variableName);
+long long test_qword_producer(const string& variableName);
+unsigned char test_unsigned_byte_producer(const string& variableName);
+unsigned short test_unsigned_word_producer(const string& variableName);
+unsigned long test_unsigned_dword_producer(const string& variableName);
+unsigned long long test_unsigned_qword_producer(const string& variableName);
+float test_single_producer(const string& variableName);
+double test_double_producer(const string& variableName);
 
 
 int main()
@@ -87,7 +87,7 @@ void wait_for_exit_key()
 
 static double x, y;
 
-void circle_values_consumer(string& variableName, double variableValue)
+void circle_values_consumer(const string& variableName, double variableValue)
 {
   if (variableName == "Circle-X")
   {
@@ -107,7 +107,7 @@ bool test_boolean = false;
 double test_value_signed = -100.555;
 unsigned long long test_value_unsigned = 0;
 
-string test_string_producer(string& variableName)
+string test_string_producer(const string& variableName)
 {
   string s = "Test Value = ";
   s += to_string(test_value_signed);
@@ -115,48 +115,48 @@ string test_string_producer(string& variableName)
   s += to_string(test_value_unsigned);
   return s;
 }
-bool test_boolean_producer(string& variableName)
+bool test_boolean_producer(const string& variableName)
 {
   test_boolean = !test_boolean;
   return test_boolean;
 }
-char test_byte_producer(string& variableName)
+char test_byte_producer(const string& variableName)
 {
   return (char)test_value_signed;
 }
-short test_word_producer(string& variableName)
+short test_word_producer(const string& variableName)
 {
   return (short)test_value_signed;
 }
-long test_dword_producer(string& variableName)
+long test_dword_producer(const string& variableName)
 {
   return (long)test_value_signed;
 }
-long long test_qword_producer(string& variableName)
+long long test_qword_producer(const string& variableName)
 {
   return (long long)test_value_signed;
 }
-unsigned char test_unsigned_byte_producer(string& variableName)
+unsigned char test_unsigned_byte_producer(const string& variableName)
 {
   return (unsigned char)test_value_unsigned;
 }
-unsigned short test_unsigned_word_producer(string& variableName)
+unsigned short test_unsigned_word_producer(const string& variableName)
 {
   return (unsigned short)test_value_unsigned;
 }
-unsigned long test_unsigned_dword_producer(string& variableName)
+unsigned long test_unsigned_dword_producer(const string& variableName)
 {
   return (unsigned long)test_value_unsigned;
 }
-unsigned long long test_unsigned_qword_producer(string& variableName)
+unsigned long long test_unsigned_qword_producer(const string& variableName)
 {
   return test_value_unsigned++;
 }
-float test_single_producer(string& variableName)
+float test_single_producer(const string& variableName)
 {
   return (float)test_value_signed;
 }
-double test_double_producer(string& variableName)
+double test_double_producer(const string& variableName)
 {
   if (test_value_signed <= -100.0)
   {
