@@ -26,6 +26,7 @@ unsigned long test_unsigned_dword_producer(const string& variableName);
 unsigned long long test_unsigned_qword_producer(const string& variableName);
 float test_single_producer(const string& variableName);
 double test_double_producer(const string& variableName);
+int test_bytes_producer(const std::string& varName, unsigned char* in_buff, int size);
 
 
 int main()
@@ -48,18 +49,19 @@ int main()
     connector.registerDoubleConsumer("Circle-X", circle_values_consumer, ON_CHANGE);
     connector.registerDoubleConsumer("Circle-Y", circle_values_consumer, ON_CHANGE);
 
-    connector.registerStringProvider("Test-String", test_string_producer, LOW);
-    connector.registerBooleanProvider("Test-Boolean", test_boolean_producer, LOW);
-    connector.registerByteProvider("Test-Byte", test_byte_producer, LOW);
-    connector.registerWordProvider("Test-Word", test_word_producer, LOW);
-    connector.registerDWordProvider("Test-DWord", test_dword_producer, LOW);
-    connector.registerQWordProvider("Test-QWord", test_qword_producer, LOW);
-    connector.registerUnsignedByteProvider("Test-UnsignedByte", test_unsigned_byte_producer, LOW);
-    connector.registerUnsignedWordProvider("Test-UnsignedWord", test_unsigned_word_producer, LOW);
-    connector.registerUnsignedDWordProvider("Test-UnsignedDWord", test_unsigned_dword_producer, LOW);
-    connector.registerUnsignedQWordProvider("Test-UnsignedQWord", test_unsigned_qword_producer, LOW);
-    connector.registerSingleProvider("Test-Single", test_single_producer, LOW);
-    connector.registerDoubleProvider("Test-Double", test_double_producer, LOW);
+    connector.registerStringProvider("Test-String", test_string_producer, LOWEST);
+    connector.registerBooleanProvider("Test-Boolean", test_boolean_producer, LOWEST);
+    connector.registerByteProvider("Test-Byte", test_byte_producer, LOWEST);
+    connector.registerWordProvider("Test-Word", test_word_producer, LOWEST);
+    connector.registerDWordProvider("Test-DWord", test_dword_producer, LOWEST);
+    connector.registerQWordProvider("Test-QWord", test_qword_producer, LOWEST);
+    connector.registerUnsignedByteProvider("Test-UnsignedByte", test_unsigned_byte_producer, LOWEST);
+    connector.registerUnsignedWordProvider("Test-UnsignedWord", test_unsigned_word_producer, LOWEST);
+    connector.registerUnsignedDWordProvider("Test-UnsignedDWord", test_unsigned_dword_producer, LOWEST);
+    connector.registerUnsignedQWordProvider("Test-UnsignedQWord", test_unsigned_qword_producer, LOWEST);
+    connector.registerSingleProvider("Test-Single", test_single_producer, LOWEST);
+    connector.registerDoubleProvider("Test-Double", test_double_producer, LOWEST);
+    connector.registerRawBytesProvider("Test-Bytes", test_bytes_producer, LOWEST);
 
     connector.start();
 
@@ -168,6 +170,16 @@ double test_double_producer(const string& variableName)
   }
 
   return test_value_signed;
+}
+int test_bytes_producer(const std::string& varName, unsigned char* in_buff, int size)
+{
+  in_buff[0] = (unsigned char)test_value_unsigned;
+  in_buff[1] = (unsigned char)test_value_unsigned;
+  in_buff[2] = (unsigned char)test_value_unsigned;
+  in_buff[3] = (unsigned char)test_value_unsigned;
+  in_buff[4] = (unsigned char)test_value_unsigned;
+
+  return 5;
 }
 
 
