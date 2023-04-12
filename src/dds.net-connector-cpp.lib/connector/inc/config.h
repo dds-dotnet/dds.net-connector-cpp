@@ -2,7 +2,7 @@
 #define DDS_DOT_NET_CONNECTOR_INC_CONFIG_H_
 
 
-#define LIBRARY_VERSION            "1.3.1"
+#define LIBRARY_VERSION            "1.3.2"
 #define BASE_TIME_SLOT_MSEC        50
 
 #define PLATFORM_GNU_LINUX         0x00010000
