@@ -76,6 +76,7 @@ int main()
     connector.registerSingleProvider("Test-Single", test_single_producer, LOWEST);
     connector.registerDoubleProvider("Test-Double", test_double_producer, LOWEST);
     connector.registerRawBytesProvider("Test-Bytes", test_bytes_producer, LOWEST);
+
     connector.registerStringConsumer("Test-String", test_string_consumer, ON_CHANGE);
     connector.registerBooleanConsumer("Test-Boolean", test_boolean_consumer, ON_CHANGE);
     connector.registerByteConsumer("Test-Byte", test_byte_consumer, ON_CHANGE);
@@ -112,6 +113,7 @@ void wait_for_exit_key()
   char ch;
   while ((ch = getc(stdin)) != 'C');
 }
+
 
 
 
