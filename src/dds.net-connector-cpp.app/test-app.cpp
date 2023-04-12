@@ -28,6 +28,20 @@ float test_single_producer(const string& variableName);
 double test_double_producer(const string& variableName);
 int test_bytes_producer(const std::string& varName, unsigned char* in_buff, int size);
 
+void test_string_consumer(const string& variableName, const string& variableValue);
+void test_boolean_consumer(const string& variableName, bool variableValue);
+void test_byte_consumer(const string& variableName, char variableValue);
+void test_word_consumer(const string& variableName, short variableValue);
+void test_dword_consumer(const string& variableName, long variableValue);
+void test_qword_consumer(const string& variableName, long long variableValue);
+void test_unsigned_byte_consumer(const string& variableName, unsigned char variableValue);
+void test_unsigned_word_consumer(const string& variableName, unsigned short variableValue);
+void test_unsigned_dword_consumer(const string& variableName, unsigned long variableValue);
+void test_unsigned_qword_consumer(const string& variableName, unsigned long long variableValue);
+void test_single_consumer(const string& variableName, float variableValue);
+void test_double_consumer(const string& variableName, double variableValue);
+void test_bytes_consumer(const string& variableName, unsigned char* buffer, int dataSize);
+
 
 int main()
 {
@@ -62,6 +76,20 @@ int main()
     connector.registerSingleProvider("Test-Single", test_single_producer, LOWEST);
     connector.registerDoubleProvider("Test-Double", test_double_producer, LOWEST);
     connector.registerRawBytesProvider("Test-Bytes", test_bytes_producer, LOWEST);
+    connector.registerStringConsumer("Test-String", test_string_consumer, ON_CHANGE);
+    connector.registerBooleanConsumer("Test-Boolean", test_boolean_consumer, ON_CHANGE);
+    connector.registerByteConsumer("Test-Byte", test_byte_consumer, ON_CHANGE);
+    connector.registerWordConsumer("Test-Word", test_word_consumer, ON_CHANGE);
+    connector.registerDWordConsumer("Test-DWord", test_dword_consumer, ON_CHANGE);
+    connector.registerQWordConsumer("Test-QWord", test_qword_consumer, ON_CHANGE);
+    connector.registerUnsignedByteConsumer("Test-UnsignedByte", test_unsigned_byte_consumer, ON_CHANGE);
+    connector.registerUnsignedWordConsumer("Test-UnsignedWord", test_unsigned_word_consumer, ON_CHANGE);
+    connector.registerUnsignedDWordConsumer("Test-UnsignedDWord", test_unsigned_dword_consumer, ON_CHANGE);
+    connector.registerUnsignedQWordConsumer("Test-UnsignedQWord", test_unsigned_qword_consumer, ON_CHANGE);
+    connector.registerSingleConsumer("Test-Single", test_single_consumer, ON_CHANGE);
+    connector.registerDoubleConsumer("Test-Double", test_double_consumer, ON_CHANGE);
+    connector.registerRawBytesConsumer("Test-Bytes", test_bytes_consumer, ON_CHANGE);
+
 
     connector.start();
 
@@ -102,6 +130,7 @@ void circle_values_consumer(const string& variableName, double variableValue)
     cout << x << ", " << y << endl;
   }
 }
+
 
 
 
@@ -184,3 +213,63 @@ int test_bytes_producer(const std::string& varName, unsigned char* in_buff, int 
 
 
 
+
+void test_string_consumer(const string& variableName, const string& variableValue)
+{
+  cout << "Str: " << variableValue << endl;
+}
+void test_boolean_consumer(const string& variableName, bool variableValue)
+{
+  cout << "Bool: " << variableValue << endl;
+}
+void test_byte_consumer(const string& variableName, char variableValue)
+{
+  cout << "Byte: " << (int)variableValue << endl;
+}
+void test_word_consumer(const string& variableName, short variableValue)
+{
+  cout << "Word: " << (int)variableValue << endl;
+}
+void test_dword_consumer(const string& variableName, long variableValue)
+{
+  cout << "DWord: " << variableValue << endl;
+}
+void test_qword_consumer(const string& variableName, long long variableValue)
+{
+  cout << "QWord: " << variableValue << endl;
+}
+void test_unsigned_byte_consumer(const string& variableName, unsigned char variableValue)
+{
+  cout << "Unsigned Byte: " << (unsigned int)variableValue << endl;
+}
+void test_unsigned_word_consumer(const string& variableName, unsigned short variableValue)
+{
+  cout << "Unsigned Word: " << variableValue << endl;
+}
+void test_unsigned_dword_consumer(const string& variableName, unsigned long variableValue)
+{
+  cout << "Unsigned DWord: " << variableValue << endl;
+}
+void test_unsigned_qword_consumer(const string& variableName, unsigned long long variableValue)
+{
+  cout << "Unsigned QWord: " << variableValue << endl;
+}
+void test_single_consumer(const string& variableName, float variableValue)
+{
+  cout << "Single: " << variableValue << endl;
+}
+void test_double_consumer(const string& variableName, double variableValue)
+{
+  cout << "Double: " << variableValue << endl;
+}
+void test_bytes_consumer(const string& variableName, unsigned char* buffer, int dataSize)
+{
+  cout << "Raw Bytes: ";
+
+  for (size_t i = 0; i < dataSize; i++)
+  {
+    cout << (int)buffer[i] << " ";
+  }
+
+  cout << endl;
+}
