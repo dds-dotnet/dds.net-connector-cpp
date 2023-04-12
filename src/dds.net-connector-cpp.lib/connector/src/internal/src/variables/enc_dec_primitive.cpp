@@ -135,10 +135,10 @@ short
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readWord(BufferAddress buffer, int& offset)
 {
-  int value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  short value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
-  return (short)value;
+  return value;
 }
 
 void
@@ -155,10 +155,10 @@ long
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readDWord(BufferAddress buffer, int& offset)
 {
-  long value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  long value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
   return value;
 }
@@ -179,14 +179,14 @@ long long
   dds::net::connector::_internal::variables::
   EncDecPrimitive::readQWord(BufferAddress buffer, int& offset)
 {
-  long long value = buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
-  value = (value << 8) | buffer[offset++];
+  long long value = (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
+  value = (value << 8) | (unsigned char)buffer[offset++];
 
   return value;
 }
