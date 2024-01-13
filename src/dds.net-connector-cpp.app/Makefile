@@ -21,7 +21,7 @@ LD     = $(LDGCC)
 
 
 # 
-# Paths' setting
+# Setting paths
 # 
 THIS_DIR           = $(PWD)
 CONNECTOR_DIR      = $(THIS_DIR)/../dds.net-connector-cpp.lib/
