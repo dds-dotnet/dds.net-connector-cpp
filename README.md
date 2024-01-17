@@ -212,7 +212,7 @@ In this context, ***Providers*** are functions that provide data to the library 
 
 ## Sample application
 
-Sample use of the library is done in following simple application:
+Sample use of the library is depicted in the following sample application code:
 
 ```cpp
 #include <iostream>
