@@ -3,7 +3,7 @@
 
 # DDS.Net C++ Connector - v1.3.2
 
-*DDS.Net C++ Connector* intends to be a lightweight and performant connector for connecting distributed C++ applications through *DDS.Net Server*. The supported data types are:
+*DDS.Net C++ Connector* intends to be a lightweight and performant connector for connecting distributed C++ applications through *DDS.Net Server*, supporting binary-level communication for efficiency and allowing primitive data types to control and only transfer the requisite data. The supported data types are:
 
 | Main type                                          | Sub-type          | Represented data                                    |
 |----------------------------------------------------|-------------------|-----------------------------------------------------|
